@@ -1,13 +1,12 @@
 package Interface.newInterface.Chart;
 
-import Interface.Export.swing.PanelShadow;
-import Interface.Export.swing.scrollbar.ScrollBarCustom;
+import Interface.export.swing.PanelShadow;
+import Interface.export.swing.scrollbar.ScrollBarCustom;
 import Interface.newInterface.Principal1;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -114,7 +113,7 @@ public class ReportPanel extends JScrollPane {
 
         if (btnSavePDF == null) {
             btnSavePDF = new JButton();
-            ImageIcon icon = new ImageIcon(getClass().getResource("/Util/archive-down.png"));
+            ImageIcon icon = new ImageIcon(getClass().getResource("/util/archive-down.png"));
             btnSavePDF.setIcon(icon);
             btnSavePDF.setBackground(null);
             btnSavePDF.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

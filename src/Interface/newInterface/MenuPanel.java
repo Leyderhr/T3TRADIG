@@ -43,7 +43,7 @@ public class MenuPanel extends JPanel {
         if (btnSettings == null) {
             btnSettings = new ButtonMenu();
             btnSettings.setText("Configuración");
-            btnSettings.setIcon(new ImageIcon(getClass().getResource("/Util/settings-svgrepo-com(1).png")));
+            btnSettings.setIcon(new ImageIcon(getClass().getResource("/util/settings-svgrepo-com(1).png")));
             btnSettings.setBounds(20, 20, 100, 100);
             btnSettings.setCursor(new Cursor(Cursor.HAND_CURSOR));
             btnSettings.setHorizontalAlignment(SwingConstants.LEFT);
@@ -84,7 +84,7 @@ public class MenuPanel extends JPanel {
         if (btnReports == null) {
             btnReports = new ButtonMenu();
             btnReports.setText("Reportes");
-            btnReports.setIcon(new ImageIcon(getClass().getResource("/Util/chart.png")));
+            btnReports.setIcon(new ImageIcon(getClass().getResource("/util/chart.png")));
             btnReports.setBounds(130, 20, 100, 100);
             btnReports.setCursor(new Cursor(Cursor.HAND_CURSOR));
             btnReports.setHorizontalAlignment(SwingConstants.CENTER);
@@ -124,7 +124,7 @@ public class MenuPanel extends JPanel {
         if (btnMainPanel == null) {
             btnMainPanel = new ButtonMenu();
             btnMainPanel.setText("Principal");
-            btnMainPanel.setIcon(new ImageIcon(getClass().getResource("/Util/página-principal-25.png")));
+            btnMainPanel.setIcon(new ImageIcon(getClass().getResource("/util/página-principal-25.png")));
             btnMainPanel.setBounds(20, 140, 100, 100);
             btnMainPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
             //btnMainPanel.setFont(new Font("Arial", Font.BOLD, 16));
@@ -163,7 +163,7 @@ public class MenuPanel extends JPanel {
         if (btnQuestions == null) {
             btnQuestions = new ButtonMenu();
             btnQuestions.setText("Cuestionario");
-            btnQuestions.setIcon(new ImageIcon(getClass().getResource("/Util/cuestionario-25.png")));
+            btnQuestions.setIcon(new ImageIcon(getClass().getResource("/util/cuestionario-25.png")));
             btnQuestions.setBounds(130, 140, 100, 100);
             btnQuestions.setCursor(new Cursor(Cursor.HAND_CURSOR));
             //btnMainPanel.setFont(new Font("Arial", Font.BOLD, 16));

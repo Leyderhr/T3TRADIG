@@ -1,8 +1,6 @@
 package Interface.newInterface.Chart;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
 
 public class ChartMDG extends JPanel {
 
@@ -58,7 +56,7 @@ public class ChartMDG extends JPanel {
     private JLabel getMatrixIMDG() {
         if (matrixIMDG == null) {
             matrixIMDG = new JLabel();
-            ImageIcon icon = new ImageIcon(getClass().getResource("/Util/MatrizIMDG.png"));
+            ImageIcon icon = new ImageIcon(getClass().getResource("/util/MatrizIMDG.png"));
             matrixIMDG.setIcon(icon);
             matrixIMDG.setHorizontalAlignment(SwingConstants.CENTER);
             matrixIMDG.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -71,7 +69,7 @@ public class ChartMDG extends JPanel {
     private JLabel getGeneralIMDG() {
         if ((generalIMDG == null)){
             generalIMDG = new JLabel();
-            ImageIcon icon = new ImageIcon(getClass().getResource("/Util/icons8-emoji-circulo-azul-20.png"));
+            ImageIcon icon = new ImageIcon(getClass().getResource("/util/icons8-emoji-circulo-azul-20.png"));
             generalIMDG.setIcon(icon);
             generalIMDG.setToolTipText(this.valorX+";"+" "+this.valorY+";"+" "+this.generalIndex);
         }

@@ -1,7 +1,7 @@
 package Interface.newInterface;
 
-import Interface.Export.swing.PanelShadow;
-import Util.table.TableTreeModel;
+import Interface.export.swing.PanelShadow;
+import util.table.TableTreeModel;
 
 
 import javax.swing.*;
@@ -49,7 +49,7 @@ public class SettingPanel extends PanelShadow {
         if (btnInfo == null) {
             btnInfo = new ButtonMenu();
             btnInfo.setText("Información");
-            btnInfo.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Util/info-circle-svgrepo-com(1).png"))));
+            btnInfo.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/info-circle-svgrepo-com(1).png"))));
             btnInfo.setBounds(909, 20, 110, 55);
             btnInfo.setCursor(new Cursor(Cursor.HAND_CURSOR));
             btnInfo.setHorizontalAlignment(SwingConstants.LEFT);
@@ -84,7 +84,7 @@ public class SettingPanel extends PanelShadow {
         if (btnHelp == null) {
             btnHelp = new ButtonMenu();
             btnHelp.setText("Ayuda");
-            btnHelp.setIcon(new ImageIcon(getClass().getResource("/Util/help-circle-svgrepo-com(1).png")));
+            btnHelp.setIcon(new ImageIcon(getClass().getResource("/util/help-circle-svgrepo-com(1).png")));
             btnHelp.setBounds(820, 20, 80, 55);
             btnHelp.setCursor(new Cursor(Cursor.HAND_CURSOR));
             btnHelp.setHorizontalAlignment(SwingConstants.LEFT);
@@ -145,7 +145,7 @@ public class SettingPanel extends PanelShadow {
         if (btnBack == null) {
             btnBack = new ButtonMenu();
             btnBack.setText("Atrás");
-            btnBack.setIcon(new ImageIcon(getClass().getResource("/Util/left-arrow-circle-svgrepo-com(1).png")));
+            btnBack.setIcon(new ImageIcon(getClass().getResource("/util/left-arrow-circle-svgrepo-com(1).png")));
             btnBack.setBounds(909, 20, 90, 55);
             btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
             btnBack.setHorizontalAlignment(SwingConstants.LEFT);
@@ -171,7 +171,7 @@ public class SettingPanel extends PanelShadow {
         if (btnAdd == null) {
             btnAdd = new ButtonMenu();
             btnAdd.setText("Agregar");
-            btnAdd.setIcon(new ImageIcon(getClass().getResource("/Util/add-circle-svgrepo-com(1).png")));
+            btnAdd.setIcon(new ImageIcon(getClass().getResource("/util/add-circle-svgrepo-com(1).png")));
             btnAdd.setBounds(909, 95, 90, 55);
             btnAdd.setCursor(new Cursor(Cursor.HAND_CURSOR));
             btnAdd.setHorizontalAlignment(SwingConstants.LEFT);
@@ -202,7 +202,7 @@ public class SettingPanel extends PanelShadow {
         if (btnDelete == null) {
             btnDelete = new ButtonMenu();
             btnDelete.setText("Eliminar");
-            btnDelete.setIcon(new ImageIcon(getClass().getResource("/Util/delete-2-svgrepo-com(1).png")));
+            btnDelete.setIcon(new ImageIcon(getClass().getResource("/util/delete-2-svgrepo-com(1).png")));
             btnDelete.setBounds(909, 170, 90, 55);
             btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));
             btnDelete.setHorizontalAlignment(SwingConstants.LEFT);

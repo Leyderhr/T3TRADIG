@@ -1,6 +1,6 @@
 package Interface.newInterface;
 
-import Interface.Export.swing.ButtonMenu;
+import Interface.export.swing.ButtonMenu;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -36,7 +36,7 @@ public class WindPanel extends JPanel {
 
         if (btnClose == null) {
             btnClose = new JButton();
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Util/close(1).png")));
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/close(1).png")));
             btnClose.setIcon(icon);
             btnClose.setBackground(null);
             btnClose.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
@@ -73,7 +73,7 @@ public class WindPanel extends JPanel {
 
         if (btnMaximize == null) {
             btnMaximize = new JButton();
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Util/maximize(1).png")));
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/maximize(1).png")));
             btnMaximize.setIcon(icon);
             btnMaximize.setToolTipText("Maximizar");
             btnMaximize.setBackground(null);
@@ -114,7 +114,7 @@ public class WindPanel extends JPanel {
 
         if (btnMinimize == null) {
             btnMinimize = new JButton();
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Util/minimize(1).png")));
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/minimize(1).png")));
             btnMinimize.setToolTipText("Minimizar");
             btnMinimize.setBackground(null);
             btnMinimize.setIcon(icon);
@@ -152,7 +152,7 @@ public class WindPanel extends JPanel {
         if (lblLogo == null) {
             lblLogo = new JLabel("Empresa de Telecomunicaciones de Cuba S.A");
             lblLogo.setFont(new Font("MyriadPro-SemiCond",Font.ITALIC, 13));
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Util/logoheader.png")));
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/logoheader.png")));
             lblLogo.setForeground(new Color(102,102,102));
             lblLogo.setForeground(Color.WHITE);
             lblLogo.setIcon(icon);

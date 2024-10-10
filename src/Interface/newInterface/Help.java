@@ -14,7 +14,7 @@ public class Help extends JDialog {
     public Help(Principal1 window){
         super(window, true);
         setTitle("Necesitas Ayuda?");
-        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Util/help-circle-svgrepo-com(1).png"))).getImage());
+        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/help-circle-svgrepo-com(1).png"))).getImage());
         setBounds(100, 100, 750, 450);
         setLocationRelativeTo(null);
         getContentPane().setLayout(null);

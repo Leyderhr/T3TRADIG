@@ -1,7 +1,7 @@
 package Interface.newInterface.Chart;
 
 
-import Interface.Export.swing.CircleProgressBar;
+import Interface.export.swing.CircleProgressBar;
 
 import javax.swing.*;
 import java.awt.*;

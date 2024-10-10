@@ -26,7 +26,7 @@ public class DashboardPanel extends JPanel {
 
         if (lblTetradig == null) {
             lblTetradig = new JLabel("");
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Util/consultoría.jpg")));
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/consultoría.jpg")));
             lblTetradig.setIcon(icon);
             lblTetradig.setHorizontalAlignment(SwingConstants.CENTER);
             lblTetradig.setHorizontalTextPosition(SwingConstants.CENTER);

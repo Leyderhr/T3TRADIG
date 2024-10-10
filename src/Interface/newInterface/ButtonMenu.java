@@ -9,8 +9,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
-import Interface.Export.swing.shadow.ShadowRenderer;
-import Interface.Export.swing.shadow.RippleEffect;
+import Interface.export.swing.shadow.ShadowRenderer;
+import Interface.export.swing.shadow.RippleEffect;
 
 public class ButtonMenu extends JButton {
 

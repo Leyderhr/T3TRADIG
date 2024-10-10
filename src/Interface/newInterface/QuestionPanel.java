@@ -1,9 +1,9 @@
 package Interface.newInterface;
 
-import Interface.Export.swing.PanelShadow;
-import Interface.Export.swing.scrollbar.ScrollBarCustom;
+import Interface.export.swing.PanelShadow;
+import Interface.export.swing.scrollbar.ScrollBarCustom;
 import Interface.newInterface.Chart.ReportPanel;
-import Logic.Questions;
+import logic.Questions;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;

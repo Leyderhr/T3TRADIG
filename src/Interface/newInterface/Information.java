@@ -12,7 +12,7 @@ public class Information extends JDialog {
     public Information(Principal1 window){
         super(window, true);
         setTitle("Información sobre el programa");
-        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/Util/info-circle-svgrepo-com(1).png"))).getImage());
+        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/info-circle-svgrepo-com(1).png"))).getImage());
         setBounds(100, 100, 750, 450);
         setLocationRelativeTo(null);
         getContentPane().setLayout(null);
