@@ -5,7 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Primer commit de la Interfaz">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/Logo.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/Logo.PNG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/LogoTETRADIG.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/LogoTETRADIG.PNG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/MatrizIMDG.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/MatrizIMDG.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/add-circle-svgrepo-com(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/add-circle-svgrepo-com(1).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/archive-down.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/archive-down.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/chart.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/chart.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/close(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/close(1).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/consultoría.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/consultoría.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/cuestionario-25.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/cuestionario-25.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/delete-2-svgrepo-com(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/delete-2-svgrepo-com(1).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/help-circle-svgrepo-com(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/help-circle-svgrepo-com(1).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/icon/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/icon/1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/icon/1s.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/icon/1s.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/icon/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/icon/2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/icon/2s.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/icon/2s.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/icon/3.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/icon/3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/icon/3s.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/icon/3s.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/icon/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/icon/4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/icon/4s.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/icon/4s.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/icon/5.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/icon/5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/icon/5s.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/icon/5s.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/icon/profile.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/icon/profile.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/icons8-emoji-circulo-azul-20.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/icons8-emoji-circulo-azul-20.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/info-circle-svgrepo-com(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/info-circle-svgrepo-com(1).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/left-arrow-circle-svgrepo-com(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/left-arrow-circle-svgrepo-com(1).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/logoheader.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/logoheader.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/maximize(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/maximize(1).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/minimize(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/minimize(1).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/página-principal-25.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/página-principal-25.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/settings-svgrepo-com(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/settings-svgrepo-com(1).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/table/TableTreeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/table/TableTreeModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +169,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728595624792</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Primer commit de la Interfaz">
+      <option name="closed" value="true" />
+      <created>1728596988571</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728596988571</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

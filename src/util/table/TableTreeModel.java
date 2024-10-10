@@ -1,7 +1,7 @@
-package Util.table;
+package util.table;
 
 
-import Logic.Model;
+import logic.Model;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
