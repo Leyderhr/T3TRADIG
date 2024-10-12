@@ -3,6 +3,7 @@ package Interface.newInterface.Chart;
 import Interface.export.swing.PanelShadow;
 import Interface.export.swing.scrollbar.ScrollBarCustom;
 import Interface.newInterface.Principal1;
+import Interface.newInterface.python.PythonExecutor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,8 +12,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
 
 public class ReportPanel extends JScrollPane {
 
@@ -26,6 +31,9 @@ public class ReportPanel extends JScrollPane {
     private ChartAmbits chartAmbits;
     private ChartMDG chartMDG;
 
+    private JLabel jlabel;
+    private JLabel jPieLabel;
+
 
     public ReportPanel(Principal1 p) throws Exception {
         reportPanel = new JScrollPane();
@@ -38,10 +46,11 @@ public class ReportPanel extends JScrollPane {
         reportPanel.setViewportBorder(null);
         reportPanel.setVisible(false);
 
-
     }
 
-    public JPanel getChartPanel(Principal1 p) throws Exception {
+
+
+    private JPanel getChartPanel(Principal1 p) throws Exception {
         if (chartPanel == null) {
             chartPanel = new JPanel();
             chartPanel.setLayout(null);
@@ -65,6 +74,8 @@ public class ReportPanel extends JScrollPane {
             panelShadow.setLayout(null);
             panelShadow.add(getChartAmbits());
             panelShadow.add(getChartMDG());
+            panelShadow.add(getMDChart(1));
+            panelShadow.add(getPieChart(1));
 
             // Crea la imagen del panel para luego exportarla al pdf y word
             BufferedImage image = new BufferedImage(panelShadow.getWidth(), panelShadow.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -77,6 +88,54 @@ public class ReportPanel extends JScrollPane {
         }
         return panelShadow;
     }
+
+
+    /** Este método se encarga de construir las gráficas de índices porcentuales dependiendo del campo que se elija
+     * @param field ⇒ Puede ser 1, 2 o 3, para referirse a los campos de Ámbitos, Perspectivas y Dimensiones
+     *              respectivamente*/
+    private JLabel getMDChart(int field){
+        if(jlabel == null){
+            jlabel = new JLabel("");
+
+            if(field == 1)
+                // Se crea la gráfica de MDA (Madurez Digital por Ámbitos)
+                PythonExecutor.imdChart("['Centralidad en el Cliente', 'Procesos']", "[89.00, 25.00]", "6", "4");
+            else if(field == 2)
+                // Se crea la gráfica de MDP (Madurez Digital por Perspectivas)
+                PythonExecutor.imdChart("['Centralidad en el Cliente', 'Procesos']", "[50.00, 25.00]", "6", "4");
+            else{
+                // Se crea la gráfica de MDD (Madurez Digital por Dimensiones)
+                PythonExecutor.imdChart("['Centralidad en el Cliente', 'Procesos']", "[50.00, 25.00]", "6", "4");
+            }
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/grafica.png"), "Imagen no encontrada"));
+            jlabel.setIcon(icon);
+            jlabel.setBounds(10,1, 800,400);
+        }
+        return jlabel;
+    }
+
+
+    private JLabel getPieChart(int field){
+        if(jPieLabel == null){
+            jPieLabel = new JLabel("");
+
+            if(field == 1)
+                // Se crea la gráfica de MDA (Madurez Digital por Ámbitos)
+                PythonExecutor.pieChart("'Centralidad en el Cliente'", "25.00", "6", "4");
+            else if(field == 2)
+                // Se crea la gráfica de MDP (Madurez Digital por Perspectivas)
+                PythonExecutor.pieChart("['Centralidad en el Cliente', 'Procesos']", "[50.00, 25.00]", "6", "4");
+            else{
+                // Se crea la gráfica de MDD (Madurez Digital por Dimensiones)
+                PythonExecutor.pieChart("['Centralidad en el Cliente', 'Procesos']", "[50.00, 25.00]", "6", "4");
+            }
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular.png"), "Imagen no encontrada"));
+            jPieLabel.setIcon(icon);
+            jPieLabel.setBounds(30,300, 800,400);
+        }
+        return jPieLabel;
+    }
+
 
 
     private ChartMDG getChartMDG() throws IOException {
