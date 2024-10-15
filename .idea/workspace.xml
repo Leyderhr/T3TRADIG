@@ -4,12 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Primer commit de la Interfaz">
+    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Agregada funcionalidad de crear gráficas con Python">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ejemplo_pdf1.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/T4TRADIG.iml" beforeDir="false" afterPath="$PROJECT_DIR$/T4TRADIG.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/panel2.png" beforeDir="false" afterPath="$PROJECT_DIR$/panel2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartAmbits.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartAmbits.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartMDG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartMDG.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Help.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/python/PythonCharts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/python/PythonCharts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/python/PythonExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/python/PythonExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/grafica.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/chartsPython/grafica.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +205,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728597178894</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Agregada funcionalidad de crear gráficas con Python">
+      <option name="closed" value="true" />
+      <created>1728765023501</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728765023502</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -253,7 +266,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Primer commit de la Interfaz" />
-    <option name="LAST_COMMIT_MESSAGE" value="Primer commit de la Interfaz" />
+    <MESSAGE value="Agregada funcionalidad de crear gráficas con Python" />
+    <option name="LAST_COMMIT_MESSAGE" value="Agregada funcionalidad de crear gráficas con Python" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -72,10 +72,10 @@ public class ReportPanel extends JScrollPane {
             panelShadow = new PanelShadow();
             panelShadow.setBounds(3, 3, 1030, 4000);
             panelShadow.setLayout(null);
-            panelShadow.add(getChartAmbits());
             panelShadow.add(getChartMDG());
-            panelShadow.add(getMDChart(1));
-            panelShadow.add(getPieChart(1));
+            panelShadow.add(getChartAmbits());
+            //panelShadow.add(getMDChart(1));
+            //panelShadow.add(getMDChart(1));
 
             // Crea la imagen del panel para luego exportarla al pdf y word
             BufferedImage image = new BufferedImage(panelShadow.getWidth(), panelShadow.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -141,7 +141,7 @@ public class ReportPanel extends JScrollPane {
     private ChartMDG getChartMDG() throws IOException {
         if (chartMDG == null){
             chartMDG = new ChartMDG(14.58f, 31.25f);
-            chartMDG.setLocation(400,100);
+            chartMDG.setLocation(10,10);
             chartMDG.setBackground(null);
             chartMDG.setOpaque(false);
 
@@ -149,18 +149,16 @@ public class ReportPanel extends JScrollPane {
         return chartMDG;
     }
 
-    /*Método para crear todas las cosas que tienen ver con los resultados del
+    /**Método para crear todas las cosas que tienen ver con los resultados del
       índice de madurez digital por ámbitos*/
     private ChartAmbits getChartAmbits() throws Exception {
         if (chartAmbits == null) {
-            chartAmbits = new ChartAmbits();
-            chartAmbits.setBounds(15, 700, 1000, 700);
+            chartAmbits = new ChartAmbits(50.58f, 31.25f);
+            chartAmbits.setLocation(15, 600);
             chartAmbits.setOpaque(false);
             chartAmbits.setBackground(Color.WHITE);
 
             //Valores de prueba para la tabla de los Ámbitos
-            chartAmbits.setIndex1(50.58f);
-            chartAmbits.setIndex2(31.25f);
 
         }
         return chartAmbits;

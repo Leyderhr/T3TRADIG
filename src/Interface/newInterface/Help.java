@@ -13,7 +13,7 @@ public class Help extends JDialog {
 
     public Help(Principal1 window){
         super(window, true);
-        setTitle("Necesitas Ayuda?");
+        setTitle("¿Necesitas Ayuda?");
         setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/help-circle-svgrepo-com(1).png"))).getImage());
         setBounds(100, 100, 750, 450);
         setLocationRelativeTo(null);
@@ -32,7 +32,7 @@ public class Help extends JDialog {
         if(lblInfo == null){
             lblInfo = new JLabel();
             lblInfo.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 14));
-            lblInfo.setText("Si necesitas ayuda escanea el siguiente código QR o presiona aqui para ir a nuestra pag web.");
+            lblInfo.setText("Si necesitas ayuda escanea el siguiente código QR o presiona aquí para ir a nuestra pag web.");
             lblInfo.setBounds(0, 0, 500, 50);
 
 

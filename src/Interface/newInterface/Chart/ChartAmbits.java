@@ -2,9 +2,11 @@ package Interface.newInterface.Chart;
 
 
 import Interface.export.swing.CircleProgressBar;
+import Interface.newInterface.python.PythonExecutor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 
 public class ChartAmbits extends JPanel {
@@ -17,8 +19,20 @@ public class ChartAmbits extends JPanel {
     private float index1;
     private float index2;
 
-    public ChartAmbits() {
+    private JLabel header;
+    private JLabel pieChartCapEst;
+    private JLabel pieChartResultDig;
+    private JLabel imdaChart;
+
+    public ChartAmbits(float index1, float index2) {
         setLayout(null);
+        setIndex1(index1);
+        setIndex2(index2);
+
+        add(getHeader());
+        add(getPieChartCapEst());
+        add(getImdaChart());
+        setSize(1000, 700);
     }
 
 
@@ -38,11 +52,54 @@ public class ChartAmbits extends JPanel {
         this.index2 = index2;
     }
 
+
+
+    /**
+     * Este método se encarga de crear el Encabezado para las gráficas
+     */
+    private JLabel getHeader(){
+        if(header == null){
+            header = new JLabel("Resultados: Madurez Digital por ámbitos (MDA)");
+            header.setFont(new Font("Franklin Gothic Raw Medium", Font.BOLD, 30));
+            header.setBounds(20, 10, 800, 80);
+            header.setOpaque(false);
+            header.setForeground(new Color(8, 52, 128));
+        }
+        return header;
+    }
+
+    private JLabel getPieChartCapEst(){
+        if(pieChartCapEst == null){
+            pieChartCapEst = new JLabel();
+
+            String value = String.valueOf(this.index1);
+            PythonExecutor.pieChart("'IMDA: Capacidades estratégicas\\n y de creación de valor sustentable'", value, "", "4");
+            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular.png")));
+            pieChartCapEst.setIcon(icon);
+            pieChartCapEst.setBounds(1, header.getHeight() + 50, icon.getIconWidth(), icon.getIconHeight());
+        }
+        return pieChartCapEst;
+    }
+
+
+    private JLabel getImdaChart(){
+        if(imdaChart == null){
+            imdaChart = new JLabel();
+
+            String values = "[" + this.index1 + "," + this.index2 + "]";
+            PythonExecutor.imdChart("['IMDA: CAPACIDADES estratégicas\\n y de creación de valor sustentable', 'IMDA: RESULTADOS de Digitalización']", values, "7", "4");
+            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/grafica.png")));
+            imdaChart.setIcon(icon);
+            imdaChart.setBounds(pieChartCapEst.getWidth()+ 10, header.getHeight() + 50, icon.getIconWidth(), icon.getIconHeight());
+        }
+        return imdaChart;
+    }
+
     @Override
     protected void paintComponent(Graphics grphcs) {
-        drawChartAmbits(grphcs);
-        drawChartAmbitsPastel(grphcs);
-        super.paintComponent(grphcs);
+        //drawChartAmbits(grphcs);
+        //drawChartAmbitsPastel(grphcs);
+        //super.paintComponent(grphcs);
     }
 
     /*Métodos para dibujar las gráficas*/

@@ -24,7 +24,8 @@ public class PythonExecutor {
 
             if(width.isEmpty())
                 width = "3";
-            else if(height.isEmpty())
+
+            if(height.isEmpty())
                 height = "3";
 
             String a = System.getProperty("user.dir");
@@ -65,7 +66,8 @@ public class PythonExecutor {
             // Define las categorías y valores
             if(width.isEmpty())
                 width = "6";
-            else if(height.isEmpty())
+
+            if(height.isEmpty())
                 height = "4";
 
             String a = System.getProperty("user.dir");

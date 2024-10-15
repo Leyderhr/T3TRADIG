@@ -5,13 +5,10 @@ import ast
 
 from sympy import Float, Integer
 
-def crear_grafico_IMDA(categorias, valores, whidth, height):
+def crear_grafico_IMDA(categorias, valores, width, height):
     ####GRAFICO DE INDICE DE MADUREZ DIGITAL POR AMBITOS
 
 
-    # Datos para el gráfico
-    # categorias = ['RESULTADOS de digitalización', 'CAPACIDADES Estratégicas y\n de creación de valor sustentable']
-    # valores = [31.25, 14.58]
 
     # Determinar colores para cada valor
     colores = []
@@ -27,6 +24,7 @@ def crear_grafico_IMDA(categorias, valores, whidth, height):
         else:
             colores.append((0.5, 0.5, 0.5))  # Gris para valores fuera de rango
 
+
     color_borde = (173/255, 216/255, 230/255)  # Azul clarito en formato RGB normalizado
 
     # Crear el gráfico de barras horizontales
@@ -34,6 +32,7 @@ def crear_grafico_IMDA(categorias, valores, whidth, height):
     plt.barh(categorias, valores, color=colores, zorder = 3)
 
     plt.xticks([0, 25, 50, 75, 100])
+    plt.tick_params(axis='x', width = 1)
 
     # Cambiar el color de las líneas de la grilla del eje x
     plt.grid(axis='x', color=color_borde, linestyle='--', linewidth=0.7, zorder = 0)
@@ -104,7 +103,7 @@ def crear_circle_progress_bar(categoria, porcentaje, width, height):
 
     # Mostrar el gráfico
     plt.axis('equal')  # Para que el gráfico se vea como un círculo
-    #plt.show()
+    # plt.show()
     current_dir = os.getcwd()
     file_path = os.path.join(current_dir, 'src', 'util', 'chartsPython' , 'graficaCircular.png')
     plt.savefig(file_path)
