@@ -5,7 +5,7 @@ import ast
 
 from sympy import Float, Integer
 
-def crear_grafico_IMDA(categorias, valores, width, height):
+def crear_grafico_IMDA(categorias, valores, width, height, name, title):
     ####GRAFICO DE INDICE DE MADUREZ DIGITAL POR AMBITOS
 
 
@@ -14,13 +14,13 @@ def crear_grafico_IMDA(categorias, valores, width, height):
     colores = []
     for valor in valores:
         if 0 <= valor <= 25:
-            colores.append((1/255, 176/255, 239/255))  # Azul
+            colores.append((129/255, 203/255, 238/255))  # Azul
         elif 25 < valor <= 50:
             colores.append((146/255, 209/255, 79/255))  # Verde
         elif 50 < valor <= 75:
-            colores.append((255/255, 255/255, 0/255))  # Amarillo
+            colores.append((255/255, 193/255, 0/255))  # Amarillo
         elif 75 < valor <= 100:
-            colores.append((255/255, 0/255, 0/255))  # Rojo
+            colores.append((254/255, 0/255, 0/255))  # Rojo
         else:
             colores.append((0.5, 0.5, 0.5))  # Gris para valores fuera de rango
 
@@ -50,7 +50,7 @@ def crear_grafico_IMDA(categorias, valores, width, height):
     plt.gca().spines['bottom'].set_linewidth(2)
 
     # Añadir título y etiquetas
-    plt.title('Índice de madurez digital por ámbitos (IMDA) %')
+    plt.title(title)
 
     # Añadir los valores dentro de las barras
 
@@ -63,25 +63,28 @@ def crear_grafico_IMDA(categorias, valores, width, height):
     # Mostrar la gráfica
     #plt.show()
     current_dir = os.getcwd()
-    file_path = os.path.join(current_dir, 'src', 'util', 'chartsPython', 'grafica.png')
-    plt.savefig(file_path)
+    file_path = os.path.join(current_dir, 'src', 'util', 'chartsPython', 'graficaBarra' + name + '.png')
+    plt.savefig(file_path, bbox_inches='tight')
 
 
 
-def crear_circle_progress_bar(categoria, porcentaje, width, height):
+def crear_circle_progress_bar(categoria, porcentaje, width, height, name):
     # Asegúrate de que el porcentaje esté entre 0 y 100
+
+
     if not (0 <= porcentaje <= 100):
         raise ValueError("El porcentaje debe estar entre 0 y 100.")
 
     # Determinar el color basado en el porcentaje
     if 0 <= porcentaje <= 25:
-        color = '#01b0ef' # blue
+        color = '#81cbee' # blue
     elif 25 < porcentaje <= 50:
-        color = '#00af52' # green
+        color = '#92d14f' # green
     elif 50 < porcentaje <= 75:
         color = '#ffc100' # yellow
     elif 75 < porcentaje <= 100:
-        color = '#f90200' # red
+        color = '#fe0000' # red
+
     # Datos para el gráfico
     valores = [porcentaje, 100 - porcentaje]
     colores = [color, '#E0E0E0']  # Color para la categoría y color para el resto
@@ -103,10 +106,10 @@ def crear_circle_progress_bar(categoria, porcentaje, width, height):
 
     # Mostrar el gráfico
     plt.axis('equal')  # Para que el gráfico se vea como un círculo
-    # plt.show()
+    #plt.show()
     current_dir = os.getcwd()
-    file_path = os.path.join(current_dir, 'src', 'util', 'chartsPython' , 'graficaCircular.png')
-    plt.savefig(file_path)
+    file_path = os.path.join(current_dir, 'src', 'util', 'chartsPython', 'graficaCircular' + name + '.png')
+    plt.savefig(file_path, bbox_inches='tight')
 
 
 def crear_tabla(data, column_labels, title='Tabla'):
@@ -152,8 +155,10 @@ if __name__ == "__main__":
     valores = ast.literal_eval(sys.argv[3])      # Convierte el string a lista
     width = ast.literal_eval(sys.argv[4])
     height = ast.literal_eval(sys.argv[5])
+    name = ast.literal_eval(sys.argv[6])
 
     if(ast.literal_eval(sys.argv[1]) == 1):
-        crear_circle_progress_bar(categorias, valores, width, height)
+        crear_circle_progress_bar(categorias, valores, width, height, name)
     elif(ast.literal_eval(sys.argv[1]) == 2):
-       crear_grafico_IMDA(categorias, valores, width, height)
+        title = ast.literal_eval(sys.argv[7])
+        crear_grafico_IMDA(categorias, valores, width, height, name, title)

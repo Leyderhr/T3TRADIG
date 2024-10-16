@@ -20,8 +20,13 @@ public class ChartAmbits extends JPanel {
     private float index2;
 
     private JLabel header;
+
+    private JLabel indicatorIndex1;
     private JLabel pieChartCapEst;
+
+    private JLabel indicatorIndex2;
     private JLabel pieChartResultDig;
+
     private JLabel imdaChart;
 
     public ChartAmbits(float index1, float index2) {
@@ -30,9 +35,14 @@ public class ChartAmbits extends JPanel {
         setIndex2(index2);
 
         add(getHeader());
+
+        add(getIndicatorIndex1());
         add(getPieChartCapEst());
+
+        add(getIndicatorIndex2());
+        add(getPieChartResultDig());
         add(getImdaChart());
-        setSize(1000, 700);
+        setSize(1000, imdaChart.getY() + imdaChart.getHeight());
     }
 
 
@@ -60,7 +70,7 @@ public class ChartAmbits extends JPanel {
     private JLabel getHeader(){
         if(header == null){
             header = new JLabel("Resultados: Madurez Digital por ámbitos (MDA)");
-            header.setFont(new Font("Franklin Gothic Raw Medium", Font.BOLD, 30));
+            header.setFont(new Font("Myriad Pro Bold Cond", Font.BOLD, 30));
             header.setBounds(20, 10, 800, 80);
             header.setOpaque(false);
             header.setForeground(new Color(8, 52, 128));
@@ -68,17 +78,95 @@ public class ChartAmbits extends JPanel {
         return header;
     }
 
+    private JLabel getIndicatorIndex1() {
+        if (indicatorIndex1 == null) {
+            indicatorIndex1 = new JLabel();
+            indicatorIndex1.setFont(new Font("Arial", Font.PLAIN, 18));
+            indicatorIndex1.setBounds(145, 300, 300, 20);
+            indicatorIndex1.setOpaque(false);
+            indicatorIndex1.setHorizontalAlignment(SwingConstants.LEFT);
+            indicatorIndex1.setHorizontalTextPosition(SwingConstants.RIGHT);
+
+
+
+            if (index1 >= 0 && index1 <= 25) {
+                indicatorIndex1.setText("BÁSICO");
+                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Basico.png")));
+                indicatorIndex1.setIcon(icon);
+            } else if (index1 > 25 && index1 <= 50) {
+                indicatorIndex1.setText("INICIAL");
+                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Inicial.png")));
+                indicatorIndex1.setIcon(icon);
+            } else if (index1 > 50 && index1 <= 75) {
+                indicatorIndex1.setText("ESTRATÉGICO");
+                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Estrategico.png")));
+                indicatorIndex1.setIcon(icon);
+            } else {
+                indicatorIndex1.setText("INNOVADOR - DIRSUPTIVO");
+                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Innovador.png")));
+                indicatorIndex1.setIcon(icon);
+            }
+        }
+        return indicatorIndex1;
+    }
+
+
+    private JLabel getIndicatorIndex2() {
+        if (indicatorIndex2 == null) {
+            indicatorIndex2 = new JLabel();
+            indicatorIndex2.setFont(new Font("Arial", Font.PLAIN, 18));
+            indicatorIndex2.setBounds(145, 515, 300, 20);
+            indicatorIndex2.setOpaque(false);
+            indicatorIndex2.setHorizontalAlignment(SwingConstants.LEFT);
+            indicatorIndex2.setHorizontalTextPosition(SwingConstants.RIGHT);
+
+
+
+            if (index2 >= 0 && index2 <= 25) {
+                indicatorIndex2.setText("BÁSICO");
+                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Basico.png")));
+                indicatorIndex2.setIcon(icon);
+            } else if (index2 > 25 && index2 <= 50) {
+                indicatorIndex2.setText("INICIAL");
+                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Inicial.png")));
+                indicatorIndex2.setIcon(icon);
+            } else if (index2 > 50 && index2 <= 75) {
+                indicatorIndex2.setText("ESTRATÉGICO");
+                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Estrategico.png")));
+                indicatorIndex2.setIcon(icon);
+            } else {
+                indicatorIndex2.setText("INNOVADOR - DIRSUPTIVO");
+                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Innovador.png")));
+                indicatorIndex2.setIcon(icon);
+            }
+        }
+        return indicatorIndex2;
+    }
+
     private JLabel getPieChartCapEst(){
         if(pieChartCapEst == null){
             pieChartCapEst = new JLabel();
 
-            String value = String.valueOf(this.index1);
-            PythonExecutor.pieChart("'IMDA: Capacidades estratégicas\\n y de creación de valor sustentable'", value, "", "4");
-            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular.png")));
+            String value = String.valueOf(index1);
+            PythonExecutor.pieChart("'IMDA: Capacidades estratégicas\\n y de creación de valor sustentable'", value, "", "2", "'2'");
+            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular2.png")));
             pieChartCapEst.setIcon(icon);
-            pieChartCapEst.setBounds(1, header.getHeight() + 50, icon.getIconWidth(), icon.getIconHeight());
+            pieChartCapEst.setBounds(1, header.getHeight() + 20, icon.getIconWidth(), icon.getIconHeight());
         }
         return pieChartCapEst;
+    }
+
+    private JLabel getPieChartResultDig(){
+        if(pieChartResultDig == null){
+            pieChartResultDig = new JLabel();
+
+            String value = String.valueOf(index2);
+            PythonExecutor.pieChart("'IMDA: Resultados de digitalización'", value, "", "2", "'3'");
+            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular3.png")));
+            pieChartResultDig.setIcon(icon);
+            pieChartResultDig.setBounds(5, pieChartCapEst.getY() + pieChartCapEst.getHeight() + 20 , icon.getIconWidth(), icon.getIconHeight());
+        }
+        return pieChartResultDig;
     }
 
 
@@ -86,11 +174,13 @@ public class ChartAmbits extends JPanel {
         if(imdaChart == null){
             imdaChart = new JLabel();
 
-            String values = "[" + this.index1 + "," + this.index2 + "]";
-            PythonExecutor.imdChart("['IMDA: CAPACIDADES estratégicas\\n y de creación de valor sustentable', 'IMDA: RESULTADOS de Digitalización']", values, "7", "4");
-            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/grafica.png")));
+            String values = "[" + index2 + "," + index1 + "]";
+            String categories = "['RESULTADOS de Digitalización', 'CAPACIDADES estratégicas\\n y de creación de valor sustentable']";
+            String title = "'Índice de madurez digital por ámbitos (IMDA) %'";
+            PythonExecutor.imdChart(categories, values, "6", "4", "'1'", title);
+            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaBarra1.png")));
             imdaChart.setIcon(icon);
-            imdaChart.setBounds(pieChartCapEst.getWidth()+ 10, header.getHeight() + 50, icon.getIconWidth(), icon.getIconHeight());
+            imdaChart.setBounds(pieChartCapEst.getWidth(), header.getHeight() + 70, icon.getIconWidth(), icon.getIconHeight());
         }
         return imdaChart;
     }

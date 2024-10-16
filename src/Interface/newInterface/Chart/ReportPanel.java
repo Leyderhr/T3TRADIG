@@ -28,8 +28,10 @@ public class ReportPanel extends JScrollPane {
 
     private JButton btnSavePDF;
     private PanelShadow panelShadow;
-    private ChartAmbits chartAmbits;
+
     private ChartMDG chartMDG;
+    private ChartAmbits chartAmbits;
+    private ChartPerspective chartPerspective;
 
     private JLabel jlabel;
     private JLabel jPieLabel;
@@ -74,6 +76,7 @@ public class ReportPanel extends JScrollPane {
             panelShadow.setLayout(null);
             panelShadow.add(getChartMDG());
             panelShadow.add(getChartAmbits());
+            panelShadow.add(getCharPerspective());
             //panelShadow.add(getMDChart(1));
             //panelShadow.add(getMDChart(1));
 
@@ -91,54 +94,54 @@ public class ReportPanel extends JScrollPane {
 
 
     /** Este método se encarga de construir las gráficas de índices porcentuales dependiendo del campo que se elija
-     * @param field ⇒ Puede ser 1, 2 o 3, para referirse a los campos de Ámbitos, Perspectivas y Dimensiones
+     *  ⇒ Puede ser 1, 2 o 3, para referirse a los campos de Ámbitos, Perspectivas y Dimensiones
      *              respectivamente*/
-    private JLabel getMDChart(int field){
-        if(jlabel == null){
-            jlabel = new JLabel("");
-
-            if(field == 1)
-                // Se crea la gráfica de MDA (Madurez Digital por Ámbitos)
-                PythonExecutor.imdChart("['Centralidad en el Cliente', 'Procesos']", "[89.00, 25.00]", "6", "4");
-            else if(field == 2)
-                // Se crea la gráfica de MDP (Madurez Digital por Perspectivas)
-                PythonExecutor.imdChart("['Centralidad en el Cliente', 'Procesos']", "[50.00, 25.00]", "6", "4");
-            else{
-                // Se crea la gráfica de MDD (Madurez Digital por Dimensiones)
-                PythonExecutor.imdChart("['Centralidad en el Cliente', 'Procesos']", "[50.00, 25.00]", "6", "4");
-            }
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/grafica.png"), "Imagen no encontrada"));
-            jlabel.setIcon(icon);
-            jlabel.setBounds(10,1, 800,400);
-        }
-        return jlabel;
-    }
-
-
-    private JLabel getPieChart(int field){
-        if(jPieLabel == null){
-            jPieLabel = new JLabel("");
-
-            if(field == 1)
-                // Se crea la gráfica de MDA (Madurez Digital por Ámbitos)
-                PythonExecutor.pieChart("'Centralidad en el Cliente'", "25.00", "6", "4");
-            else if(field == 2)
-                // Se crea la gráfica de MDP (Madurez Digital por Perspectivas)
-                PythonExecutor.pieChart("['Centralidad en el Cliente', 'Procesos']", "[50.00, 25.00]", "6", "4");
-            else{
-                // Se crea la gráfica de MDD (Madurez Digital por Dimensiones)
-                PythonExecutor.pieChart("['Centralidad en el Cliente', 'Procesos']", "[50.00, 25.00]", "6", "4");
-            }
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular.png"), "Imagen no encontrada"));
-            jPieLabel.setIcon(icon);
-            jPieLabel.setBounds(30,300, 800,400);
-        }
-        return jPieLabel;
-    }
+//    private JLabel getMDChart(int field){
+//        if(jlabel == null){
+//            jlabel = new JLabel("");
+//
+//            if(field == 1)
+//                // Se crea la gráfica de MDA (Madurez Digital por Ámbitos)
+//                PythonExecutor.imdChart("['Centralidad en el Cliente', 'Procesos']", "[89.00, 25.00]", "6", "4");
+//            else if(field == 2)
+//                // Se crea la gráfica de MDP (Madurez Digital por Perspectivas)
+//                PythonExecutor.imdChart("['Centralidad en el Cliente', 'Procesos']", "[50.00, 25.00]", "6", "4");
+//            else{
+//                // Se crea la gráfica de MDD (Madurez Digital por Dimensiones)
+//                PythonExecutor.imdChart("['Centralidad en el Cliente', 'Procesos']", "[50.00, 25.00]", "6", "4");
+//            }
+//            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/grafica.png"), "Imagen no encontrada"));
+//            jlabel.setIcon(icon);
+//            jlabel.setBounds(10,1, 800,400);
+//        }
+//        return jlabel;
+//    }
 
 
+//    private JLabel getPieChart(int field){
+//        if(jPieLabel == null){
+//            jPieLabel = new JLabel("");
+//
+//            if(field == 1)
+//                // Se crea la gráfica de MDA (Madurez Digital por Ámbitos)
+//                PythonExecutor.pieChart("'Centralidad en el Cliente'", "25.00", "6", "4");
+//            else if(field == 2)
+//                // Se crea la gráfica de MDP (Madurez Digital por Perspectivas)
+//                PythonExecutor.pieChart("['Centralidad en el Cliente', 'Procesos']", "[50.00, 25.00]", "6", "4");
+//            else{
+//                // Se crea la gráfica de MDD (Madurez Digital por Dimensiones)
+//                PythonExecutor.pieChart("['Centralidad en el Cliente', 'Procesos']", "[50.00, 25.00]", "6", "4");
+//            }
+//            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular1.png"), "Imagen no encontrada"));
+//            jPieLabel.setIcon(icon);
+//            jPieLabel.setBounds(30,300, 800,400);
+//        }
+//        return jPieLabel;
+//    }
 
-    private ChartMDG getChartMDG() throws IOException {
+
+
+    private ChartMDG getChartMDG() {
         if (chartMDG == null){
             chartMDG = new ChartMDG(14.58f, 31.25f);
             chartMDG.setLocation(10,10);
@@ -151,19 +154,28 @@ public class ReportPanel extends JScrollPane {
 
     /**Método para crear todas las cosas que tienen ver con los resultados del
       índice de madurez digital por ámbitos*/
-    private ChartAmbits getChartAmbits() throws Exception {
+    private ChartAmbits getChartAmbits() {
         if (chartAmbits == null) {
             chartAmbits = new ChartAmbits(50.58f, 31.25f);
             chartAmbits.setLocation(15, 600);
             chartAmbits.setOpaque(false);
             chartAmbits.setBackground(Color.WHITE);
-
-            //Valores de prueba para la tabla de los Ámbitos
-
         }
         return chartAmbits;
     }
 
+
+    /**Método para crear todas las cosas que tienen ver con los resultados del
+     índice de madurez digital por perspectivas*/
+    private ChartPerspective getCharPerspective() {
+        if (chartPerspective == null) {
+            chartPerspective = new ChartPerspective(12.50f, 20.83f, 0.00f, 25.00f, 50.00f, 12.50f);
+            chartPerspective.setLocation(15, 1180);
+            chartPerspective.setOpaque(false);
+            chartPerspective.setBackground(Color.WHITE);
+        }
+        return chartPerspective;
+    }
 
 
     private JButton getBtnSavePDF(Principal1 p) {

@@ -71,7 +71,7 @@ public class ChartMDG extends JPanel {
     private JLabel getHeader() {
         if (header == null) {
             header = new JLabel("Resultados: Madurez Digital Global (MDG)");
-            header.setFont(new Font("Franklin Gothic Raw Medium", Font.BOLD, 30));
+            header.setFont(new Font("Myriad Pro Bold Cond", Font.BOLD, 30));
             header.setBounds(20, 10, 800, 80);
             header.setOpaque(false);
             header.setForeground(new Color(8, 52, 128));
@@ -169,8 +169,8 @@ public class ChartMDG extends JPanel {
 
             // Se crea la gráfica de MDA (Madurez Digital por Ámbitos)
             String generalValue = String.valueOf(this.generalIndex);
-            PythonExecutor.pieChart("'Índice de Madurez Digital Global\\n (IMDG)'", generalValue, "3", "3.8");
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular.png"), "Imagen no encontrada"));
+            PythonExecutor.pieChart("'Índice de Madurez Digital Global\\n (IMDG)'", generalValue, "3", "3.8", "'1'");
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular1.png"), "Imagen no encontrada"));
             pieLabel.setIcon(icon);
             pieLabel.setBounds(1, header.getHeight() + 50, icon.getIconWidth(), icon.getIconHeight());
         }

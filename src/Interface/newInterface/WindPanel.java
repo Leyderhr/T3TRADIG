@@ -151,7 +151,7 @@ public class WindPanel extends JPanel {
 
         if (lblLogo == null) {
             lblLogo = new JLabel("Empresa de Telecomunicaciones de Cuba S.A");
-            lblLogo.setFont(new Font("MyriadPro-SemiCond",Font.ITALIC, 13));
+            lblLogo.setFont(new Font("Corbel",Font.ITALIC, 13));
             ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/logoheader.png")));
             lblLogo.setForeground(new Color(102,102,102));
             lblLogo.setForeground(Color.WHITE);

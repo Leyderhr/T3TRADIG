@@ -18,7 +18,7 @@ public class PythonExecutor {
      * @param width (ancho) ⇒ El ancho de la gráfica. Si el valor es "", width = 6, por defecto
      * @param height (alto) ⇒ El largo de la gráfica. Si el valor es "", heigth = 4, por defecto*/
 
-    public static void pieChart(String categorias, String valores, String width, String height){
+    public static void pieChart(String categorias, String valores, String width, String height, String name){
         try {
             // Define las categorías y valores
 
@@ -29,7 +29,7 @@ public class PythonExecutor {
                 height = "3";
 
             String a = System.getProperty("user.dir");
-            ProcessBuilder pb = new ProcessBuilder("python", a+"/src/Interface/newInterface/python/PythonCharts.py", "1", categorias, valores, width, height);
+            ProcessBuilder pb = new ProcessBuilder("python", a+"/src/Interface/newInterface/python/PythonCharts.py", "1", categorias, valores, width, height, name);
             Process p = pb.start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -61,7 +61,7 @@ public class PythonExecutor {
      * @param width (ancho) ⇒ El ancho de la gráfica. Si el valor es "", width = 6, por defecto
      * @param height (alto) ⇒ El largo de la gráfica. Si el valor es "", heigth = 4, por defecto
      *     */
-    public static void imdChart(String categorias, String valores, String width, String height){
+    public static void imdChart(String categorias, String valores, String width, String height, String name, String title){
         try {
             // Define las categorías y valores
             if(width.isEmpty())
@@ -71,7 +71,7 @@ public class PythonExecutor {
                 height = "4";
 
             String a = System.getProperty("user.dir");
-            ProcessBuilder pb = new ProcessBuilder("python", a+"/src/Interface/newInterface/python/PythonCharts.py", "2", categorias, valores, width, height);
+            ProcessBuilder pb = new ProcessBuilder("python", a+"/src/Interface/newInterface/python/PythonCharts.py", "2", categorias, valores, width, height, name, title);
             Process p = pb.start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
