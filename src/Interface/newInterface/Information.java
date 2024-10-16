@@ -9,20 +9,25 @@ public class Information extends JDialog {
 
     private JLabel lblInfo;
 
+
     public Information(Principal1 window){
         super(window, true);
-        setTitle("Información sobre el programa");
+        setTitle("Información del programa");
         setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/info-circle-svgrepo-com(1).png"))).getImage());
-        setBounds(100, 100, 750, 450);
+        setBounds(100, 100, 706, 600);
+        setResizable(false);
         setLocationRelativeTo(null);
         getContentPane().setLayout(null);
 
         JPanel contentPanel = new JPanel();
-        contentPanel.setSize(760,450);
-        getContentPane().add(contentPanel);
         contentPanel.setLayout(null);
+        contentPanel.setSize(706,600);
+        contentPanel.setBackground(Color.WHITE);
+
+        getContentPane().add(contentPanel);
 
         contentPanel.add(getInfo());
+
     }
 
 
@@ -35,5 +40,7 @@ public class Information extends JDialog {
         }
         return lblInfo;
     }
+
+
 
 }
