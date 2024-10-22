@@ -32,6 +32,7 @@ public class ReportPanel extends JScrollPane {
     private ChartMDG chartMDG;
     private ChartAmbits chartAmbits;
     private ChartPerspective chartPerspective;
+    private MdgMdaMdpTable mdgMdaMdpTable;
 
     private JLabel jlabel;
     private JLabel jPieLabel;
@@ -77,6 +78,7 @@ public class ReportPanel extends JScrollPane {
             panelShadow.add(getChartMDG());
             panelShadow.add(getChartAmbits());
             panelShadow.add(getCharPerspective());
+            panelShadow.add(getMdgMdaMdpTable());
             //panelShadow.add(getMDChart(1));
             //panelShadow.add(getMDChart(1));
 
@@ -157,7 +159,8 @@ public class ReportPanel extends JScrollPane {
     private ChartAmbits getChartAmbits() {
         if (chartAmbits == null) {
             chartAmbits = new ChartAmbits(50.58f, 31.25f);
-            chartAmbits.setLocation(15, 600);
+            int y = chartMDG.getY() + chartMDG.getHeight() + 22;
+            chartAmbits.setLocation(15, y);
             chartAmbits.setOpaque(false);
             chartAmbits.setBackground(Color.WHITE);
         }
@@ -170,11 +173,24 @@ public class ReportPanel extends JScrollPane {
     private ChartPerspective getCharPerspective() {
         if (chartPerspective == null) {
             chartPerspective = new ChartPerspective(12.50f, 20.83f, 0.00f, 25.00f, 50.00f, 12.50f);
-            chartPerspective.setLocation(15, 1180);
+            int y = chartAmbits.getY() + chartAmbits.getHeight() + 22;
+            chartPerspective.setLocation(15, y);//1180
             chartPerspective.setOpaque(false);
             chartPerspective.setBackground(Color.WHITE);
         }
         return chartPerspective;
+    }
+
+
+    private MdgMdaMdpTable getMdgMdaMdpTable(){
+        if(mdgMdaMdpTable == null){
+            mdgMdaMdpTable = new MdgMdaMdpTable(23.3f, 34.5f, 23.67f);
+            int y = chartPerspective.getY() + chartPerspective.getHeight() + 22;
+            mdgMdaMdpTable.setLocation(12, y);
+            mdgMdaMdpTable.setOpaque(false);
+            mdgMdaMdpTable.setBackground(Color.WHITE);
+        }
+        return mdgMdaMdpTable;
     }
 
 

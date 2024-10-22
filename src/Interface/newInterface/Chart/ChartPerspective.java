@@ -41,6 +41,8 @@ public class ChartPerspective extends JPanel{
     private float index6;
 
 
+    private int height;
+
     private JLabel header;
 
     private JLabel indicatorIndex1;
@@ -119,29 +121,29 @@ public class ChartPerspective extends JPanel{
 
 
 
-        add(getHeader());
+        add(getHeader()); //0
 
-        add(getIndicatorIndex1());
-        add(getPieChartDisOrg());
+        add(getIndicatorIndex1()); //1
+        add(getPieChartDisOrg()); //2
 
-        add(getIndicatorIndex2());
-        add(getPieChartTecInfEst());
+        add(getIndicatorIndex2()); //3
+        add(getPieChartTecInfEst());//4
 
-        add(getIndicatorIndex3());
-        add(getPieChartCompEst());
+        add(getIndicatorIndex3());//5
+        add(getPieChartCompEst());//6
 
-        add(getIndicatorIndex4());
-        add(getPieChartProcesos());
+        add(getIndicatorIndex4());//7
+        add(getPieChartProcesos());//8
 
-        add(getIndicatorIndex5());
-        add(getPieChartCentClient());
+        add(getIndicatorIndex5());//9
+        add(getPieChartCentClient());//10
 
-        add(getIndicatorIndex6());
-        add(getPieChartFinanzas());
+        add(getIndicatorIndex6());//11
+        add(getPieChartFinanzas());//12
 
-        add(getImdpChart());
+        add(getImdpChart());//13
 
-        setSize(1000, 800);
+        setSize(1000, 650);
     }
 
     private JLabel getHeader(){

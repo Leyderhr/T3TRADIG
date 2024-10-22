@@ -90,16 +90,11 @@ public class PythonExecutor {
         }
     }
 
-    public static void createTable(String categorias, String valores, String width, String height){
+    public static void createTable(String categorias, String valores){
         try {
-            // Define las categorías y valores
-            if(width.isEmpty())
-                width = "6";
-            else if(height.isEmpty())
-                height = "4";
 
             String a = System.getProperty("user.dir");
-            ProcessBuilder pb = new ProcessBuilder("python", a+"/src/Interface/newInterface/python/PythonCharts.py", "2", categorias, valores, width, height);
+            ProcessBuilder pb = new ProcessBuilder("python", a+"/src/Interface/newInterface/python/PythonCharts.py", "3", categorias, valores, "7", "4");
             Process p = pb.start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));

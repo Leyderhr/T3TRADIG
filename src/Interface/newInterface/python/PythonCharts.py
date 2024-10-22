@@ -121,7 +121,7 @@ def crear_tabla(data, column_labels, title='Tabla'):
     :param title: Título de la tabla.
     """
     # Crear una figura y un eje
-    fig, ax = plt.subplots(figsize=(8, len(data) * 0.5))  # Ajustar el tamaño de la figura
+    fig, ax = plt.subplots(figsize=(14, len(data) * 0.5))  # Ajustar el tamaño de la figura
     ax.axis('tight')
     ax.axis('off')
 
@@ -133,12 +133,16 @@ def crear_tabla(data, column_labels, title='Tabla'):
         if i == 0:  # Encabezados de columna
             cell.set_facecolor('#add8e6')  # Color azul claro
             cell.set_edgecolor('none')  # Sin líneas horizontales
-            cell.set_text_props(fontsize=12, weight='bold')
+            cell.set_text_props(fontsize=10, weight='bold', ha='center', va='center') # Alinear texto al centro
+            cell.set_height(0.45)  # Ajustar altura de las celdas del encabezado
+            # cell.set_width(1)  # Ancho automático basado en el contenido
         else:
             cell.set_edgecolor('none')  # Sin líneas horizontales
+            # cell.set_text_props(ha='center', va='center')  # Alinear texto al centro
+
 
     # Establecer el título
-    plt.title(title, fontsize=16)
+    # plt.title(title, fontsize=16)
 
     # Personalizar la tabla (opcional)
     tabla.auto_set_font_size(False)
@@ -146,19 +150,34 @@ def crear_tabla(data, column_labels, title='Tabla'):
     tabla.scale(1.2, 1.2)  # Escalar la tabla
 
     # Mostrar la tabla
-    plt.show()
+    # plt.show()
+
+    # Guardar la figura como imagen
+    current_dir = os.getcwd()
+    file_path = os.path.join(current_dir, 'src', 'util', 'chartsPython', 'tabla.png')
+    # file_path = os.path.join(current_dir, 'src', 'python', 'tabla.png')
+    plt.savefig(file_path, bbox_inches='tight', dpi=96)  # Ajustar el nombre y calidad de la imagen
+    plt.close(fig)
 
 
 
 if __name__ == "__main__":
-    categorias = ast.literal_eval(sys.argv[2])  # Convierte el string a lista
-    valores = ast.literal_eval(sys.argv[3])      # Convierte el string a lista
-    width = ast.literal_eval(sys.argv[4])
-    height = ast.literal_eval(sys.argv[5])
-    name = ast.literal_eval(sys.argv[6])
+
+    if(ast.literal_eval(sys.argv[1]) == 1 or ast.literal_eval(sys.argv[1]) == 2):
+        categorias = ast.literal_eval(sys.argv[2])  # Convierte el string a lista
+        valores = ast.literal_eval(sys.argv[3])      # Convierte el string a lista
+        width = ast.literal_eval(sys.argv[4])
+        height = ast.literal_eval(sys.argv[5])
+        name = ast.literal_eval(sys.argv[6])
 
     if(ast.literal_eval(sys.argv[1]) == 1):
         crear_circle_progress_bar(categorias, valores, width, height, name)
     elif(ast.literal_eval(sys.argv[1]) == 2):
         title = ast.literal_eval(sys.argv[7])
         crear_grafico_IMDA(categorias, valores, width, height, name, title)
+    elif(ast.literal_eval(sys.argv[1]) == 3):
+        data = ast.literal_eval(sys.argv[2])
+        column_labels = ast.literal_eval(sys.argv[3])
+        width = ast.literal_eval(sys.argv[4])
+        height = ast.literal_eval(sys.argv[5])
+        crear_tabla(data, column_labels)

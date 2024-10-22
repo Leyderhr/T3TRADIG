@@ -3,6 +3,11 @@ package Interface.newInterface;
 import Interface.export.swing.PanelShadow;
 import Interface.export.swing.scrollbar.ScrollBarCustom;
 import Interface.newInterface.Chart.ReportPanel;
+import logic.DAO.DAODimension;
+import logic.DAO.DAOPerspectiva;
+import logic.DAO.DAOPregunta;
+import logic.Entitys.Perspectiva;
+import logic.Entitys.Pregunta;
 import logic.Questions;
 
 import javax.swing.*;
@@ -15,6 +20,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 
 public class QuestionPanel extends JScrollPane {
@@ -53,6 +59,10 @@ public class QuestionPanel extends JScrollPane {
     private JLabel header;
     private final Questions questions = new Questions();
     private final ArrayList<JComboBox<String>> comboBoxSelector;
+
+    private final DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
+    private final DAOPregunta daoPregunta = new DAOPregunta();
+    private final DAODimension daoDimension = new DAODimension();
     // ========================================================================
 
 
@@ -86,10 +96,10 @@ public class QuestionPanel extends JScrollPane {
             questionsPanel.add(getBtnPreview(p));
             questionsPanel.add(getHeader());
 
-            questionsPanel.add(getLiderazgoDigitalPanel());
-            questionsPanel.add(getCultClimaDigitalPanel());
-            questionsPanel.add(getAlineamientoEstrategicoPanel());
-
+            addQuestions(questionsPanel);
+//            questionsPanel.add(getLiderazgoDigitalPanel());
+//            questionsPanel.add(getCultClimaDigitalPanel());
+//            questionsPanel.add(getAlineamientoEstrategicoPanel());
 
             //Fragmento donde se agregan todas las preguntas com los ComboBox
             //==================================================================
@@ -164,8 +174,6 @@ public class QuestionPanel extends JScrollPane {
             liderazgoDigitalPanel.add(
                     new JLabel("<html> <p align: left> PP- Diseño Organizacional <br> " +
                             "DD- Liderazgo digital </p></html>"));
-
-            getQuestions(100, questions.getLiderazgoDigital(), liderazgoDigitalPanel);
             liderazgoDigitalPanel.getComponent(0).setBounds(50, 10, 600, 50);
         }
         return liderazgoDigitalPanel;
@@ -215,6 +223,65 @@ public class QuestionPanel extends JScrollPane {
     }
 
 
+    private void addQuestions(JPanel superPanel){
+
+        int x = 50;
+        int y = 100;
+        int width = 880; // Largo
+        int height = 70; // Ancho
+
+        ArrayList<Perspectiva> perspectivas = daoPerspectiva.consultPerspectivas();
+        ArrayList<logic.Entitys.Dimension> dimensiones;
+        ArrayList<Pregunta> preguntas;
+
+
+        /* Se utiliza un triple for anidado para englobar a las perspectivas, las dimensiones y a las preguntas*/
+        // Este for recorre todas las perspectivas
+        for(int i = 0; i < perspectivas.size(); i++){
+            dimensiones = daoDimension.consultDimensiones(i);
+            // Este for recorre todas las dimensiones pertenecientes a la perspectiva del for de afuera
+            for (int j = 0; j < dimensiones.size(); j++){
+
+                // Se crea un header con el nombre de la perspectiva y la dimension a la que pertenecen las preguntas
+                JLabel header = new JLabel("<html> <p align: left> PP- "+ perspectivas.get(i).getNombre_perspectiva() +"<br>  " +
+                        "DD-"+ dimensiones.get(j).getNombre_dimension() +"</p></html>");
+                header.setBounds(50, 10, 600, 50);
+
+                preguntas = daoPregunta.consultPregunta(j);
+                // Este for recorre todas las preguntas del for intermedio
+                for (int k = 0; k < preguntas.size(); k++){
+
+                    // Se crean todos los labels con las preguntas
+                    JLabel questionLabel = new JLabel();
+                    questionLabel.setBounds(x, y, width, height);
+                    questionLabel.setFont(new Font("Arial", Font.BOLD, 14));
+                    questionLabel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, SystemColor.controlShadow, SystemColor.controlShadow, SystemColor.controlShadow, new Color(160, 160, 160)));
+                    questionLabel.setBackground(new Color(240, 240, 240));
+
+                    // Se utilizan inyecciones html para poner los saltos de línea en el jLabel
+                    questionLabel.setText("<html> <p align: left>" + preguntas.get(k).getPregunta() + "</p></html>");
+
+                    y += height + 100;
+
+                    JPanel panel = new JPanel();
+                    panel.setLayout(null);
+
+                    // Llamamos al método que agrega el comboBox a la pregunta
+                    getComboBoxSelector(y + 70, panel);
+
+                    panel.setBounds(10, 10, 1010, y);
+                    superPanel.add(panel);
+                }
+            }
+        }
+
+
+
+//        for(Perspectiva p: perspectivas){
+//            for (logic.Entitys.Dimension d: )
+//        }
+    }
+
     /**
      * Método para imprimir todas las preguntas.
      *
@@ -230,7 +297,7 @@ public class QuestionPanel extends JScrollPane {
         if (!dimensions.isEmpty()) {
 
             // Por cada pregunta se va a crear un jLabel
-            for (String s : dimensions) {
+            for (String s: dimensions) {
                 JLabel questionLabel = new JLabel();
                 questionLabel.setBounds(x, y, width, height);
                 questionLabel.setFont(new Font("Arial", Font.BOLD, 14));

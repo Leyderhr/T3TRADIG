@@ -4,11 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Corregidos errores generales. Agregados resultados para los ámbitos y las perspectivas">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml" afterDir="false" />
+    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Corregidos errores generales.">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Help.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Information.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Information.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/T4TRADIG.iml" beforeDir="false" afterPath="$PROJECT_DIR$/T4TRADIG.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panel2.png" beforeDir="false" afterPath="$PROJECT_DIR$/panel2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartMDG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartMDG.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartPerspective.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartPerspective.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/python/PythonCharts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/python/PythonCharts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/python/PythonExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/python/PythonExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaBarra1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaBarra2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular9.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +101,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/Escuela de Leyder/Trabajo Leyder/T4TRADIG/T4TRADIG/src/Interface/newInterface/python",
+    "last_opened_file_path": "E:/Escuela de Leyder/Trabajo Leyder/T4TRADIG/T4TRADIG/lib",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.40229884",
@@ -91,11 +110,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\lib" />
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Interface\newInterface\python" />
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Interface\Export\swing" />
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Util" />
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Interface\newInterface\Chart" />
-      <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Logic" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\util\chartsPython" />
@@ -224,7 +243,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729112414781</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Corregidos errores generales.">
+      <option name="closed" value="true" />
+      <created>1729115565294</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1729115565294</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -283,9 +310,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Primer commit de la Interfaz" />
     <MESSAGE value="Agregada funcionalidad de crear gráficas con Python" />
-    <MESSAGE value="Corregidos errores generales." />
     <MESSAGE value="Corregidos errores generales. Agregados resultados para los ámbitos y las perspectivas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corregidos errores generales. Agregados resultados para los ámbitos y las perspectivas" />
+    <MESSAGE value="Corregidos errores generales." />
+    <option name="LAST_COMMIT_MESSAGE" value="Corregidos errores generales." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -294,6 +321,11 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="2" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/logic/Connection/Connection.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

@@ -57,12 +57,12 @@ public class ChartMDG extends JPanel {
         add(getIndicator());
 
         add(getPieChart());
+        add(getMatrixIMDG());
         add(getGeneralIMDG());
         update();
-        add(getMatrixIMDG());
 
         setBackground(Color.blue);
-        setSize(matrixIMDG.getWidth() + pieLabel.getWidth() + 100, header.getHeight() + matrixIMDG.getHeight() + 100);
+        setSize(matrixIMDG.getWidth() + pieLabel.getWidth() + 100, header.getHeight() + matrixIMDG.getHeight() + 50);
     }
 
     /**
@@ -143,7 +143,7 @@ public class ChartMDG extends JPanel {
         //NOTA → Cada cuadrado tiene 137px de ancho por 110px de largo
         // 445x365 → medida de la gráfica central (los 12 cuadrados)
         Integer[] pos = new Integer[2];
-        pos[0] = Math.round((x * 4.45f) + 470);
+        pos[0] = Math.round((x * 4.45f) + 600);
         if (y > 50.00f)
             pos[1] = Math.round((y * 3.65f) + 130 + 365);
             //pos[1] = Math.round(((y * 3.65f) + header.getHeight() + 45));
