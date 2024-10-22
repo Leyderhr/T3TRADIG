@@ -41,12 +41,12 @@ public class QuestionPanel extends JScrollPane {
      * colaPanelesVisibles ⇒ Cola doble que va a almacenar todos los paneles con las preguntas de cada Dimensión,
      * cuando se presiona el botón {@link #getBtnFinish(Principal1)}, este saca un panel de aquí y lo pone en {@link #getPilaPanelesNoVisibles()}
      */
-    private Deque<PanelShadow> pilaPanelesVisibles;
+    private Deque<JPanel> pilaPanelesVisibles;
 
     /**
      * colaPanelesNoVisibles ⇒ Cola doble que va a almacenar todos los paneles con las preguntas de cada Dimensión
      */
-    private Deque<PanelShadow> pilaPanelesNoVisibles;
+    private Deque<JPanel> pilaPanelesNoVisibles;
 
     // Paneles de cada una de las Dimensiones, estas contienen las preguntas
     private PanelShadow liderazgoDigitalPanel;
@@ -85,79 +85,22 @@ public class QuestionPanel extends JScrollPane {
 
     public JPanel getQuestionsPanel(Principal1 p) {
         if (questionsPanel == null) {
-            questionsPanel = new JPanel();
+            questionsPanel = new PanelShadow();
             questionsPanel.setLayout(null);
             questionsPanel.setBounds(241, 100, 1030, 4000);
             questionsPanel.setPreferredSize(new Dimension(1030, 4100));
             questionsPanel.setBackground(Color.WHITE);
             questionsPanel.setOpaque(false);
             questionsPanel.setBorder(null);
+
+            getPilaPanelesVisibles();
+            getPilaPanelesNoVisibles();
+
+            addQuestions(questionsPanel);
+
             questionsPanel.add(getBtnFinish(p));
             questionsPanel.add(getBtnPreview(p));
             questionsPanel.add(getHeader());
-
-            addQuestions(questionsPanel);
-//            questionsPanel.add(getLiderazgoDigitalPanel());
-//            questionsPanel.add(getCultClimaDigitalPanel());
-//            questionsPanel.add(getAlineamientoEstrategicoPanel());
-
-            //Fragmento donde se agregan todas las preguntas com los ComboBox
-            //==================================================================
-
-            //Tenemos que almacenar el último valor de y para poder seguir imprimiendo para abajo
-
-
-            //Preguntas pertenecientes a la perspectiva de Diseño Organizacional
-            //============================================================================
-            //int y = getQuestions(130, questions.getLiderazgoDigital(), questionsPanel);
-//            int y1 = getQuestions(y, questions.getCulturaClimaDigital(), questionsPanel);
-//            int y2 = getQuestions(y1, questions.getAlineamientoEstrategicoIntegracionDigital(), questionsPanel);
-//            int y3 = getQuestions(y2, questions.getTrabajoInteligente(), questionsPanel);
-            //============================================================================
-
-
-            //Preguntas pertenecientes a la perspectiva de Tecnologías e información estratégicas
-            //============================================================================
-//            int y4 = getQuestions(y3, questions.getSistemasAplicacionesDeTI(), questionsPanel);
-//            int y5 = getQuestions(y4, questions.getMigracionNube(), questionsPanel);
-//            int y6 = getQuestions(y5, questions.getBigDataAnalytics(), questionsPanel);
-//            int y7 = getQuestions(y6, questions.getHibridacionMundoFisicoDigital(), questionsPanel);
-//            int y8 = getQuestions(y7, questions.getHiperConectividad(), questionsPanel);
-//            int y9 = getQuestions(y8, questions.getSeguridadDigital(), questionsPanel);
-            //============================================================================
-
-
-            //Preguntas pertenecientes a la perspectiva de Competencia estratégica
-            //============================================================================
-//            int y10 = getQuestions(y9, questions.getCompetenciasDigitales(), questionsPanel);
-//            int y11 = getQuestions(y10, questions.getFormacionDesarrolloDigital(), questionsPanel);
-//            int y12 = getQuestions(y11, questions.getMarcaEmpleadoraTalentoDigital(), questionsPanel);
-            //============================================================================
-
-
-            //Preguntas pertenecientes a la perspectiva de Procesos
-            //============================================================================
-//            int y13 = getQuestions(y12, questions.getOperacionesDigitales(), questionsPanel);
-//            int y14 = getQuestions(y13, questions.getGestionDigitalCliente(), questionsPanel);
-//            int y15 = getQuestions(y14, questions.getInnovacionDigital(), questionsPanel);
-//            int y16 = getQuestions(y15, questions.getEcosistemaDigital(), questionsPanel);
-            //============================================================================
-
-
-            //Preguntas pertenecientes a la perspectiva de Centralidad en el Cliente
-            //============================================================================
-//            int y17 = getQuestions(y16, questions.getExperienciaDigitalCliente(), questionsPanel);
-//            int y18 = getQuestions(y17, questions.getRelacionDigitalCliente(), questionsPanel);
-//            int y19 = getQuestions(y18, questions.getMarcaDigital(), questionsPanel);
-            //============================================================================
-
-
-            //Preguntas pertenecientes a la perspectiva de Finanzas
-            //============================================================================
-//            int y20 = getQuestions(y19, questions.getProductividadDigital(), questionsPanel);
-//            int y21 = getQuestions(y20, questions.getIngresosDigitales(), questionsPanel);
-            //============================================================================
-            //questionsPanel.add(getShadowPanel());
 
         }
         return questionsPanel;
@@ -238,7 +181,7 @@ public class QuestionPanel extends JScrollPane {
         /* Se utiliza un triple for anidado para englobar a las perspectivas, las dimensiones y a las preguntas*/
         // Este for recorre todas las perspectivas
         for(int i = 0; i < perspectivas.size(); i++){
-            dimensiones = daoDimension.consultDimensiones(i);
+            dimensiones = daoDimension.consultDimensiones(i+1);
             // Este for recorre todas las dimensiones pertenecientes a la perspectiva del for de afuera
             for (int j = 0; j < dimensiones.size(); j++){
 
@@ -247,9 +190,15 @@ public class QuestionPanel extends JScrollPane {
                         "DD-"+ dimensiones.get(j).getNombre_dimension() +"</p></html>");
                 header.setBounds(50, 10, 600, 50);
 
-                preguntas = daoPregunta.consultPregunta(j);
+                preguntas = daoPregunta.consultPregunta(j+1);
+
+                JPanel panel = new JPanel();
+                panel.setLayout(null);
+                panel.setBackground(Color.orange);
+                panel.setVisible(j == 0 && i == 0);
+                panel.add(header);
                 // Este for recorre todas las preguntas del for intermedio
-                for (int k = 0; k < preguntas.size(); k++){
+                for (Pregunta pregunta : preguntas) {
 
                     // Se crean todos los labels con las preguntas
                     JLabel questionLabel = new JLabel();
@@ -259,19 +208,19 @@ public class QuestionPanel extends JScrollPane {
                     questionLabel.setBackground(new Color(240, 240, 240));
 
                     // Se utilizan inyecciones html para poner los saltos de línea en el jLabel
-                    questionLabel.setText("<html> <p align: left>" + preguntas.get(k).getPregunta() + "</p></html>");
+                    questionLabel.setText("<html> <p align: left>" + pregunta.getPregunta() + "</p></html>");
 
                     y += height + 100;
 
-                    JPanel panel = new JPanel();
-                    panel.setLayout(null);
+                    panel.add(questionLabel);
 
                     // Llamamos al método que agrega el comboBox a la pregunta
                     getComboBoxSelector(y + 70, panel);
 
-                    panel.setBounds(10, 10, 1010, y);
-                    superPanel.add(panel);
                 }
+                panel.setBounds(10, 10, 1010, y);
+                superPanel.add(panel);
+                pilaPanelesVisibles.offerLast(panel);
             }
         }
 
@@ -415,18 +364,18 @@ public class QuestionPanel extends JScrollPane {
     }
 
 
-    private Deque<PanelShadow> getPilaPanelesVisibles() {
+    private Deque<JPanel> getPilaPanelesVisibles() {
         if (pilaPanelesVisibles == null) {
             pilaPanelesVisibles = new ArrayDeque<>();
 
-            pilaPanelesVisibles.offerLast(getLiderazgoDigitalPanel());
-            pilaPanelesVisibles.offerLast(getCultClimaDigitalPanel());
-            pilaPanelesVisibles.offerLast(getAlineamientoEstrategicoPanel());
+//            pilaPanelesVisibles.offerLast(getLiderazgoDigitalPanel());
+//            pilaPanelesVisibles.offerLast(getCultClimaDigitalPanel());
+//            pilaPanelesVisibles.offerLast(getAlineamientoEstrategicoPanel());
         }
         return pilaPanelesVisibles;
     }
 
-    private Deque<PanelShadow> getPilaPanelesNoVisibles() {
+    private Deque<JPanel> getPilaPanelesNoVisibles() {
         if (pilaPanelesNoVisibles == null) {
             pilaPanelesNoVisibles = new ArrayDeque<>();
         }

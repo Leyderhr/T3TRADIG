@@ -6,6 +6,7 @@ import Interface.newInterface.python.PythonExecutor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.Objects;
 
 
@@ -148,7 +149,11 @@ public class ChartAmbits extends JPanel {
             pieChartCapEst = new JLabel();
 
             String value = String.valueOf(index1);
-            PythonExecutor.pieChart("'IMDA: Capacidades estratégicas\\n y de creación de valor sustentable'", value, "", "2", "'2'");
+
+            File file = new File("/util/chartsPython/graficaCircular2.png");
+            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+                PythonExecutor.pieChart("'IMDA: Capacidades estratégicas\\n y de creación de valor sustentable'", value, "", "2", "'2'");
+
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular2.png")));
             pieChartCapEst.setIcon(icon);
             pieChartCapEst.setBounds(1, header.getHeight() + 20, icon.getIconWidth(), icon.getIconHeight());
@@ -161,7 +166,11 @@ public class ChartAmbits extends JPanel {
             pieChartResultDig = new JLabel();
 
             String value = String.valueOf(index2);
-            PythonExecutor.pieChart("'IMDA: Resultados de digitalización'", value, "", "2", "'3'");
+
+            File file = new File("/util/chartsPython/graficaCircular3.png");
+            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+                PythonExecutor.pieChart("'IMDA: Resultados de digitalización'", value, "", "2", "'3'");
+
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular3.png")));
             pieChartResultDig.setIcon(icon);
             pieChartResultDig.setBounds(5, pieChartCapEst.getY() + pieChartCapEst.getHeight() + 20 , icon.getIconWidth(), icon.getIconHeight());
@@ -177,7 +186,11 @@ public class ChartAmbits extends JPanel {
             String values = "[" + index2 + "," + index1 + "]";
             String categories = "['RESULTADOS de Digitalización', 'CAPACIDADES estratégicas\\n y de creación de valor sustentable']";
             String title = "'Índice de madurez digital por ámbitos (IMDA) %'";
-            PythonExecutor.imdChart(categories, values, "6", "4", "'1'", title);
+
+            File file = new File("/util/chartsPython/graficaBarra1.png");
+            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+                PythonExecutor.imdChart(categories, values, "6", "4", "'1'", title);
+
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaBarra1.png")));
             imdaChart.setIcon(icon);
             imdaChart.setBounds(pieChartCapEst.getWidth(), header.getHeight() + 70, icon.getIconWidth(), icon.getIconHeight());

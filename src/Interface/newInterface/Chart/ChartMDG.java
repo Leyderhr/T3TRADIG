@@ -4,6 +4,7 @@ import Interface.newInterface.python.PythonExecutor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.Objects;
 
 public class ChartMDG extends JPanel {
@@ -164,7 +165,11 @@ public class ChartMDG extends JPanel {
 
             // Se crea la gráfica de MDA (Madurez Digital por Ámbitos)
             String generalValue = String.valueOf(this.generalIndex);
-            PythonExecutor.pieChart("'Índice de Madurez Digital Global\\n (IMDG)'", generalValue, "3", "3.8", "'1'");
+
+            File file = new File("/util/chartsPython/graficaCircular1.png");
+            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+                PythonExecutor.pieChart("'Índice de Madurez Digital Global\\n (IMDG)'", generalValue, "3", "3.8", "'1'");
+
             ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular1.png"), "Imagen no encontrada"));
             pieLabel.setIcon(icon);
             pieLabel.setBounds(1, header.getHeight() + 50, icon.getIconWidth(), icon.getIconHeight());

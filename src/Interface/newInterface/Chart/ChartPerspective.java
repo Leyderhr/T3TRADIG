@@ -4,6 +4,7 @@ import Interface.newInterface.python.PythonExecutor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.Objects;
 
 public class ChartPerspective extends JPanel{
@@ -359,7 +360,11 @@ public class ChartPerspective extends JPanel{
             pieChartDisOrg = new JLabel();
 
             String value = String.valueOf(index1);
-            PythonExecutor.pieChart("'IMDP: Diseño \\norganizacional'", value, "1.5", "1.5", "'4'");
+
+            File file = new File("/util/chartsPython/graficaCircular4.png");
+            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+                PythonExecutor.pieChart("'IMDP: Diseño \\norganizacional'", value, "1.5", "1.5", "'4'");
+
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular4.png")));
             pieChartDisOrg.setIcon(icon);
             pieChartDisOrg.setBounds(40, header.getHeight() + 20 , icon.getIconWidth(), icon.getIconHeight());
@@ -373,7 +378,11 @@ public class ChartPerspective extends JPanel{
             pieChartTecInfEst = new JLabel();
 
             String value = String.valueOf(index2);
-            PythonExecutor.pieChart("'IMDP: Tecnologías e \\ninformación estratégicas'", value, "1.5", "1.5", "'5'");
+
+            File file = new File("/util/chartsPython/graficaCircular5.png");
+            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+                PythonExecutor.pieChart("'IMDP: Tecnologías e \\ninformación estratégicas'", value, "1.5", "1.5", "'5'");
+
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular5.png")));
             pieChartTecInfEst.setIcon(icon);
 
@@ -388,7 +397,11 @@ public class ChartPerspective extends JPanel{
             pieChartCompEst = new JLabel();
 
             String value = String.valueOf(index3);
-            PythonExecutor.pieChart("'IMDP: Competencias \\nestratégicas'", value, "1.5", "1.5", "'6'");
+
+            File file = new File("/util/chartsPython/graficaCircular6.png");
+            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+                PythonExecutor.pieChart("'IMDP: Competencias \\nestratégicas'", value, "1.5", "1.5", "'6'");
+
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular6.png")));
             pieChartCompEst.setIcon(icon);
 
@@ -404,7 +417,11 @@ public class ChartPerspective extends JPanel{
             pieChartProcesos = new JLabel();
 
             String value = String.valueOf(index4);
-            PythonExecutor.pieChart("'IMDP: Procesos'", value, "1.5", "1.5", "'7'");
+
+            File file = new File("/util/chartsPython/graficaCircular7.png");
+            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+                PythonExecutor.pieChart("'IMDP: Procesos'", value, "1.5", "1.5", "'7'");
+
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular7.png")));
             pieChartProcesos.setIcon(icon);
 
@@ -437,7 +454,11 @@ public class ChartPerspective extends JPanel{
             pieChartFinanzas = new JLabel();
 
             String value = String.valueOf(index6);
-            PythonExecutor.pieChart("'IMDP: Finanzas'", value, "1.5", "1.5", "'9'");
+
+            File file = new File("/util/chartsPython/graficaCircular9.png");
+            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+                PythonExecutor.pieChart("'IMDP: Finanzas'", value, "1.5", "1.5", "'9'");
+
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular9.png")));
             pieChartFinanzas.setIcon(icon);
 
@@ -460,7 +481,11 @@ public class ChartPerspective extends JPanel{
 
             String values = "[" + index6 + "," + index5 + "," + index4 + "," + index3 + "," + index2 + "," + index1 + "]";
             String title = "'Índices de Madurez Digital por Perspectivas \\n(IMDP) %'";
-            PythonExecutor.imdChart(categories , values, "6", "4", "'2'", title);
+
+            File file = new File("/util/chartsPython/graficaBarra2.png");
+            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+                PythonExecutor.imdChart(categories , values, "6", "4", "'2'", title);
+
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaBarra2.png")));
             imdpChart.setIcon(icon);
             imdpChart.setBounds(400, header.getHeight() + 100, icon.getIconWidth(), icon.getIconHeight());
