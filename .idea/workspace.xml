@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Corregidos errores generales.">
+    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Arreglado el pto de la gráfica">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_10_2024_11_23__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_10_2024_11_23__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panel2.png" beforeDir="false" afterPath="$PROJECT_DIR$/panel2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartAmbits.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartAmbits.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartMDG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartMDG.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartPerspective.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartPerspective.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -164,7 +161,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Python.PythonCharts" />
         <item itemvalue="Application.Launcher" />
       </list>
     </recent_temporary>
@@ -238,6 +234,11 @@
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="bb249ee3-3b41-4c4c-8f51-d889c743538e" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="RECENT_FILTERS">
       <map>
         <entry key="Branch">
@@ -287,6 +288,11 @@
             </State>
           </value>
         </entry>
+        <entry key="bb249ee3-3b41-4c4c-8f51-d889c743538e">
+          <value>
+            <State />
+          </value>
+        </entry>
       </map>
     </option>
   </component>
@@ -306,8 +312,8 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java</url>
-          <line>100</line>
-          <option name="timeStamp" value="22" />
+          <line>188</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

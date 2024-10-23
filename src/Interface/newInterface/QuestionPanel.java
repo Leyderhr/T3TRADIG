@@ -13,6 +13,7 @@ import logic.Questions;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -20,7 +21,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Objects;
-import java.util.function.Predicate;
 
 
 public class QuestionPanel extends JScrollPane {
@@ -36,6 +36,9 @@ public class QuestionPanel extends JScrollPane {
      * es el que está de viewPort en el JScrollPane
      */
     private JPanel questionsPanel;
+
+
+
 
     /**
      * colaPanelesVisibles ⇒ Cola doble que va a almacenar todos los paneles con las preguntas de cada Dimensión,
@@ -166,70 +169,43 @@ public class QuestionPanel extends JScrollPane {
     }
 
 
-    private void addQuestions(JPanel superPanel){
 
-        int x = 50;
-        int y = 100;
-        int width = 880; // Largo
-        int height = 70; // Ancho
+private void addQuestions(JPanel superPanel){
 
         ArrayList<Perspectiva> perspectivas = daoPerspectiva.consultPerspectivas();
         ArrayList<logic.Entitys.Dimension> dimensiones;
         ArrayList<Pregunta> preguntas;
+        int dimensionesAnteriores = 0;
 
 
         /* Se utiliza un triple for anidado para englobar a las perspectivas, las dimensiones y a las preguntas*/
         // Este for recorre todas las perspectivas
-        for(int i = 0; i < perspectivas.size(); i++){
-            dimensiones = daoDimension.consultDimensiones(i+1);
+        for(int i = 0; i < perspectivas.size(); i++) {
+            dimensiones = daoDimension.consultDimensiones(i + 1);
             // Este for recorre todas las dimensiones pertenecientes a la perspectiva del for de afuera
-            for (int j = 0; j < dimensiones.size(); j++){
+            for (int j = 0; j < dimensiones.size(); j++) {
 
                 // Se crea un header con el nombre de la perspectiva y la dimension a la que pertenecen las preguntas
-                JLabel header = new JLabel("<html> <p align: left> PP- "+ perspectivas.get(i).getNombre_perspectiva() +"<br>  " +
-                        "DD-"+ dimensiones.get(j).getNombre_dimension() +"</p></html>");
+                JLabel header = new JLabel("<html> <p align: left> PP- " + perspectivas.get(i).getNombre_perspectiva() + "<br>  " +
+                        "DD-" + dimensiones.get(j).getNombre_dimension() + "</p></html>");
                 header.setBounds(50, 10, 600, 50);
 
-                preguntas = daoPregunta.consultPregunta(j+1);
+
+                preguntas = daoPregunta.consultPregunta(j + 1 + dimensionesAnteriores);
 
                 JPanel panel = new JPanel();
                 panel.setLayout(null);
                 panel.setBackground(Color.orange);
                 panel.setVisible(j == 0 && i == 0);
                 panel.add(header);
-                // Este for recorre todas las preguntas del for intermedio
-                for (Pregunta pregunta : preguntas) {
-
-                    // Se crean todos los labels con las preguntas
-                    JLabel questionLabel = new JLabel();
-                    questionLabel.setBounds(x, y, width, height);
-                    questionLabel.setFont(new Font("Arial", Font.BOLD, 14));
-                    questionLabel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, SystemColor.controlShadow, SystemColor.controlShadow, SystemColor.controlShadow, new Color(160, 160, 160)));
-                    questionLabel.setBackground(new Color(240, 240, 240));
-
-                    // Se utilizan inyecciones html para poner los saltos de línea en el jLabel
-                    questionLabel.setText("<html> <p align: left>" + pregunta.getPregunta() + "</p></html>");
-
-                    y += height + 100;
-
-                    panel.add(questionLabel);
-
-                    // Llamamos al método que agrega el comboBox a la pregunta
-                    getComboBoxSelector(y + 70, panel);
-
-                }
-                panel.setBounds(10, 10, 1010, y);
+                panel.add(getScrollPane(preguntas, getQuestionsTable()));
+                panel.setBounds(10, 10, 1010, 500);
                 superPanel.add(panel);
                 pilaPanelesVisibles.offerLast(panel);
             }
+            dimensionesAnteriores += dimensiones.size();
         }
-
-
-
-//        for(Perspectiva p: perspectivas){
-//            for (logic.Entitys.Dimension d: )
-//        }
-    }
+}
 
     /**
      * Método para imprimir todas las preguntas.
@@ -440,4 +416,56 @@ public class QuestionPanel extends JScrollPane {
     }
 
 
+    private JTable getQuestionsTable() {
+        JTable questionsTable;
+            questionsTable = new JTable() {
+                public boolean isCellEditable(int rowIndex, int colIndex) {
+                    return false;
+                }
+            };
+            questionsTable.getTableHeader().setReorderingAllowed(false);
+            questionsTable.setModel(new DefaultTableModel(
+                    new Object[][] {
+                            { null, null, null},
+                            { null, null, null},
+                    },
+                    new String[] {
+                            "Número" ,"Pregunta", "Valor"
+                    }));
+
+
+        return questionsTable;
+    }
+
+    private JScrollPane getScrollPane(ArrayList<Pregunta> lista, JTable questionsTable) {
+        new JScrollPane();
+        JScrollPane scrollPane;
+            final DefaultTableModel model = new DefaultTableModel();
+            scrollPane = new JScrollPane();
+            scrollPane.setBounds(272, 30, 632, 329);
+            scrollPane.setViewportView(questionsTable);
+            model.addColumn("Número");
+            model.addColumn("Pregunta");
+            model.addColumn("Valor");
+
+            actualizarTabla(lista, model, questionsTable);
+
+        return scrollPane;
+    }
+
+    public void actualizarTabla(ArrayList<Pregunta> lista, DefaultTableModel model, JTable questionsTable) {
+        while (model.getRowCount() > 0)
+            model.removeRow(0);
+
+        for (int i = 0; i < lista.size(); i++) {
+            Object[] ob = new Object[3];
+            ob[0] = i+1;
+            ob[1] = lista.get(i).getPregunta();
+            ob[2] = lista.get(i).getPtos();
+
+
+            model.addRow(ob);
+        }
+        questionsTable.setModel(model);
+    }
 }
