@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Arreglado el pto de la gráfica">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_10_2024_11_23__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_10_2024_11_23__Changes_.xml" afterDir="false" />
+    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Corregidos errores generales.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/T4TRADIG.iml" beforeDir="false" afterPath="$PROJECT_DIR$/T4TRADIG.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,8 +73,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.BugTestApp.executor": "Run",
+    "Application.Example01.executor": "Run",
+    "Application.ExampleGood.executor": "Run",
     "Application.Interface.Export.main.Main.executor": "Run",
+    "Application.Launcher.executor": "Run",
     "Application.Main.executor": "Run",
+    "Application.SwingDemo.executor": "Run",
+    "Application.SwtDemo.executor": "Run",
+    "Application.SwtTest.executor": "Run",
     "Python.PythonCharts.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -97,6 +104,7 @@
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Interface\newInterface\Chart" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\lib" />
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\util\chartsPython" />
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Util" />
     </key>
@@ -161,6 +169,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Python.PythonCharts" />
         <item itemvalue="Application.Launcher" />
       </list>
     </recent_temporary>
@@ -234,11 +243,6 @@
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
-    <option name="OPEN_GENERIC_TABS">
-      <map>
-        <entry key="bb249ee3-3b41-4c4c-8f51-d889c743538e" value="TOOL_WINDOW" />
-      </map>
-    </option>
     <option name="RECENT_FILTERS">
       <map>
         <entry key="Branch">
@@ -288,11 +292,6 @@
             </State>
           </value>
         </entry>
-        <entry key="bb249ee3-3b41-4c4c-8f51-d889c743538e">
-          <value>
-            <State />
-          </value>
-        </entry>
       </map>
     </option>
   </component>
@@ -311,9 +310,9 @@
           <option name="timeStamp" value="2" />
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java</url>
-          <line>188</line>
-          <option name="timeStamp" value="28" />
+          <url>file://$PROJECT_DIR$/src/Interface/export/main/Launcher.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

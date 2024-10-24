@@ -9,10 +9,9 @@ import logic.DAO.DAOPregunta;
 import logic.Entitys.Perspectiva;
 import logic.Entitys.Pregunta;
 import logic.Questions;
+import util.table.MyTableCellRenderer;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -23,7 +22,7 @@ import java.util.Deque;
 import java.util.Objects;
 
 
-public class QuestionPanel extends JScrollPane {
+public class QuestionPanel extends JPanel {
 
 
     // Atributos
@@ -38,8 +37,6 @@ public class QuestionPanel extends JScrollPane {
     private JPanel questionsPanel;
 
 
-
-
     /**
      * colaPanelesVisibles ⇒ Cola doble que va a almacenar todos los paneles con las preguntas de cada Dimensión,
      * cuando se presiona el botón {@link #getBtnFinish(Principal1)}, este saca un panel de aquí y lo pone en {@link #getPilaPanelesNoVisibles()}
@@ -52,13 +49,10 @@ public class QuestionPanel extends JScrollPane {
     private Deque<JPanel> pilaPanelesNoVisibles;
 
     // Paneles de cada una de las Dimensiones, estas contienen las preguntas
-    private PanelShadow liderazgoDigitalPanel;
-    private PanelShadow culturaClimaDigitalPanel;
-    private PanelShadow alineamientoEstrategicoPanel;
+
 
     private ButtonMenu btnSavePDF;
     private ButtonMenu btnPreview;
-    private PanelShadow panelShadow;
     private JLabel header;
     private final Questions questions = new Questions();
     private final ArrayList<JComboBox<String>> comboBoxSelector;
@@ -78,7 +72,7 @@ public class QuestionPanel extends JScrollPane {
         reportPanel.setBounds(241, 100, 1039, 620);
         reportPanel.setBorder(null);
         reportPanel.setVerticalScrollBar(new ScrollBarCustom());
-        reportPanel.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
+        //reportPanel.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
         reportPanel.setViewportView(getQuestionsPanel(p));
         reportPanel.setViewportBorder(null);
         reportPanel.setVisible(false);
@@ -91,7 +85,7 @@ public class QuestionPanel extends JScrollPane {
             questionsPanel = new PanelShadow();
             questionsPanel.setLayout(null);
             questionsPanel.setBounds(241, 100, 1030, 4000);
-            questionsPanel.setPreferredSize(new Dimension(1030, 4100));
+            questionsPanel.setPreferredSize(new Dimension(1030, 620));
             questionsPanel.setBackground(Color.WHITE);
             questionsPanel.setOpaque(false);
             questionsPanel.setBorder(null);
@@ -110,67 +104,7 @@ public class QuestionPanel extends JScrollPane {
     }
 
 
-    private PanelShadow getLiderazgoDigitalPanel() {
-        if (liderazgoDigitalPanel == null) {
-            liderazgoDigitalPanel = new PanelShadow();
-            liderazgoDigitalPanel.setLayout(null);
-            liderazgoDigitalPanel.setVisible(true);
-            liderazgoDigitalPanel.setBounds(10, 100, 1010, 500);
-
-            liderazgoDigitalPanel.add(
-                    new JLabel("<html> <p align: left> PP- Diseño Organizacional <br> " +
-                            "DD- Liderazgo digital </p></html>"));
-            liderazgoDigitalPanel.getComponent(0).setBounds(50, 10, 600, 50);
-        }
-        return liderazgoDigitalPanel;
-    }
-
-    private PanelShadow getCultClimaDigitalPanel() {
-        if (culturaClimaDigitalPanel == null) {
-            culturaClimaDigitalPanel = new PanelShadow();
-            culturaClimaDigitalPanel.setLayout(null);
-            culturaClimaDigitalPanel.setVisible(false);
-            culturaClimaDigitalPanel.setBounds(10, 100, 1010, 500);
-
-            culturaClimaDigitalPanel.add(
-                    new JLabel("<html> <p align: left> PP- Diseño Organizacional <br> " +
-                            "DD- Cultura y clima digital </p></html>"));
-            getQuestions(100, questions.getCulturaClimaDigital(), culturaClimaDigitalPanel);
-            culturaClimaDigitalPanel.getComponent(0).setBounds(50, 10, 600, 50);
-        }
-        return culturaClimaDigitalPanel;
-    }
-
-    private PanelShadow getAlineamientoEstrategicoPanel() {
-        if (alineamientoEstrategicoPanel == null) {
-            alineamientoEstrategicoPanel = new PanelShadow();
-            alineamientoEstrategicoPanel.setLayout(null);
-            alineamientoEstrategicoPanel.setVisible(false);
-            alineamientoEstrategicoPanel.setBounds(10, 100, 1010, 500);
-
-            alineamientoEstrategicoPanel.add(
-                    new JLabel("<html> <p align: left> PP- Diseño Organizacional <br> " +
-                            "DD- Alineamiento estratégico e integración digital </p></html>"));
-            getQuestions(100, questions.getAlineamientoEstrategicoIntegracionDigital(), alineamientoEstrategicoPanel);
-            alineamientoEstrategicoPanel.getComponent(0).setBounds(50, 10, 600, 50);
-        }
-        return alineamientoEstrategicoPanel;
-    }
-
-    // Método para crear la sombra del panel
-    private PanelShadow getShadowPanel() {
-
-        if (panelShadow == null) {
-            panelShadow = new PanelShadow();
-            panelShadow.setBounds(3, 3, 1030, 4000);
-            panelShadow.setLayout(null);
-        }
-        return panelShadow;
-    }
-
-
-
-private void addQuestions(JPanel superPanel){
+    private void addQuestions(JPanel superPanel) {
 
         ArrayList<Perspectiva> perspectivas = daoPerspectiva.consultPerspectivas();
         ArrayList<logic.Entitys.Dimension> dimensiones;
@@ -180,7 +114,7 @@ private void addQuestions(JPanel superPanel){
 
         /* Se utiliza un triple for anidado para englobar a las perspectivas, las dimensiones y a las preguntas*/
         // Este for recorre todas las perspectivas
-        for(int i = 0; i < perspectivas.size(); i++) {
+        for (int i = 0; i < perspectivas.size(); i++) {
             dimensiones = daoDimension.consultDimensiones(i + 1);
             // Este for recorre todas las dimensiones pertenecientes a la perspectiva del for de afuera
             for (int j = 0; j < dimensiones.size(); j++) {
@@ -188,60 +122,27 @@ private void addQuestions(JPanel superPanel){
                 // Se crea un header con el nombre de la perspectiva y la dimension a la que pertenecen las preguntas
                 JLabel header = new JLabel("<html> <p align: left> PP- " + perspectivas.get(i).getNombre_perspectiva() + "<br>  " +
                         "DD-" + dimensiones.get(j).getNombre_dimension() + "</p></html>");
-                header.setBounds(50, 10, 600, 50);
+                header.setFont(new Font("Myriad Pro Bold Cond", Font.BOLD, 19));
+                header.setForeground(new Color(8, 52, 128));
+                header.setBounds(50, 20, 600, 50);
 
 
                 preguntas = daoPregunta.consultPregunta(j + 1 + dimensionesAnteriores);
 
                 JPanel panel = new JPanel();
                 panel.setLayout(null);
-                panel.setBackground(Color.orange);
+                panel.setBackground(null);
                 panel.setVisible(j == 0 && i == 0);
                 panel.add(header);
                 panel.add(getScrollPane(preguntas, getQuestionsTable()));
-                panel.setBounds(10, 10, 1010, 500);
+                panel.setBounds(10, 10, 1010, 550);
                 superPanel.add(panel);
                 pilaPanelesVisibles.offerLast(panel);
             }
             dimensionesAnteriores += dimensiones.size();
         }
-}
-
-    /**
-     * Método para imprimir todas las preguntas.
-     *
-     * @param dimensions: el arrayList de las dimensiones a agregar
-     * @param panel:      panel donde se van a agregar las preguntas
-     * @return y: El último valor de la posición y en el panel donde se agregó
-     */
-    private int getQuestions(int y, ArrayList<String> dimensions, JPanel panel) {
-        int x = 50;
-        int width = 880; // Largo
-        int height = 70; // Ancho
-
-        if (!dimensions.isEmpty()) {
-
-            // Por cada pregunta se va a crear un jLabel
-            for (String s: dimensions) {
-                JLabel questionLabel = new JLabel();
-                questionLabel.setBounds(x, y, width, height);
-                questionLabel.setFont(new Font("Arial", Font.BOLD, 14));
-                questionLabel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, SystemColor.controlShadow, SystemColor.controlShadow, SystemColor.controlShadow, new Color(160, 160, 160)));
-                questionLabel.setBackground(new Color(240, 240, 240));
-
-                // Se utilizan inyecciones html para poner los saltos de línea en el jLabel
-                questionLabel.setText("<html> <p align: left>" + s + "</p></html>");
-
-                // Llamamos al método que agrega el comboBox a la pregunta
-                getComboBoxSelector(y + 70, panel);
-
-                y += height + 100;
-                panel.setSize(1010, y);
-                panel.add(questionLabel);
-            }
-        }
-        return y;
     }
+
 
     // Método con todas las propiedades del encabezado del panel
     private JLabel getHeader() {
@@ -256,33 +157,6 @@ private void addQuestions(JPanel superPanel){
     }
 
 
-    /**
-     * Método para colocar un ComboBox a cada pregunta.
-     * <p>
-     * Este método va a colocar un ComboBox a cada pregunta y lo agregará al
-     * arraylist comboBoxSelecto que se encuentra como atributo en la clase
-     *
-     * @param y:     el valor de posición y dentro del panel
-     * @param panel: el panel donde se va a agregar el comboBox
-     */
-    private void getComboBoxSelector(int y, JPanel panel) {
-        JComboBox<String> comboBox = new JComboBox<>();
-
-        comboBox.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        comboBox.setBackground(Color.WHITE);
-        comboBox.setFont(new Font("Arial", Font.PLAIN, 15));
-        comboBox.setModel(new DefaultComboBoxModel<>(new String[]{"0 = NO EXISTENTE", "1 = INICIANDO", "2 = HABILITANDO", "3 = OPERACIONAL", "4 = OPTIMIZADO"}));
-        comboBox.setSelectedIndex(-1);
-        comboBox.setBounds(50, y + 10, 170, 30);
-
-        // Agregamos el ComboBox al arrayList
-        comboBoxSelector.add(comboBox);
-
-        // Agregamos el ComboBox al panel
-        panel.add(comboBox);
-
-    }
-
 
     private ButtonMenu getBtnFinish(Principal1 p) {
 
@@ -295,7 +169,7 @@ private void addQuestions(JPanel superPanel){
             btnSavePDF.setHorizontalAlignment(SwingConstants.CENTER);
             btnSavePDF.setVerticalTextPosition(SwingConstants.CENTER);
             btnSavePDF.setHorizontalTextPosition(SwingConstants.CENTER);
-            btnSavePDF.setToolTipText("Pasar al siguiente ámbito");
+            btnSavePDF.setToolTipText("Pasar a la siguiente dimensión");
 
             int posY = getPilaPanelesVisibles().peekFirst().getHeight() + getPilaPanelesVisibles().peekFirst().getY();
             btnSavePDF.setBounds(850, posY, 100, 45);
@@ -303,7 +177,7 @@ private void addQuestions(JPanel superPanel){
             btnSavePDF.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if(btnSavePDF.getText().equals("Finalizar") && getPilaPanelesVisibles().size() == 1)
+                    if (btnSavePDF.getText().equals("Finalizar") && getPilaPanelesVisibles().size() == 1)
                         p.getMenuPanel().panelControl(p, ReportPanel.Frame_Value);
                     setVisibilityDimensionsPanels(1, p);
                 }
@@ -324,7 +198,7 @@ private void addQuestions(JPanel superPanel){
             btnPreview.setHorizontalAlignment(SwingConstants.CENTER);
             btnPreview.setVerticalTextPosition(SwingConstants.CENTER);
             btnPreview.setHorizontalTextPosition(SwingConstants.CENTER);
-            btnPreview.setToolTipText("Pasar al ámbito anterior");
+            btnPreview.setToolTipText("Pasar a la dimensión anterior");
 
             int posY = getPilaPanelesVisibles().peekFirst().getHeight() + getPilaPanelesVisibles().peekFirst().getY();
             btnPreview.setBounds(100, posY, 100, 45);
@@ -343,10 +217,6 @@ private void addQuestions(JPanel superPanel){
     private Deque<JPanel> getPilaPanelesVisibles() {
         if (pilaPanelesVisibles == null) {
             pilaPanelesVisibles = new ArrayDeque<>();
-
-//            pilaPanelesVisibles.offerLast(getLiderazgoDigitalPanel());
-//            pilaPanelesVisibles.offerLast(getCultClimaDigitalPanel());
-//            pilaPanelesVisibles.offerLast(getAlineamientoEstrategicoPanel());
         }
         return pilaPanelesVisibles;
     }
@@ -378,15 +248,11 @@ private void addQuestions(JPanel superPanel){
 
             }
 
-
             if (getPilaPanelesVisibles().size() == 1) {
                 getBtnFinish(p).setText("Finalizar");
                 getBtnFinish(p).setToolTipText("Terminar encuesta");
                 resizeQuestionsPanel(p);
             }
-
-            // Técnicamente aquí, cuando la pila esté vacía, debería pasar al ReportPanel
-            //if(getColaPanelesVisibles().isEmpty())
 
 
         } else if (value == 2) {
@@ -411,61 +277,143 @@ private void addQuestions(JPanel superPanel){
         this.reportPanel.setVisible(a);
     }
 
-    public ArrayList<JComboBox<String>> getComboBoxSelector() {
-        return comboBoxSelector;
-    }
-
 
     private JTable getQuestionsTable() {
-        JTable questionsTable;
-            questionsTable = new JTable() {
-                public boolean isCellEditable(int rowIndex, int colIndex) {
-                    return false;
-                }
-            };
-            questionsTable.getTableHeader().setReorderingAllowed(false);
-            questionsTable.setModel(new DefaultTableModel(
-                    new Object[][] {
-                            { null, null, null},
-                            { null, null, null},
-                    },
-                    new String[] {
-                            "Número" ,"Pregunta", "Valor"
-                    }));
 
+        JTable questionsTable = new JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return colIndex == 2;
+            }
+        };
+        questionsTable.setRowHeight(60);
+        questionsTable.getTableHeader().setReorderingAllowed(false);
+        questionsTable.setModel(new DefaultTableModel(
+                new Object[][]{
+                        {null, null, null},
+                        {null, null, null},
+                },
+                new String[]{
+                        "No.", "Requisitos, iniciativas y buenas prácticas de transformación digital (DO/LD)", "Puntos"
+                }));
 
+        questionsTable.getTableHeader().setBackground(new Color(8, 52, 128));
+        questionsTable.getTableHeader().setForeground(Color.white);
+        questionsTable.getTableHeader().setFont(new Font("Myriad Pro Bold Cond", Font.BOLD, 16));
+        questionsTable.setFont(new Font("Myriad Pro Bold Cond", Font.BOLD, 13));
         return questionsTable;
     }
 
     private JScrollPane getScrollPane(ArrayList<Pregunta> lista, JTable questionsTable) {
-        new JScrollPane();
-        JScrollPane scrollPane;
-            final DefaultTableModel model = new DefaultTableModel();
-            scrollPane = new JScrollPane();
-            scrollPane.setBounds(272, 30, 632, 329);
-            scrollPane.setViewportView(questionsTable);
-            model.addColumn("Número");
-            model.addColumn("Pregunta");
-            model.addColumn("Valor");
 
-            actualizarTabla(lista, model, questionsTable);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(50, 100,930 , 430);
+        scrollPane.setVerticalScrollBar(new ScrollBarCustom());
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        final DefaultTableModel model = new DefaultTableModel();
+        scrollPane.setViewportView(questionsTable);
+        model.addColumn("No.");
+        model.addColumn("Requisitos, iniciativas y buenas prácticas de transformación digital (DO/LD)");
+        model.addColumn("Valor");
+
+
+        actualizarTabla(lista, model, questionsTable);
 
         return scrollPane;
     }
 
     public void actualizarTabla(ArrayList<Pregunta> lista, DefaultTableModel model, JTable questionsTable) {
-        while (model.getRowCount() > 0)
-            model.removeRow(0);
+        MyTableCellRenderer cellRenderer = new MyTableCellRenderer();
 
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+
+
+        questionsTable.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
         for (int i = 0; i < lista.size(); i++) {
             Object[] ob = new Object[3];
-            ob[0] = i+1;
-            ob[1] = lista.get(i).getPregunta();
+            ob[0] = i + 1;
+            ob[1] = "<html> <p style=\"text-align: left; vertical-align: middle;\">"+lista.get(i).getPregunta()+"</p></html>";
             ob[2] = lista.get(i).getPtos();
-
 
             model.addRow(ob);
         }
         questionsTable.setModel(model);
+
+        questionsTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getClickCount() == 1){
+                    if(questionsTable.getSelectedRow() != -1){
+                        if (questionsTable.isColumnSelected(1)) {
+                            ToolTipManager.sharedInstance().setDismissDelay(10000);
+                            questionsTable.setToolTipText("<html>" +
+                                    "<head>\n" +
+                                    "    <meta charset=\"UTF-8\">\n" +
+                                    "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                                    "    <title>Tooltip Personalizado</title>\n" +
+                                    "    <style>\n" +
+                                    "        /* Estilo del tooltip */\n" +
+                                    "        .tooltip {\n" +
+                                    "            position: relative;\n" +
+                                    "            display: inline-block;\n" +
+                                    "            cursor: pointer;\n" +
+                                    "        }\n" +
+                                    "\n" +
+                                    "        .tooltip .tooltiptext {\n" +
+                                    "            visibility: hidden;\n" +
+                                    "            width: 500px;\n" +
+                                    "            height: 50px;\n" +
+                                    "            background-color: #555;\n" +
+                                    "            color: #fff;\n" +
+                                    "            text-align: center;\n" +
+                                    "            border-radius: 5px;\n" +
+                                    "            padding: 10px;\n" +
+                                    "            position: absolute;\n" +
+                                    "            z-index: 1;\n" +
+                                    "            bottom: 125%; /* Posición del tooltip */\n" +
+                                    "            left: 50%;\n" +
+                                    "            margin-left: -250px; /* Centrar el tooltip */\n" +
+                                    "            opacity: 0;\n" +
+                                    "            transition: opacity 0.3s;\n" +
+                                    "        }\n" +
+                                    "\n" +
+                                    "        .tooltip:hover .tooltiptext {\n" +
+                                    "            visibility: visible;\n" +
+                                    "            opacity: 1;\n" +
+                                    "        }\n" +
+                                    "    </style>\n" +
+                                    "</head>\n" +
+                                    "<body>\n" +
+                                    "\n" +
+                                    "<div class=\"tooltip\">\n" +
+                                    "    <div class=\"tooltiptext\"> <p align: center>"+lista.get(questionsTable.getSelectedRow()).getPregunta() +
+                                    "</p> </div>\n" +
+                                    "</div>\n" +
+                                    "\n" +
+                                    "</body>"+
+                                    "</html>");
+
+                        }
+                    }
+                }
+            }
+        });
+
+        Integer[] points = {0, 1, 2, 3, 4};
+        JComboBox<Integer> pointsComboBox = new JComboBox<>();
+        for(Integer p: points){
+            pointsComboBox.addItem(p);
+        }
+        pointsComboBox.setToolTipText("<html> <p>0 = NO EXISTENTE<br>1 = INICIANDO<br>2 = HABILITANDO<br>3 = OPERACIONAL" +
+                "<br>4 = OPTIMIZADO</html>");
+        pointsComboBox.setBackground(Color.WHITE);
+        questionsTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(pointsComboBox));
+
+        questionsTable.getColumnModel().getColumn(2).setMaxWidth(50);
+        questionsTable.getColumnModel().getColumn(0).setMaxWidth(50);
+
+        questionsTable.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
+        questionsTable.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
     }
 }
