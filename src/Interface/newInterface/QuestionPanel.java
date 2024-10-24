@@ -136,6 +136,15 @@ public class QuestionPanel extends JPanel {
                 panel.add(header);
                 panel.add(getScrollPane(preguntas, getQuestionsTable()));
                 panel.setBounds(10, 10, 1010, 550);
+
+                panel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if(panel.contains(e.getPoint()))
+                            getQuestionsTable().clearSelection();
+                    }
+                });
+
                 superPanel.add(panel);
                 pilaPanelesVisibles.offerLast(panel);
             }
@@ -155,7 +164,6 @@ public class QuestionPanel extends JPanel {
         }
         return header;
     }
-
 
 
     private ButtonMenu getBtnFinish(Principal1 p) {
@@ -300,13 +308,14 @@ public class QuestionPanel extends JPanel {
         questionsTable.getTableHeader().setForeground(Color.white);
         questionsTable.getTableHeader().setFont(new Font("Myriad Pro Bold Cond", Font.BOLD, 16));
         questionsTable.setFont(new Font("Myriad Pro Bold Cond", Font.BOLD, 13));
+
         return questionsTable;
     }
 
     private JScrollPane getScrollPane(ArrayList<Pregunta> lista, JTable questionsTable) {
 
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(50, 100,930 , 430);
+        scrollPane.setBounds(50, 100, 930, 430);
         scrollPane.setVerticalScrollBar(new ScrollBarCustom());
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         final DefaultTableModel model = new DefaultTableModel();
@@ -333,7 +342,7 @@ public class QuestionPanel extends JPanel {
         for (int i = 0; i < lista.size(); i++) {
             Object[] ob = new Object[3];
             ob[0] = i + 1;
-            ob[1] = "<html> <p style=\"text-align: left; vertical-align: middle;\">"+lista.get(i).getPregunta()+"</p></html>";
+            ob[1] = "<html> <p style=\"text-align: left; vertical-align: middle;\">" + lista.get(i).getPregunta() + "</p></html>";
             ob[2] = lista.get(i).getPtos();
 
             model.addRow(ob);
@@ -342,67 +351,66 @@ public class QuestionPanel extends JPanel {
 
         questionsTable.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                if(e.getClickCount() == 1){
-                    if(questionsTable.getSelectedRow() != -1){
-                        if (questionsTable.isColumnSelected(1)) {
-                            ToolTipManager.sharedInstance().setDismissDelay(10000);
-                            questionsTable.setToolTipText("<html>" +
-                                    "<head>\n" +
-                                    "    <meta charset=\"UTF-8\">\n" +
-                                    "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                                    "    <title>Tooltip Personalizado</title>\n" +
-                                    "    <style>\n" +
-                                    "        /* Estilo del tooltip */\n" +
-                                    "        .tooltip {\n" +
-                                    "            position: relative;\n" +
-                                    "            display: inline-block;\n" +
-                                    "            cursor: pointer;\n" +
-                                    "        }\n" +
-                                    "\n" +
-                                    "        .tooltip .tooltiptext {\n" +
-                                    "            visibility: hidden;\n" +
-                                    "            width: 500px;\n" +
-                                    "            height: 50px;\n" +
-                                    "            background-color: #555;\n" +
-                                    "            color: #fff;\n" +
-                                    "            text-align: center;\n" +
-                                    "            border-radius: 5px;\n" +
-                                    "            padding: 10px;\n" +
-                                    "            position: absolute;\n" +
-                                    "            z-index: 1;\n" +
-                                    "            bottom: 125%; /* Posición del tooltip */\n" +
-                                    "            left: 50%;\n" +
-                                    "            margin-left: -250px; /* Centrar el tooltip */\n" +
-                                    "            opacity: 0;\n" +
-                                    "            transition: opacity 0.3s;\n" +
-                                    "        }\n" +
-                                    "\n" +
-                                    "        .tooltip:hover .tooltiptext {\n" +
-                                    "            visibility: visible;\n" +
-                                    "            opacity: 1;\n" +
-                                    "        }\n" +
-                                    "    </style>\n" +
-                                    "</head>\n" +
-                                    "<body>\n" +
-                                    "\n" +
-                                    "<div class=\"tooltip\">\n" +
-                                    "    <div class=\"tooltiptext\"> <p align: center>"+lista.get(questionsTable.getSelectedRow()).getPregunta() +
-                                    "</p> </div>\n" +
-                                    "</div>\n" +
-                                    "\n" +
-                                    "</body>"+
-                                    "</html>");
-
-                        }
+            public void mousePressed(MouseEvent e) {
+                if (questionsTable.getSelectedRow() != -1) {
+                    if (questionsTable.isColumnSelected(1) && e.getClickCount() ==2) {
+                        JOptionPane.showMessageDialog(null, "<html>" +
+                                "<head>\n" +
+                                "    <meta charset=\"UTF-8\">\n" +
+                                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                                "    <title>Tooltip Personalizado</title>\n" +
+                                "    <style>\n" +
+                                "        /* Estilo del tooltip */\n" +
+                                "        .tooltip {\n" +
+                                "            position: relative;\n" +
+                                "            display: inline-block;\n" +
+                                "            cursor: pointer;\n" +
+                                "        }\n" +
+                                "\n" +
+                                "        .tooltip .tooltiptext {\n" +
+                                "            visibility: hidden;\n" +
+                                "            width: 500px;\n" +
+                                "            height: 50px;\n" +
+                                "            /*background-color: #555;*/\n" +
+                                "            color: black;\n" +
+                                "            text-align: left;\n" +
+                                "            border-radius: 5px;\n" +
+                                "            padding: 10px;\n" +
+                                "            position: absolute;\n" +
+                                "            z-index: 1;\n" +
+                                "            bottom: 125%; /* Posición del tooltip */\n" +
+                                "            left: 50%;\n" +
+                                "            margin-left: -250px; /* Centrar el tooltip */\n" +
+                                "            opacity: 0;\n" +
+                                "            transition: opacity 0.3s;\n" +
+                                "        }\n" +
+                                "\n" +
+                                "        .tooltip:hover .tooltiptext {\n" +
+                                "            visibility: visible;\n" +
+                                "            opacity: 1;\n" +
+                                "        }\n" +
+                                "    </style>\n" +
+                                "</head>\n" +
+                                "<body>\n" +
+                                "\n" +
+                                "<div class=\"tooltip\">\n" +
+                                "    <div class=\"tooltiptext\"> <p align: center>" + lista.get(questionsTable.getSelectedRow()).getPregunta() +
+                                "</p> </div>\n" +
+                                "</div>\n" +
+                                "\n" +
+                                "</body>" +
+                                "</html>", "Requisitos, iniciativas y buenas prácticas de transformación digital (DO/LD)", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
+
+
             }
         });
+        ToolTipManager.sharedInstance().setInitialDelay(750);
 
         Integer[] points = {0, 1, 2, 3, 4};
         JComboBox<Integer> pointsComboBox = new JComboBox<>();
-        for(Integer p: points){
+        for (Integer p : points) {
             pointsComboBox.addItem(p);
         }
         pointsComboBox.setToolTipText("<html> <p>0 = NO EXISTENTE<br>1 = INICIANDO<br>2 = HABILITANDO<br>3 = OPERACIONAL" +
