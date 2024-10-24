@@ -19,6 +19,7 @@ public class Principal1 extends JFrame {
     public Principal1() throws Exception{
         setBounds(0, 0, 1280, 720);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("TEST DE TRANSFORMACIÓN DIGITAL (TETR4DIG)");
         setLocationRelativeTo(null);
         setContentPane(new JPanel());
         setBackground(Color.BLACK);

@@ -257,4 +257,8 @@ public class ReportPanel extends JScrollPane {
     }
 
 
+    public void settearIcons(){
+        getChartAmbits().settearIcons();
+    }
+
 }

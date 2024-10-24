@@ -8,7 +8,6 @@ import logic.DAO.DAOPerspectiva;
 import logic.DAO.DAOPregunta;
 import logic.Entitys.Perspectiva;
 import logic.Entitys.Pregunta;
-import logic.Questions;
 import util.table.MyTableCellRenderer;
 
 import javax.swing.*;
@@ -54,8 +53,6 @@ public class QuestionPanel extends JPanel {
     private ButtonMenu btnSavePDF;
     private ButtonMenu btnPreview;
     private JLabel header;
-    private final Questions questions = new Questions();
-    private final ArrayList<JComboBox<String>> comboBoxSelector;
 
     private final DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
     private final DAOPregunta daoPregunta = new DAOPregunta();
@@ -63,16 +60,13 @@ public class QuestionPanel extends JPanel {
     // ========================================================================
 
 
-    public QuestionPanel(Principal1 p) throws Exception {
+    public QuestionPanel(Principal1 p) {
         reportPanel = new JScrollPane();
         p.getContentPane().add(reportPanel);
-
-        comboBoxSelector = new ArrayList<>();
 
         reportPanel.setBounds(241, 100, 1039, 620);
         reportPanel.setBorder(null);
         reportPanel.setVerticalScrollBar(new ScrollBarCustom());
-        //reportPanel.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
         reportPanel.setViewportView(getQuestionsPanel(p));
         reportPanel.setViewportBorder(null);
         reportPanel.setVisible(false);
@@ -140,7 +134,7 @@ public class QuestionPanel extends JPanel {
                 panel.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        if(panel.contains(e.getPoint()))
+                        if (panel.contains(e.getPoint()))
                             getQuestionsTable().clearSelection();
                     }
                 });
@@ -185,8 +179,10 @@ public class QuestionPanel extends JPanel {
             btnSavePDF.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if (btnSavePDF.getText().equals("Finalizar") && getPilaPanelesVisibles().size() == 1)
+                    if (btnSavePDF.getText().equals("Finalizar") && getPilaPanelesVisibles().size() == 1) {
+                        p.getReportPanel().settearIcons();
                         p.getMenuPanel().panelControl(p, ReportPanel.Frame_Value);
+                    }
                     setVisibilityDimensionsPanels(1, p);
                 }
             });
@@ -353,7 +349,7 @@ public class QuestionPanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (questionsTable.getSelectedRow() != -1) {
-                    if (questionsTable.isColumnSelected(1) && e.getClickCount() ==2) {
+                    if (questionsTable.isColumnSelected(1) && e.getClickCount() == 2) {
                         JOptionPane.showMessageDialog(null, "<html>" +
                                 "<head>\n" +
                                 "    <meta charset=\"UTF-8\">\n" +

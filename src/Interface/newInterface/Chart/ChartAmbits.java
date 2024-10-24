@@ -4,9 +4,17 @@ package Interface.newInterface.Chart;
 import Interface.export.swing.CircleProgressBar;
 import Interface.newInterface.python.PythonExecutor;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Objects;
 
 
@@ -64,12 +72,11 @@ public class ChartAmbits extends JPanel {
     }
 
 
-
     /**
      * Este método se encarga de crear el Encabezado para las gráficas
      */
-    private JLabel getHeader(){
-        if(header == null){
+    private JLabel getHeader() {
+        if (header == null) {
             header = new JLabel("Resultados: Madurez Digital por ámbitos (MDA)");
             header.setFont(new Font("Myriad Pro Bold Cond", Font.BOLD, 30));
             header.setBounds(20, 10, 800, 80);
@@ -87,7 +94,6 @@ public class ChartAmbits extends JPanel {
             indicatorIndex1.setOpaque(false);
             indicatorIndex1.setHorizontalAlignment(SwingConstants.LEFT);
             indicatorIndex1.setHorizontalTextPosition(SwingConstants.RIGHT);
-
 
 
             if (index1 >= 0 && index1 <= 25) {
@@ -122,7 +128,6 @@ public class ChartAmbits extends JPanel {
             indicatorIndex2.setHorizontalTextPosition(SwingConstants.RIGHT);
 
 
-
             if (index2 >= 0 && index2 <= 25) {
                 indicatorIndex2.setText("BÁSICO");
                 Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Basico.png")));
@@ -144,14 +149,14 @@ public class ChartAmbits extends JPanel {
         return indicatorIndex2;
     }
 
-    private JLabel getPieChartCapEst(){
-        if(pieChartCapEst == null){
+    private JLabel getPieChartCapEst() {
+        if (pieChartCapEst == null) {
             pieChartCapEst = new JLabel();
 
             String value = String.valueOf(index1);
 
             File file = new File("/util/chartsPython/graficaCircular2.png");
-            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+            if (!file.exists() && file.isFile() && file.getName().endsWith(".png"))
                 PythonExecutor.pieChart("'IMDA: Capacidades estratégicas\\n y de creación de valor sustentable'", value, "", "2", "'2'");
 
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular2.png")));
@@ -161,26 +166,26 @@ public class ChartAmbits extends JPanel {
         return pieChartCapEst;
     }
 
-    private JLabel getPieChartResultDig(){
-        if(pieChartResultDig == null){
+    private JLabel getPieChartResultDig() {
+        if (pieChartResultDig == null) {
             pieChartResultDig = new JLabel();
 
             String value = String.valueOf(index2);
 
             File file = new File("/util/chartsPython/graficaCircular3.png");
-            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+            if (!file.exists() && file.isFile() && file.getName().endsWith(".png"))
                 PythonExecutor.pieChart("'IMDA: Resultados de digitalización'", value, "", "2", "'3'");
 
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular3.png")));
             pieChartResultDig.setIcon(icon);
-            pieChartResultDig.setBounds(5, pieChartCapEst.getY() + pieChartCapEst.getHeight() + 20 , icon.getIconWidth(), icon.getIconHeight());
+            pieChartResultDig.setBounds(5, pieChartCapEst.getY() + pieChartCapEst.getHeight() + 20, icon.getIconWidth(), icon.getIconHeight());
         }
         return pieChartResultDig;
     }
 
 
-    private JLabel getImdaChart(){
-        if(imdaChart == null){
+    private JLabel getImdaChart() {
+        if (imdaChart == null) {
             imdaChart = new JLabel();
 
             String values = "[" + index2 + "," + index1 + "]";
@@ -188,7 +193,7 @@ public class ChartAmbits extends JPanel {
             String title = "'Índice de madurez digital por ámbitos (IMDA) %'";
 
             File file = new File("/util/chartsPython/graficaBarra1.png");
-            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+            if (!file.exists() && file.isFile() && file.getName().endsWith(".png"))
                 PythonExecutor.imdChart(categories, values, "6", "4", "'1'", title);
 
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaBarra1.png")));
@@ -197,6 +202,34 @@ public class ChartAmbits extends JPanel {
         }
         return imdaChart;
     }
+
+
+    public void settearIcons() {
+        String values = "[" + 45.3 + "," + 50 + "]";
+        String categories = "['RESULTADOS de Digitalización', 'CAPACIDADES estratégicas\\n y de creación de valor sustentable']";
+        String title = "'Índice de madurez digital por ámbitos (IMDA) %'";
+
+        PythonExecutor.imdChart(categories, values, "6", "4", "'1'", title);
+        Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaBarra1.png")));
+        imdaChart.setIcon(icon);
+        imdaChart.repaint();
+
+        HashMap<String, BufferedImage> imageCache = new HashMap<>();
+        try {
+            BufferedImage img = ImageIO.read(getClass().getResourceAsStream("/util/chartsPython/graficaBarra1.png"));
+            imageCache.put("imagen1", img);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        BufferedImage img = imageCache.get("imagen1");
+        if (img != null) {
+            imdaChart.setIcon(new ImageIcon(img));
+            imdaChart.repaint();
+        }
+
+    }
+
 
     @Override
     protected void paintComponent(Graphics grphcs) {
@@ -264,8 +297,8 @@ public class ChartAmbits extends JPanel {
         g2D.drawString("CAPACIDADES estratégicas y de", 400, 240);
         g2D.drawString("creación de valor sustentable", 400, 260);
         g2D.drawString("RESULTADOS de digitalización", 400, 400);
-        g2D.drawString(""+this.index1, 670 + calcBarWidth(this.index1 + 2), 250);
-        g2D.drawString(""+this.index2, 670 + calcBarWidth(this.index2 + 2), 400);
+        g2D.drawString("" + this.index1, 670 + calcBarWidth(this.index1 + 2), 250);
+        g2D.drawString("" + this.index2, 670 + calcBarWidth(this.index2 + 2), 400);
 
     }
 
@@ -339,7 +372,6 @@ public class ChartAmbits extends JPanel {
 
 
     }
-
 
 
 }
