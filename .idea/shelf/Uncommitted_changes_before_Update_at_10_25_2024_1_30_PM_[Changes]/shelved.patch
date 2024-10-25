@@ -1,0 +1,1381 @@
+Index: src/Interface/newInterface/Chart/ChartAmbits.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Interface.newInterface.Chart;\r\n\r\n\r\nimport Interface.export.swing.CircleProgressBar;\r\nimport Interface.newInterface.python.PythonExecutor;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\nimport java.io.File;\r\nimport java.util.Objects;\r\n\r\n\r\npublic class ChartAmbits extends JPanel {\r\n\r\n    /**\r\n     * Declaración de variables\r\n     * <p>index1 ⇒ Es el índice del ámbito \"Capacidades Estratégicas y de creación\"<p/>\r\n     * <p>index2 ⇒ Es el índice del ámbito \"Resultados de Digitalización\"<p/>\r\n     */\r\n    private float index1;\r\n    private float index2;\r\n\r\n    private JLabel header;\r\n\r\n    private JLabel indicatorIndex1;\r\n    private JLabel pieChartCapEst;\r\n\r\n    private JLabel indicatorIndex2;\r\n    private JLabel pieChartResultDig;\r\n\r\n    private JLabel imdaChart;\r\n\r\n    public ChartAmbits(float index1, float index2) {\r\n        setLayout(null);\r\n        setIndex1(index1);\r\n        setIndex2(index2);\r\n\r\n        add(getHeader());\r\n\r\n        add(getIndicatorIndex1());\r\n        add(getPieChartCapEst());\r\n\r\n        add(getIndicatorIndex2());\r\n        add(getPieChartResultDig());\r\n        add(getImdaChart());\r\n        setSize(1000, imdaChart.getY() + imdaChart.getHeight());\r\n    }\r\n\r\n\r\n    public float getIndex1() {\r\n        return index1;\r\n    }\r\n\r\n    public void setIndex1(float index1) {\r\n        this.index1 = index1;\r\n    }\r\n\r\n    public float getIndex2() {\r\n        return index2;\r\n    }\r\n\r\n    public void setIndex2(float index2) {\r\n        this.index2 = index2;\r\n    }\r\n\r\n\r\n\r\n    /**\r\n     * Este método se encarga de crear el Encabezado para las gráficas\r\n     */\r\n    private JLabel getHeader(){\r\n        if(header == null){\r\n            header = new JLabel(\"Resultados: Madurez Digital por ámbitos (MDA)\");\r\n            header.setFont(new Font(\"Myriad Pro Bold Cond\", Font.BOLD, 30));\r\n            header.setBounds(20, 10, 800, 80);\r\n            header.setOpaque(false);\r\n            header.setForeground(new Color(8, 52, 128));\r\n        }\r\n        return header;\r\n    }\r\n\r\n    private JLabel getIndicatorIndex1() {\r\n        if (indicatorIndex1 == null) {\r\n            indicatorIndex1 = new JLabel();\r\n            indicatorIndex1.setFont(new Font(\"Arial\", Font.PLAIN, 18));\r\n            indicatorIndex1.setBounds(145, 300, 300, 20);\r\n            indicatorIndex1.setOpaque(false);\r\n            indicatorIndex1.setHorizontalAlignment(SwingConstants.LEFT);\r\n            indicatorIndex1.setHorizontalTextPosition(SwingConstants.RIGHT);\r\n\r\n\r\n\r\n            if (index1 >= 0 && index1 <= 25) {\r\n                indicatorIndex1.setText(\"BÁSICO\");\r\n                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/indicador- Basico.png\")));\r\n                indicatorIndex1.setIcon(icon);\r\n            } else if (index1 > 25 && index1 <= 50) {\r\n                indicatorIndex1.setText(\"INICIAL\");\r\n                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/indicador- Inicial.png\")));\r\n                indicatorIndex1.setIcon(icon);\r\n            } else if (index1 > 50 && index1 <= 75) {\r\n                indicatorIndex1.setText(\"ESTRATÉGICO\");\r\n                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/indicador - Estrategico.png\")));\r\n                indicatorIndex1.setIcon(icon);\r\n            } else {\r\n                indicatorIndex1.setText(\"INNOVADOR - DIRSUPTIVO\");\r\n                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/indicador - Innovador.png\")));\r\n                indicatorIndex1.setIcon(icon);\r\n            }\r\n        }\r\n        return indicatorIndex1;\r\n    }\r\n\r\n\r\n    private JLabel getIndicatorIndex2() {\r\n        if (indicatorIndex2 == null) {\r\n            indicatorIndex2 = new JLabel();\r\n            indicatorIndex2.setFont(new Font(\"Arial\", Font.PLAIN, 18));\r\n            indicatorIndex2.setBounds(145, 515, 300, 20);\r\n            indicatorIndex2.setOpaque(false);\r\n            indicatorIndex2.setHorizontalAlignment(SwingConstants.LEFT);\r\n            indicatorIndex2.setHorizontalTextPosition(SwingConstants.RIGHT);\r\n\r\n\r\n\r\n            if (index2 >= 0 && index2 <= 25) {\r\n                indicatorIndex2.setText(\"BÁSICO\");\r\n                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/indicador- Basico.png\")));\r\n                indicatorIndex2.setIcon(icon);\r\n            } else if (index2 > 25 && index2 <= 50) {\r\n                indicatorIndex2.setText(\"INICIAL\");\r\n                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/indicador- Inicial.png\")));\r\n                indicatorIndex2.setIcon(icon);\r\n            } else if (index2 > 50 && index2 <= 75) {\r\n                indicatorIndex2.setText(\"ESTRATÉGICO\");\r\n                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/indicador - Estrategico.png\")));\r\n                indicatorIndex2.setIcon(icon);\r\n            } else {\r\n                indicatorIndex2.setText(\"INNOVADOR - DIRSUPTIVO\");\r\n                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/indicador - Innovador.png\")));\r\n                indicatorIndex2.setIcon(icon);\r\n            }\r\n        }\r\n        return indicatorIndex2;\r\n    }\r\n\r\n    private JLabel getPieChartCapEst(){\r\n        if(pieChartCapEst == null){\r\n            pieChartCapEst = new JLabel();\r\n\r\n            String value = String.valueOf(index1);\r\n\r\n            File file = new File(\"/util/chartsPython/graficaCircular2.png\");\r\n            if(!file.exists() && file.isFile() && file.getName().endsWith(\".png\"))\r\n                PythonExecutor.pieChart(\"'IMDA: Capacidades estratégicas\\\\n y de creación de valor sustentable'\", value, \"\", \"2\", \"'2'\");\r\n\r\n            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/chartsPython/graficaCircular2.png\")));\r\n            pieChartCapEst.setIcon(icon);\r\n            pieChartCapEst.setBounds(1, header.getHeight() + 20, icon.getIconWidth(), icon.getIconHeight());\r\n        }\r\n        return pieChartCapEst;\r\n    }\r\n\r\n    private JLabel getPieChartResultDig(){\r\n        if(pieChartResultDig == null){\r\n            pieChartResultDig = new JLabel();\r\n\r\n            String value = String.valueOf(index2);\r\n\r\n            File file = new File(\"/util/chartsPython/graficaCircular3.png\");\r\n            if(!file.exists() && file.isFile() && file.getName().endsWith(\".png\"))\r\n                PythonExecutor.pieChart(\"'IMDA: Resultados de digitalización'\", value, \"\", \"2\", \"'3'\");\r\n\r\n            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/chartsPython/graficaCircular3.png\")));\r\n            pieChartResultDig.setIcon(icon);\r\n            pieChartResultDig.setBounds(5, pieChartCapEst.getY() + pieChartCapEst.getHeight() + 20 , icon.getIconWidth(), icon.getIconHeight());\r\n        }\r\n        return pieChartResultDig;\r\n    }\r\n\r\n\r\n    private JLabel getImdaChart(){\r\n        if(imdaChart == null){\r\n            imdaChart = new JLabel();\r\n\r\n            String values = \"[\" + index2 + \",\" + index1 + \"]\";\r\n            String categories = \"['RESULTADOS de Digitalización', 'CAPACIDADES estratégicas\\\\n y de creación de valor sustentable']\";\r\n            String title = \"'Índice de madurez digital por ámbitos (IMDA) %'\";\r\n\r\n            File file = new File(\"/util/chartsPython/graficaBarra1.png\");\r\n            if(!file.exists() && file.isFile() && file.getName().endsWith(\".png\"))\r\n                PythonExecutor.imdChart(categories, values, \"6\", \"4\", \"'1'\", title);\r\n\r\n            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/chartsPython/graficaBarra1.png\")));\r\n            imdaChart.setIcon(icon);\r\n            imdaChart.setBounds(pieChartCapEst.getWidth(), header.getHeight() + 70, icon.getIconWidth(), icon.getIconHeight());\r\n        }\r\n        return imdaChart;\r\n    }\r\n\r\n    @Override\r\n    protected void paintComponent(Graphics grphcs) {\r\n        //drawChartAmbits(grphcs);\r\n        //drawChartAmbitsPastel(grphcs);\r\n        //super.paintComponent(grphcs);\r\n    }\r\n\r\n    /*Métodos para dibujar las gráficas*/\r\n    //==========================================================\r\n\r\n    //Método para dibujar Madurez Digital por Ámbitos (Gráfica de barras horizontales)\r\n    private void drawChartAmbits(Graphics grphcs) {\r\n        Graphics2D g2D = (Graphics2D) grphcs;\r\n\r\n        //Dibujamos el encabezado de las tablas\r\n        g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);\r\n        g2D.setFont(new Font(\"Arial\", Font.PLAIN, 20));\r\n        g2D.setColor(new Color(106, 109, 110));\r\n        g2D.drawString(\"Índice de Madurez digital por ámbitos (IMDA) %\", 520, 120);\r\n        g2D.setFont(new Font(\"Arial\", Font.BOLD, 20));\r\n        g2D.setColor(new Color(11, 52, 128, 255));\r\n        g2D.drawString(\"Resultados: Madurez Digital por ámbitos (MDA)\", 30, 50);\r\n\r\n        //Establecemos el ancho de las líneas\r\n        BasicStroke basicStroke = new BasicStroke(2);\r\n        g2D.setStroke(basicStroke);\r\n\r\n\r\n        /*Dibujamos el rectángulo con los valores\r\n        (las líneas tienen una separación de 69 píxeles de ancho)\r\n        (los valores tienen una separación de 65 píxeles de ancho)*/\r\n        g2D.setColor(new Color(1, 176, 239, 255));\r\n        g2D.drawLine(739, 160, 739, 470);\r\n        g2D.drawLine(808, 160, 808, 470);\r\n        g2D.drawLine(877, 160, 877, 470);\r\n        g2D.drawRect(670, 160, 275, 310);\r\n\r\n        g2D.setColor(Color.black);\r\n        g2D.setFont(new Font(\"Arial\", Font.BOLD, 14));\r\n        g2D.drawString(\"0,00\", 660, 487);\r\n        g2D.drawString(\"25,00\", 725, 487);\r\n        g2D.drawString(\"50,00\", 790, 487);\r\n        g2D.drawString(\"75,00\", 855, 487);\r\n        g2D.drawString(\"100,00\", 920, 487);\r\n\r\n\r\n        //Dibujamos la sombra de las barras\r\n        g2D.setColor(new Color(220, 220, 220, 215));\r\n        g2D.fillRoundRect(670, 191, calcBarWidth(this.index1) + 2, 101, 3, 3);\r\n        g2D.fillRoundRect(670, 351, calcBarWidth(this.index2) + 2, 101, 3, 3);\r\n\r\n        /*Dibujamos las barras*/\r\n        //Barra indicadora de CAPACIDADES estratégicas y de creación de valor sustentable\r\n        g2D.setColor(new Color(1, 176, 239, 255));\r\n        g2D.fillRoundRect(670, 190, calcBarWidth(this.index1), 100, 3, 3);\r\n\r\n        //Barra indicadora de Resultados de digitalización\r\n        g2D.setColor(new Color(146, 209, 79, 255));\r\n        g2D.fillRoundRect(670, 350, calcBarWidth(this.index2), 100, 3, 3);\r\n\r\n        /*Dibujamos los indicadores*/\r\n        g2D.setFont(new Font(\"Arial\", Font.BOLD, 16));\r\n        g2D.setColor(Color.black);\r\n        g2D.drawString(\"CAPACIDADES estratégicas y de\", 400, 240);\r\n        g2D.drawString(\"creación de valor sustentable\", 400, 260);\r\n        g2D.drawString(\"RESULTADOS de digitalización\", 400, 400);\r\n        g2D.drawString(\"\"+this.index1, 670 + calcBarWidth(this.index1 + 2), 250);\r\n        g2D.drawString(\"\"+this.index2, 670 + calcBarWidth(this.index2 + 2), 400);\r\n\r\n    }\r\n\r\n    //Metodo para calcular el tamaño de las barras, para distribuirlas entre los valores\r\n    private int calcBarWidth(float index1) {\r\n        float a;\r\n        float b = 0.0f;\r\n        if (index1 <= 25.0f) {\r\n            a = (index1 / 25.0f) * 100;\r\n            b = (a * 69.0f) / 100;\r\n        } else if (index1 > 25.0f && index1 <= 50.0f) {\r\n            a = (index1 / 50.0f) * 100;\r\n            b = (a * (69.0f * 2.0f)) / 100;\r\n        } else if (index1 > 50.0f && index1 <= 75.0f) {\r\n            a = (index1 / 75.0f) * 100;\r\n            b = (a * (69.0f * 3.0f)) / 100;\r\n        } else {\r\n            a = (index1 / 100.0f) * 100;\r\n            b = (a * (69.0f * 4.0f)) / 100;\r\n        }\r\n\r\n        return Math.round(b);\r\n    }\r\n\r\n\r\n    //Método para dibujar Madurez Digital por Ámbitos (Gráfica de pastel)\r\n    private void drawChartAmbitsPastel(Graphics gr) {\r\n        Graphics2D g2D = (Graphics2D) gr;\r\n\r\n\r\n        /*Gráfica de pastel que muestra el IMD: CAPACIDADES Estratégicas*/\r\n        //=================================================================================\r\n        /* Se le pasa por el constructor el porciento que debe mostrar, en este caso (index1)*/\r\n        CircleProgressBar a = new CircleProgressBar(index1);\r\n        a.setForeground(new Color(1, 176, 239, 255));\r\n        a.setBounds(100, 150, 200, 200);\r\n        a.setBorder(null);\r\n\r\n        ChartAmbits.this.add(a);\r\n\r\n        g2D.setFont(new Font(\"Arial\", Font.BOLD, 30));\r\n        g2D.drawString(this.index1 + \"%\", a.getX() + 50, a.getY() + 110);\r\n        g2D.setFont(new Font(\"Arial\", Font.BOLD, 15));\r\n        g2D.setColor(new Color(106, 109, 110));\r\n        g2D.drawString(\"IMDA: Capacidades estratégicas y de \", a.getX() - 60, a.getY() - 40);\r\n        g2D.drawString(\"creación de valor sustentable\", a.getX() - 40, a.getY() - 20);\r\n        g2D.setColor(Color.black);\r\n\r\n        /*Después de crear el gráfico de pastel, se agrega al panel, no se hace que el\r\n         * método retorne al gráfico xq entonces no actualiza los valores del porciento*/\r\n        //=================================================================================\r\n\r\n\r\n        /*Gráfica de pastel que muestra el IMD: Resultados de Digitalización*/\r\n        //=================================================================================\r\n        /* Se le pasa por el constructor el porciento que debe mostrar, en este caso (index1)*/\r\n        CircleProgressBar b = new CircleProgressBar(index2);\r\n        b.setForeground(new Color(146, 209, 79, 255));\r\n        b.setBounds(100, 400, 200, 200);\r\n        b.setBorder(null);\r\n\r\n\r\n        g2D.setFont(new Font(\"Arial\", Font.BOLD, 30));\r\n        g2D.drawString(this.index2 + \"%\", b.getX() + 50, b.getY() + 110);\r\n        g2D.setFont(new Font(\"Arial\", Font.BOLD, 15));\r\n        g2D.setColor(new Color(106, 109, 110));\r\n        g2D.drawString(\"IMDA: Resultados de digitalización\", b.getX() - 60, b.getY() - 20);\r\n        /*Después de crear el gráfico de pastel, se agrega al panel, no se hace que el\r\n         * método retorne al gráfico xq entonces no actualiza los valores del porciento*/\r\n        ChartAmbits.this.add(b);\r\n\r\n\r\n    }\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Interface/newInterface/Chart/ChartAmbits.java b/src/Interface/newInterface/Chart/ChartAmbits.java
+--- a/src/Interface/newInterface/Chart/ChartAmbits.java	(revision 6e7aaad8d69ed8c39b4859224b6f352f356f2359)
++++ b/src/Interface/newInterface/Chart/ChartAmbits.java	(date 1729876935888)
+@@ -4,9 +4,13 @@
+ import Interface.export.swing.CircleProgressBar;
+ import Interface.newInterface.python.PythonExecutor;
+ 
++import javax.imageio.ImageIO;
+ import javax.swing.*;
+ import java.awt.*;
++import java.awt.image.BufferedImage;
+ import java.io.File;
++import java.io.IOException;
++import java.net.URL;
+ import java.util.Objects;
+ 
+ 
+@@ -30,7 +34,7 @@
+ 
+     private JLabel imdaChart;
+ 
+-    public ChartAmbits(float index1, float index2) {
++    public ChartAmbits(float index1, float index2) throws IOException {
+         setLayout(null);
+         setIndex1(index1);
+         setIndex2(index2);
+@@ -179,25 +183,43 @@
+     }
+ 
+ 
+-    private JLabel getImdaChart(){
++    private JLabel getImdaChart() throws IOException {
+         if(imdaChart == null){
+             imdaChart = new JLabel();
+ 
+-            String values = "[" + index2 + "," + index1 + "]";
++            String values = "[" + index1 + "," + index2 + "]";
+             String categories = "['RESULTADOS de Digitalización', 'CAPACIDADES estratégicas\\n y de creación de valor sustentable']";
+             String title = "'Índice de madurez digital por ámbitos (IMDA) %'";
+ 
+-            File file = new File("/util/chartsPython/graficaBarra1.png");
++            File file = new File("/graficaBarra1.png");
+             if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+                 PythonExecutor.imdChart(categories, values, "6", "4", "'1'", title);
+ 
+-            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaBarra1.png")));
++            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/graficaBarra1.png")));
+             imdaChart.setIcon(icon);
+             imdaChart.setBounds(pieChartCapEst.getWidth(), header.getHeight() + 70, icon.getIconWidth(), icon.getIconHeight());
+         }
+         return imdaChart;
+     }
+ 
++    public void settearIcons() {
++        String values = "[" + index1+45 + "," + index2+40 + "]";
++        String categories = "['RESULTADOS de Digitalización', 'CAPACIDADES estratégicas\\n y de creación de valor sustentable']";
++        String title = "'Índice de madurez digital por ámbitos (IMDA) %'";
++
++        PythonExecutor.imdChart(categories, values, "6", "4", "'1'", title);
++       // Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/graficaBarra1.png")));
++//        imdaChart.setIcon(icon);
++//        imdaChart.repaint();
++
++
++//        if (img != null) {
++//            imdaChart.setIcon(new ImageIcon(img));
++//            imdaChart.repaint();
++//        }
++
++    }
++
+     @Override
+     protected void paintComponent(Graphics grphcs) {
+         //drawChartAmbits(grphcs);
+Index: src/Interface/newInterface/SettingPanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Interface.newInterface;\r\n\r\nimport Interface.export.swing.PanelShadow;\r\nimport util.table.TableTreeModel;\r\n\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\nimport java.awt.event.MouseAdapter;\r\nimport java.awt.event.MouseEvent;\r\nimport java.util.Objects;\r\n\r\n\r\npublic class SettingPanel extends PanelShadow {\r\n\r\n    // Atributos\r\n    // ========================================================================\r\n    public static final int Frame_Value = 3;\r\n\r\n    private ButtonMenu btnInfo;\r\n    private ButtonMenu btnHelp;\r\n    private ButtonMenu btnBack;\r\n    private ButtonMenu btnAdd;\r\n    private ButtonMenu btnDelete;\r\n\r\n    private JPanel editQuestionPanel;\r\n    private JPanel panelPrincipal;\r\n    private JLabel lblPointLevel;\r\n    private JScrollPane scrollPaneShowTable;\r\n    private JTable tableTree;\r\n    private TableTreeModel tableTreeModel;\r\n\r\n    // ========================================================================\r\n\r\n    public SettingPanel(Principal1 window){\r\n        setBounds(241, 100, 1039, 620);\r\n        setLayout(null);\r\n        setVisible(false);\r\n        add(getBtnInfo(window));\r\n        add(getBtnHelp(window));\r\n        add(getEditQuestionPanel());\r\n    }\r\n\r\n\r\n\r\n    // Configuración del Botón de Información\r\n    // ========================================================================\r\n    private ButtonMenu getBtnInfo(Principal1 window) {\r\n        if (btnInfo == null) {\r\n            btnInfo = new ButtonMenu();\r\n            btnInfo.setText(\"Información\");\r\n            btnInfo.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/info-circle-svgrepo-com(1).png\"))));\r\n            btnInfo.setBounds(909, 20, 110, 55);\r\n            btnInfo.setCursor(new Cursor(Cursor.HAND_CURSOR));\r\n            btnInfo.setHorizontalAlignment(SwingConstants.LEFT);\r\n            btnInfo.setVerticalTextPosition(SwingConstants.CENTER);\r\n            btnInfo.setHorizontalTextPosition(SwingConstants.RIGHT);\r\n\r\n\r\n\r\n            btnInfo.addMouseListener(new MouseAdapter()  {\r\n                @Override\r\n                public void mousePressed(MouseEvent me) {\r\n                   try{\r\n                        Information info = new Information(window);\r\n                        info.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);\r\n                        info.setVisible(true);\r\n                   }\r\n                   catch (Exception e){\r\n                       e.printStackTrace();\r\n                   }\r\n                }\r\n\r\n            });\r\n        }\r\n        return btnInfo;\r\n    }\r\n    // ========================================================================\r\n\r\n\r\n    // Configuración del Botón de Ayuda\r\n    // ========================================================================\r\n    private ButtonMenu getBtnHelp(Principal1 window) {\r\n        if (btnHelp == null) {\r\n            btnHelp = new ButtonMenu();\r\n            btnHelp.setText(\"Ayuda\");\r\n            btnHelp.setIcon(new ImageIcon(getClass().getResource(\"/util/help-circle-svgrepo-com(1).png\")));\r\n            btnHelp.setBounds(820, 20, 80, 55);\r\n            btnHelp.setCursor(new Cursor(Cursor.HAND_CURSOR));\r\n            btnHelp.setHorizontalAlignment(SwingConstants.LEFT);\r\n            btnHelp.setVerticalTextPosition(SwingConstants.CENTER);\r\n            btnHelp.setHorizontalTextPosition(SwingConstants.RIGHT);\r\n\r\n\r\n\r\n            btnHelp.addMouseListener(new MouseAdapter()  {\r\n                @Override\r\n                public void mousePressed(MouseEvent me) {\r\n                    try{\r\n                        Help help = new Help(window);\r\n                        help.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);\r\n                        help.setVisible(true);\r\n                    }\r\n                    catch (Exception e){\r\n                        e.printStackTrace();\r\n                    }\r\n\r\n                }\r\n\r\n            });\r\n        }\r\n        return btnHelp;\r\n    }\r\n    // ========================================================================\r\n\r\n\r\n\r\n\r\n    //Configuración de toda la Parte de Editar las Preguntas\r\n    // ========================================================================\r\n\r\n    /* Utilizamos un panel para agregar en él todos los elementos que se necesitan\r\n     * y éste panel a su vez lo agregamos al panel principal, que sería el constructor\r\n     * de la clase*/\r\n\r\n\r\n    private JPanel getEditQuestionPanel(){\r\n        if(editQuestionPanel == null){\r\n            editQuestionPanel = new JPanel();\r\n            editQuestionPanel.setLayout(null);\r\n            editQuestionPanel.setBounds(10, 255, 1019, 350);\r\n            editQuestionPanel.setBackground(Color.WHITE);\r\n\r\n            editQuestionPanel.add(getPanelPrincipal());\r\n            editQuestionPanel.add(getBtnBack());\r\n            editQuestionPanel.add(getBtnAdd());\r\n            editQuestionPanel.add(getBtnDelete());\r\n        }\r\n        return editQuestionPanel;\r\n    }\r\n\r\n    // Configuración del Botón de Atrás\r\n    // ========================================================================\r\n    private ButtonMenu getBtnBack() {\r\n        if (btnBack == null) {\r\n            btnBack = new ButtonMenu();\r\n            btnBack.setText(\"Atrás\");\r\n            btnBack.setIcon(new ImageIcon(getClass().getResource(\"/util/left-arrow-circle-svgrepo-com(1).png\")));\r\n            btnBack.setBounds(909, 20, 90, 55);\r\n            btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));\r\n            btnBack.setHorizontalAlignment(SwingConstants.LEFT);\r\n            btnBack.setVerticalTextPosition(SwingConstants.CENTER);\r\n            btnBack.setHorizontalTextPosition(SwingConstants.RIGHT);\r\n\r\n            btnBack.addMouseListener(new MouseAdapter()  {\r\n                @Override\r\n                public void mousePressed(MouseEvent e) {\r\n                    // panelControl(p, SettingPanel.Frame_Value);\r\n\r\n                }\r\n\r\n            });\r\n        }\r\n        return btnBack;\r\n    }\r\n\r\n\r\n    // Configuración del Botón de Agregar Pregunta\r\n    // ========================================================================\r\n    private ButtonMenu getBtnAdd() {\r\n        if (btnAdd == null) {\r\n            btnAdd = new ButtonMenu();\r\n            btnAdd.setText(\"Agregar\");\r\n            btnAdd.setIcon(new ImageIcon(getClass().getResource(\"/util/add-circle-svgrepo-com(1).png\")));\r\n            btnAdd.setBounds(909, 95, 90, 55);\r\n            btnAdd.setCursor(new Cursor(Cursor.HAND_CURSOR));\r\n            btnAdd.setHorizontalAlignment(SwingConstants.LEFT);\r\n            btnAdd.setVerticalTextPosition(SwingConstants.CENTER);\r\n            btnAdd.setHorizontalTextPosition(SwingConstants.RIGHT);\r\n\r\n            btnAdd.addMouseListener(new MouseAdapter()  {\r\n                @Override\r\n                public void mousePressed(MouseEvent e) {\r\n                    // panelControl(p, SettingPanel.Frame_Value);\r\n                }\r\n\r\n                @Override\r\n                public void mouseEntered(MouseEvent e) {\r\n                    // Cambia el color de fondo cuando se pasa el cursor por encima\r\n                    btnAdd.setBackground(Color.GREEN);\r\n                }\r\n\r\n            });\r\n        }\r\n        return btnAdd;\r\n    }\r\n\r\n\r\n    // Configuración del Botón de Eliminar Pregunta\r\n    // ========================================================================\r\n    private ButtonMenu getBtnDelete() {\r\n        if (btnDelete == null) {\r\n            btnDelete = new ButtonMenu();\r\n            btnDelete.setText(\"Eliminar\");\r\n            btnDelete.setIcon(new ImageIcon(getClass().getResource(\"/util/delete-2-svgrepo-com(1).png\")));\r\n            btnDelete.setBounds(909, 170, 90, 55);\r\n            btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));\r\n            btnDelete.setHorizontalAlignment(SwingConstants.LEFT);\r\n            btnDelete.setVerticalTextPosition(SwingConstants.CENTER);\r\n            btnDelete.setHorizontalTextPosition(SwingConstants.RIGHT);\r\n\r\n            btnDelete.addMouseListener(new MouseAdapter()  {\r\n                @Override\r\n                public void mousePressed(MouseEvent e) {\r\n                    // panelControl(p, SettingPanel.Frame_Value);\r\n\r\n                }\r\n\r\n                @Override\r\n                public void mouseEntered(MouseEvent e) {\r\n                    // Cambia el color de fondo cuando se pasa el cursor por encima\r\n                    btnDelete.setBackground(Color.RED);\r\n                }\r\n\r\n            });\r\n        }\r\n        return btnDelete;\r\n    }\r\n\r\n\r\n    private JPanel getPanelPrincipal(){\r\n        if (panelPrincipal == null){\r\n            panelPrincipal = new PanelShadow();\r\n            panelPrincipal.setBounds(10, 5, 875, 340);\r\n            panelPrincipal.setLayout(null);\r\n\r\n            panelPrincipal.add(getLblPointLevel());\r\n            panelPrincipal.add(getScrollPaneShowTable());\r\n            //panelPrincipal.add(getLblActualNode());\r\n        }\r\n        return panelPrincipal;\r\n    }\r\n\r\n\r\n    private JLabel getLblPointLevel() {\r\n        if (lblPointLevel == null) {\r\n            lblPointLevel = new JLabel(\"Ámbitos de: \");\r\n            lblPointLevel.setBounds(20, 10, 160, 20);\r\n        }\r\n        return lblPointLevel;\r\n    }\r\n\r\n\r\n    private JScrollPane getScrollPaneShowTable() {\r\n        if (scrollPaneShowTable == null) {\r\n            scrollPaneShowTable = new JScrollPane();\r\n            scrollPaneShowTable.setBounds(10, 40, 855, 290);\r\n            //scrollPaneShowTable.setColumnHeaderView(getTableTree());\r\n        }\r\n        return scrollPaneShowTable;\r\n    }\r\n\r\n//    private JTable getTableTree() {\r\n//        if (tableTree == null) {\r\n//            tableTree = new JTable();\r\n//            tableTreeModel = new TableTreeModel();\r\n//            tableTree.setModel(tableTreeModel);\r\n//            tableTree.addMouseListener(new java.awt.event.MouseAdapter() {\r\n//                public void mouseClicked(java.awt.event.MouseEvent event){\r\n//                    if(event.getClickCount() == 2)\r\n//                        enterNode();\r\n//                }\r\n//            });\r\n//            actTable(thisNode);\r\n//        }\r\n//        return tableTree;\r\n//    }\r\n//\r\n//    private void actTable(BinaryTreeNode<Model> node){\r\n//        tableTreeModel = new TableTreeModel();\r\n//        tableTree.setModel(tableTreeModel);\r\n//        ((TableTreeModel)tableTree.getModel()).actTable(tetra.getTree().getSonsInfo(node));\r\n//    }\r\n\r\n\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Interface/newInterface/SettingPanel.java b/src/Interface/newInterface/SettingPanel.java
+--- a/src/Interface/newInterface/SettingPanel.java	(revision 6e7aaad8d69ed8c39b4859224b6f352f356f2359)
++++ b/src/Interface/newInterface/SettingPanel.java	(date 1729795943696)
+@@ -1,13 +1,21 @@
+ package Interface.newInterface;
+ 
+ import Interface.export.swing.PanelShadow;
+-import util.table.TableTreeModel;
+-
++import logic.DAO.DAOAmbito;
++import logic.DAO.DAOPerspectiva;
++import logic.Entitys.Ambito;
++import logic.Entitys.Dimension;
++import logic.Entitys.Perspectiva;
++import logic.Entitys.Pregunta;
++import logic.useful.Controlador;
++import logic.useful.Model;
++import util.table.TableModel;
+ 
+ import javax.swing.*;
+ import java.awt.*;
+ import java.awt.event.MouseAdapter;
+ import java.awt.event.MouseEvent;
++import java.util.ArrayList;
+ import java.util.Objects;
+ 
+ 
+@@ -27,8 +35,11 @@
+     private JPanel panelPrincipal;
+     private JLabel lblPointLevel;
+     private JScrollPane scrollPaneShowTable;
+-    private JTable tableTree;
+-    private TableTreeModel tableTreeModel;
++    private JTable tableExplorer;
++    private TableModel tableModel;
++    private Controlador controlador;
++    private Model thisModel;
++    private ArrayList<Model> models;
+ 
+     // ========================================================================
+ 
+@@ -36,6 +47,11 @@
+         setBounds(241, 100, 1039, 620);
+         setLayout(null);
+         setVisible(false);
++
++        controlador = new Controlador();
++        thisModel = new Model(0,-1, 0, "TetraDig System");
++        models = new ArrayList<>();
++
+         add(getBtnInfo(window));
+         add(getBtnHelp(window));
+         add(getEditQuestionPanel());
+@@ -155,11 +171,17 @@
+             btnBack.addMouseListener(new MouseAdapter()  {
+                 @Override
+                 public void mousePressed(MouseEvent e) {
+-                    // panelControl(p, SettingPanel.Frame_Value);
+-
++                    if(thisModel.getLevel() > 0){
++                        backModel(thisModel);
++                        thisModel.setId(thisModel.getSupId());
++                        thisModel.setLevel(thisModel.getLevel() - 1);
++                        actTable(thisModel);
++                    }
++                    if(thisModel.getLevel() == 0)
++                        btnBack.setEnabled(false);
+                 }
+-
+             });
++            btnBack.setEnabled(false);
+         }
+         return btnBack;
+     }
+@@ -255,35 +277,91 @@
+         if (scrollPaneShowTable == null) {
+             scrollPaneShowTable = new JScrollPane();
+             scrollPaneShowTable.setBounds(10, 40, 855, 290);
+-            //scrollPaneShowTable.setColumnHeaderView(getTableTree());
++            scrollPaneShowTable.setColumnHeaderView(getTableExplorer());
+         }
+         return scrollPaneShowTable;
+     }
+ 
+-//    private JTable getTableTree() {
+-//        if (tableTree == null) {
+-//            tableTree = new JTable();
+-//            tableTreeModel = new TableTreeModel();
+-//            tableTree.setModel(tableTreeModel);
+-//            tableTree.addMouseListener(new java.awt.event.MouseAdapter() {
+-//                public void mouseClicked(java.awt.event.MouseEvent event){
+-//                    if(event.getClickCount() == 2)
+-//                        enterNode();
+-//                }
+-//            });
+-//            actTable(thisNode);
+-//        }
+-//        return tableTree;
+-//    }
+-//
+-//    private void actTable(BinaryTreeNode<Model> node){
+-//        tableTreeModel = new TableTreeModel();
+-//        tableTree.setModel(tableTreeModel);
+-//        ((TableTreeModel)tableTree.getModel()).actTable(tetra.getTree().getSonsInfo(node));
+-//    }
++    private JTable getTableExplorer() {
++        if (tableExplorer == null) {
++            tableExplorer = new JTable();
++            tableModel = new TableModel();
++            tableExplorer.setModel(tableModel);
++            tableExplorer.addMouseListener(new java.awt.event.MouseAdapter() {
++                public void mouseClicked(java.awt.event.MouseEvent event){
++                    if(event.getClickCount() == 2)
++                        enterNode();
++                }
++            });
++            actTable(thisModel);
++        }
++        return tableExplorer;
++    }
++
++    private void actTable(Model model){
++        tableModel = new TableModel();
++        tableExplorer.setModel(tableModel);
++        models = actListModel(model.getId(), model.getLevel());
++        ((TableModel) tableExplorer.getModel()).actTable(models);
++    }
++
++    private void enterNode(){
++        int pos = tableExplorer.getSelectedRow();
++        if(thisModel.getLevel() < 3){
++            thisModel = models.get(pos);
++            actTable(thisModel);
++            btnBack.setEnabled(true);
++        }
++    }
++
++    private ArrayList<Model> actListModel(int id, int level){
++        ArrayList<Model> list = new ArrayList<>();
+ 
++        switch (level){
++            case 0:
++                for(Ambito a : controlador.getAmbitos())
++                    list.add(new Model(a.getId_ambito(),0, 1, a.getNombre_ambito()));
++                break;
++            case 1:
++                for(Perspectiva p: controlador.getPerspectiva(id))
++                    list.add(new Model(p.getId_perspectiva(), id, 2, p.getNombre_perspectiva()));
++                break;
+ 
++            case 2:
++                for(Dimension d: controlador.getDimension(id))
++                    list.add(new Model(d.getId_dimension(), id, 3, d.getNombre_dimension()));
++                break;
+ 
++            case 3:
++                for(Pregunta pr: controlador.getPregunta(id))
++                    list.add(new Model(pr.getId_pregunta(), id, 4, pr.getPregunta()));
++                break;
+ 
++            default: break;
++        }
++        return list;
++    }
+ 
++    public void backModel(Model model){
++        switch (model.getLevel() - 1){
++            case 0:
++                model.setLine("TetraDig System");
++                model.setSupId(-1);
++                break;
++            case 1:
++                DAOAmbito daoAmbito = new DAOAmbito();
++                Ambito a = daoAmbito.findAmbito(model.getSupId());
++                model.setLine(a.getNombre_ambito());
++                model.setSupId(0);
++                break;
++
++            case 2:
++                DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
++                Perspectiva p = daoPerspectiva.findPerspectiva(model.getSupId());
++                model.setLine(p.getNombre_perspectiva());
++                model.setSupId(p.getId_ambito());
++                break;
++            default: break;
++        }
++    }
+ }
+Index: src/Interface/newInterface/QuestionPanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Interface.newInterface;\r\n\r\nimport Interface.export.swing.PanelShadow;\r\nimport Interface.export.swing.scrollbar.ScrollBarCustom;\r\nimport Interface.newInterface.Chart.ReportPanel;\r\nimport logic.DAO.DAODimension;\r\nimport logic.DAO.DAOPerspectiva;\r\nimport logic.DAO.DAOPregunta;\r\nimport logic.Entitys.Perspectiva;\r\nimport logic.Entitys.Pregunta;\r\nimport logic.Questions;\r\nimport util.table.MyTableCellRenderer;\r\n\r\nimport javax.swing.*;\r\nimport javax.swing.table.DefaultTableModel;\r\nimport java.awt.*;\r\nimport java.awt.event.MouseAdapter;\r\nimport java.awt.event.MouseEvent;\r\nimport java.util.ArrayDeque;\r\nimport java.util.ArrayList;\r\nimport java.util.Deque;\r\nimport java.util.Objects;\r\n\r\n\r\npublic class QuestionPanel extends JPanel {\r\n\r\n\r\n    // Atributos\r\n    // ========================================================================\r\n    public static final int Frame_Value = 2;\r\n    private final JScrollPane reportPanel;\r\n\r\n    /**\r\n     * questionsPanel ⇒ Es el panel que va a contener todos los demás paneles dentro,\r\n     * es el que está de viewPort en el JScrollPane\r\n     */\r\n    private JPanel questionsPanel;\r\n\r\n\r\n    /**\r\n     * colaPanelesVisibles ⇒ Cola doble que va a almacenar todos los paneles con las preguntas de cada Dimensión,\r\n     * cuando se presiona el botón {@link #getBtnFinish(Principal1)}, este saca un panel de aquí y lo pone en {@link #getPilaPanelesNoVisibles()}\r\n     */\r\n    private Deque<JPanel> pilaPanelesVisibles;\r\n\r\n    /**\r\n     * colaPanelesNoVisibles ⇒ Cola doble que va a almacenar todos los paneles con las preguntas de cada Dimensión\r\n     */\r\n    private Deque<JPanel> pilaPanelesNoVisibles;\r\n\r\n    // Paneles de cada una de las Dimensiones, estas contienen las preguntas\r\n\r\n\r\n    private ButtonMenu btnSavePDF;\r\n    private ButtonMenu btnPreview;\r\n    private JLabel header;\r\n    private final Questions questions = new Questions();\r\n    private final ArrayList<JComboBox<String>> comboBoxSelector;\r\n\r\n    private final DAOPerspectiva daoPerspectiva = new DAOPerspectiva();\r\n    private final DAOPregunta daoPregunta = new DAOPregunta();\r\n    private final DAODimension daoDimension = new DAODimension();\r\n    // ========================================================================\r\n\r\n\r\n    public QuestionPanel(Principal1 p) throws Exception {\r\n        reportPanel = new JScrollPane();\r\n        p.getContentPane().add(reportPanel);\r\n\r\n        comboBoxSelector = new ArrayList<>();\r\n\r\n        reportPanel.setBounds(241, 100, 1039, 620);\r\n        reportPanel.setBorder(null);\r\n        reportPanel.setVerticalScrollBar(new ScrollBarCustom());\r\n        //reportPanel.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);\r\n        reportPanel.setViewportView(getQuestionsPanel(p));\r\n        reportPanel.setViewportBorder(null);\r\n        reportPanel.setVisible(false);\r\n\r\n    }\r\n\r\n\r\n    public JPanel getQuestionsPanel(Principal1 p) {\r\n        if (questionsPanel == null) {\r\n            questionsPanel = new PanelShadow();\r\n            questionsPanel.setLayout(null);\r\n            questionsPanel.setBounds(241, 100, 1030, 4000);\r\n            questionsPanel.setPreferredSize(new Dimension(1030, 620));\r\n            questionsPanel.setBackground(Color.WHITE);\r\n            questionsPanel.setOpaque(false);\r\n            questionsPanel.setBorder(null);\r\n\r\n            getPilaPanelesVisibles();\r\n            getPilaPanelesNoVisibles();\r\n\r\n            addQuestions(questionsPanel);\r\n\r\n            questionsPanel.add(getBtnFinish(p));\r\n            questionsPanel.add(getBtnPreview(p));\r\n            questionsPanel.add(getHeader());\r\n\r\n        }\r\n        return questionsPanel;\r\n    }\r\n\r\n\r\n    private void addQuestions(JPanel superPanel) {\r\n\r\n        ArrayList<Perspectiva> perspectivas = daoPerspectiva.consultPerspectivas();\r\n        ArrayList<logic.Entitys.Dimension> dimensiones;\r\n        ArrayList<Pregunta> preguntas;\r\n        int dimensionesAnteriores = 0;\r\n\r\n\r\n        /* Se utiliza un triple for anidado para englobar a las perspectivas, las dimensiones y a las preguntas*/\r\n        // Este for recorre todas las perspectivas\r\n        for (int i = 0; i < perspectivas.size(); i++) {\r\n            dimensiones = daoDimension.consultDimensiones(i + 1);\r\n            // Este for recorre todas las dimensiones pertenecientes a la perspectiva del for de afuera\r\n            for (int j = 0; j < dimensiones.size(); j++) {\r\n\r\n                // Se crea un header con el nombre de la perspectiva y la dimension a la que pertenecen las preguntas\r\n                JLabel header = new JLabel(\"<html> <p align: left> PP- \" + perspectivas.get(i).getNombre_perspectiva() + \"<br>  \" +\r\n                        \"DD-\" + dimensiones.get(j).getNombre_dimension() + \"</p></html>\");\r\n                header.setFont(new Font(\"Myriad Pro Bold Cond\", Font.BOLD, 19));\r\n                header.setForeground(new Color(8, 52, 128));\r\n                header.setBounds(50, 20, 600, 50);\r\n\r\n\r\n                preguntas = daoPregunta.consultPregunta(j + 1 + dimensionesAnteriores);\r\n\r\n                JPanel panel = new JPanel();\r\n                panel.setLayout(null);\r\n                panel.setBackground(null);\r\n                panel.setVisible(j == 0 && i == 0);\r\n                panel.add(header);\r\n                panel.add(getScrollPane(preguntas, getQuestionsTable()));\r\n                panel.setBounds(10, 10, 1010, 550);\r\n\r\n                panel.addMouseListener(new MouseAdapter() {\r\n                    @Override\r\n                    public void mouseClicked(MouseEvent e) {\r\n                        if(panel.contains(e.getPoint()))\r\n                            getQuestionsTable().clearSelection();\r\n                    }\r\n                });\r\n\r\n                superPanel.add(panel);\r\n                pilaPanelesVisibles.offerLast(panel);\r\n            }\r\n            dimensionesAnteriores += dimensiones.size();\r\n        }\r\n    }\r\n\r\n\r\n    // Método con todas las propiedades del encabezado del panel\r\n    private JLabel getHeader() {\r\n        if (header == null) {\r\n            header = new JLabel();\r\n            header.setFont(new Font(\"Arial\", Font.BOLD, 20));\r\n            header.setForeground(new Color(11, 52, 128, 255));\r\n            header.setBounds(50, 20, 800, 80);\r\n            header.setText(\"Requisitos, iniciativas, y buenas prácticas de transformación digital\");\r\n        }\r\n        return header;\r\n    }\r\n\r\n\r\n    private ButtonMenu getBtnFinish(Principal1 p) {\r\n\r\n        if (btnSavePDF == null) {\r\n            btnSavePDF = new ButtonMenu();\r\n            btnSavePDF.setText(\"Siguiente\");\r\n            btnSavePDF.setFont(new Font(\"Arial Rounded MT Bold\", Font.PLAIN, 16));\r\n            btnSavePDF.setCursor(new Cursor(Cursor.HAND_CURSOR));\r\n            btnSavePDF.setVerticalAlignment(SwingConstants.CENTER);\r\n            btnSavePDF.setHorizontalAlignment(SwingConstants.CENTER);\r\n            btnSavePDF.setVerticalTextPosition(SwingConstants.CENTER);\r\n            btnSavePDF.setHorizontalTextPosition(SwingConstants.CENTER);\r\n            btnSavePDF.setToolTipText(\"Pasar a la siguiente dimensión\");\r\n\r\n            int posY = getPilaPanelesVisibles().peekFirst().getHeight() + getPilaPanelesVisibles().peekFirst().getY();\r\n            btnSavePDF.setBounds(850, posY, 100, 45);\r\n\r\n            btnSavePDF.addMouseListener(new MouseAdapter() {\r\n                @Override\r\n                public void mouseClicked(MouseEvent e) {\r\n                    if (btnSavePDF.getText().equals(\"Finalizar\") && getPilaPanelesVisibles().size() == 1)\r\n                        p.getMenuPanel().panelControl(p, ReportPanel.Frame_Value);\r\n                    setVisibilityDimensionsPanels(1, p);\r\n                }\r\n            });\r\n        }\r\n        return btnSavePDF;\r\n    }\r\n\r\n    private ButtonMenu getBtnPreview(Principal1 p) {\r\n\r\n        if (btnPreview == null) {\r\n            btnPreview = new ButtonMenu();\r\n            btnPreview.setText(\"Anterior\");\r\n            btnPreview.setFont(new Font(\"Arial Rounded MT Bold\", Font.PLAIN, 16));\r\n            btnPreview.setVisible(false);\r\n            btnPreview.setCursor(new Cursor(Cursor.HAND_CURSOR));\r\n            btnPreview.setVerticalAlignment(SwingConstants.CENTER);\r\n            btnPreview.setHorizontalAlignment(SwingConstants.CENTER);\r\n            btnPreview.setVerticalTextPosition(SwingConstants.CENTER);\r\n            btnPreview.setHorizontalTextPosition(SwingConstants.CENTER);\r\n            btnPreview.setToolTipText(\"Pasar a la dimensión anterior\");\r\n\r\n            int posY = getPilaPanelesVisibles().peekFirst().getHeight() + getPilaPanelesVisibles().peekFirst().getY();\r\n            btnPreview.setBounds(100, posY, 100, 45);\r\n\r\n            btnPreview.addMouseListener(new MouseAdapter() {\r\n                @Override\r\n                public void mouseClicked(MouseEvent e) {\r\n                    setVisibilityDimensionsPanels(2, p);\r\n                }\r\n            });\r\n        }\r\n        return btnPreview;\r\n    }\r\n\r\n\r\n    private Deque<JPanel> getPilaPanelesVisibles() {\r\n        if (pilaPanelesVisibles == null) {\r\n            pilaPanelesVisibles = new ArrayDeque<>();\r\n        }\r\n        return pilaPanelesVisibles;\r\n    }\r\n\r\n    private Deque<JPanel> getPilaPanelesNoVisibles() {\r\n        if (pilaPanelesNoVisibles == null) {\r\n            pilaPanelesNoVisibles = new ArrayDeque<>();\r\n        }\r\n        return pilaPanelesNoVisibles;\r\n    }\r\n\r\n    public void resizeQuestionsPanel(Principal1 p) {\r\n        getQuestionsPanel(p).setPreferredSize(new Dimension(pilaPanelesVisibles.peek().getWidth(), pilaPanelesVisibles.peek().getHeight()));\r\n    }\r\n\r\n\r\n    public void setVisibilityDimensionsPanels(int value, Principal1 p) {\r\n\r\n        // Si el value = 1, significa que queremos avanzar, si es 2 queremos retroceder\r\n        if (!(getPilaPanelesVisibles().isEmpty()) && value == 1) {\r\n\r\n            if (getPilaPanelesVisibles().size() > 1) {\r\n                getPilaPanelesNoVisibles().offerFirst(getPilaPanelesVisibles().pollFirst());\r\n                Objects.requireNonNull(getPilaPanelesNoVisibles().peekFirst()).setVisible(false);\r\n                Objects.requireNonNull(getPilaPanelesVisibles().peek()).setVisible(true);\r\n                if (!getBtnPreview(p).isVisible())\r\n                    getBtnPreview(p).setVisible(true);\r\n                resizeQuestionsPanel(p);\r\n\r\n            }\r\n\r\n            if (getPilaPanelesVisibles().size() == 1) {\r\n                getBtnFinish(p).setText(\"Finalizar\");\r\n                getBtnFinish(p).setToolTipText(\"Terminar encuesta\");\r\n                resizeQuestionsPanel(p);\r\n            }\r\n\r\n\r\n        } else if (value == 2) {\r\n\r\n            if (!getPilaPanelesNoVisibles().isEmpty()) {\r\n                getPilaPanelesVisibles().offerFirst(getPilaPanelesNoVisibles().pollFirst());\r\n                Objects.requireNonNull(getPilaPanelesVisibles().peekFirst()).setVisible(true);\r\n                getBtnFinish(p).setText(\"Siguiente\");\r\n                resizeQuestionsPanel(p);\r\n\r\n                if (getPilaPanelesNoVisibles().isEmpty())\r\n                    getBtnPreview(p).setVisible(false);\r\n\r\n            }\r\n\r\n        }\r\n    }\r\n\r\n\r\n    @Override\r\n    public void setVisible(boolean a) {\r\n        this.reportPanel.setVisible(a);\r\n    }\r\n\r\n\r\n    private JTable getQuestionsTable() {\r\n\r\n        JTable questionsTable = new JTable() {\r\n            public boolean isCellEditable(int rowIndex, int colIndex) {\r\n                return colIndex == 2;\r\n            }\r\n        };\r\n        questionsTable.setRowHeight(60);\r\n        questionsTable.getTableHeader().setReorderingAllowed(false);\r\n        questionsTable.setModel(new DefaultTableModel(\r\n                new Object[][]{\r\n                        {null, null, null},\r\n                        {null, null, null},\r\n                },\r\n                new String[]{\r\n                        \"No.\", \"Requisitos, iniciativas y buenas prácticas de transformación digital (DO/LD)\", \"Puntos\"\r\n                }));\r\n\r\n        questionsTable.getTableHeader().setBackground(new Color(8, 52, 128));\r\n        questionsTable.getTableHeader().setForeground(Color.white);\r\n        questionsTable.getTableHeader().setFont(new Font(\"Myriad Pro Bold Cond\", Font.BOLD, 16));\r\n        questionsTable.setFont(new Font(\"Myriad Pro Bold Cond\", Font.BOLD, 13));\r\n\r\n        return questionsTable;\r\n    }\r\n\r\n    private JScrollPane getScrollPane(ArrayList<Pregunta> lista, JTable questionsTable) {\r\n\r\n        JScrollPane scrollPane = new JScrollPane();\r\n        scrollPane.setBounds(50, 100, 930, 430);\r\n        scrollPane.setVerticalScrollBar(new ScrollBarCustom());\r\n        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));\r\n        final DefaultTableModel model = new DefaultTableModel();\r\n        scrollPane.setViewportView(questionsTable);\r\n        model.addColumn(\"No.\");\r\n        model.addColumn(\"Requisitos, iniciativas y buenas prácticas de transformación digital (DO/LD)\");\r\n        model.addColumn(\"Valor\");\r\n\r\n\r\n        actualizarTabla(lista, model, questionsTable);\r\n\r\n        return scrollPane;\r\n    }\r\n\r\n    public void actualizarTabla(ArrayList<Pregunta> lista, DefaultTableModel model, JTable questionsTable) {\r\n        MyTableCellRenderer cellRenderer = new MyTableCellRenderer();\r\n\r\n        while (model.getRowCount() > 0) {\r\n            model.removeRow(0);\r\n        }\r\n\r\n\r\n        questionsTable.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);\r\n        for (int i = 0; i < lista.size(); i++) {\r\n            Object[] ob = new Object[3];\r\n            ob[0] = i + 1;\r\n            ob[1] = \"<html> <p style=\\\"text-align: left; vertical-align: middle;\\\">\" + lista.get(i).getPregunta() + \"</p></html>\";\r\n            ob[2] = lista.get(i).getPtos();\r\n\r\n            model.addRow(ob);\r\n        }\r\n        questionsTable.setModel(model);\r\n\r\n        questionsTable.addMouseListener(new MouseAdapter() {\r\n            @Override\r\n            public void mousePressed(MouseEvent e) {\r\n                if (questionsTable.getSelectedRow() != -1) {\r\n                    if (questionsTable.isColumnSelected(1) && e.getClickCount() ==2) {\r\n                        JOptionPane.showMessageDialog(null, \"<html>\" +\r\n                                \"<head>\\n\" +\r\n                                \"    <meta charset=\\\"UTF-8\\\">\\n\" +\r\n                                \"    <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">\\n\" +\r\n                                \"    <title>Tooltip Personalizado</title>\\n\" +\r\n                                \"    <style>\\n\" +\r\n                                \"        /* Estilo del tooltip */\\n\" +\r\n                                \"        .tooltip {\\n\" +\r\n                                \"            position: relative;\\n\" +\r\n                                \"            display: inline-block;\\n\" +\r\n                                \"            cursor: pointer;\\n\" +\r\n                                \"        }\\n\" +\r\n                                \"\\n\" +\r\n                                \"        .tooltip .tooltiptext {\\n\" +\r\n                                \"            visibility: hidden;\\n\" +\r\n                                \"            width: 500px;\\n\" +\r\n                                \"            height: 50px;\\n\" +\r\n                                \"            /*background-color: #555;*/\\n\" +\r\n                                \"            color: black;\\n\" +\r\n                                \"            text-align: left;\\n\" +\r\n                                \"            border-radius: 5px;\\n\" +\r\n                                \"            padding: 10px;\\n\" +\r\n                                \"            position: absolute;\\n\" +\r\n                                \"            z-index: 1;\\n\" +\r\n                                \"            bottom: 125%; /* Posición del tooltip */\\n\" +\r\n                                \"            left: 50%;\\n\" +\r\n                                \"            margin-left: -250px; /* Centrar el tooltip */\\n\" +\r\n                                \"            opacity: 0;\\n\" +\r\n                                \"            transition: opacity 0.3s;\\n\" +\r\n                                \"        }\\n\" +\r\n                                \"\\n\" +\r\n                                \"        .tooltip:hover .tooltiptext {\\n\" +\r\n                                \"            visibility: visible;\\n\" +\r\n                                \"            opacity: 1;\\n\" +\r\n                                \"        }\\n\" +\r\n                                \"    </style>\\n\" +\r\n                                \"</head>\\n\" +\r\n                                \"<body>\\n\" +\r\n                                \"\\n\" +\r\n                                \"<div class=\\\"tooltip\\\">\\n\" +\r\n                                \"    <div class=\\\"tooltiptext\\\"> <p align: center>\" + lista.get(questionsTable.getSelectedRow()).getPregunta() +\r\n                                \"</p> </div>\\n\" +\r\n                                \"</div>\\n\" +\r\n                                \"\\n\" +\r\n                                \"</body>\" +\r\n                                \"</html>\", \"Requisitos, iniciativas y buenas prácticas de transformación digital (DO/LD)\", JOptionPane.INFORMATION_MESSAGE);\r\n                    }\r\n                }\r\n\r\n\r\n            }\r\n        });\r\n        ToolTipManager.sharedInstance().setInitialDelay(750);\r\n\r\n        Integer[] points = {0, 1, 2, 3, 4};\r\n        JComboBox<Integer> pointsComboBox = new JComboBox<>();\r\n        for (Integer p : points) {\r\n            pointsComboBox.addItem(p);\r\n        }\r\n        pointsComboBox.setToolTipText(\"<html> <p>0 = NO EXISTENTE<br>1 = INICIANDO<br>2 = HABILITANDO<br>3 = OPERACIONAL\" +\r\n                \"<br>4 = OPTIMIZADO</html>\");\r\n        pointsComboBox.setBackground(Color.WHITE);\r\n        questionsTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(pointsComboBox));\r\n\r\n        questionsTable.getColumnModel().getColumn(2).setMaxWidth(50);\r\n        questionsTable.getColumnModel().getColumn(0).setMaxWidth(50);\r\n\r\n        questionsTable.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);\r\n        questionsTable.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Interface/newInterface/QuestionPanel.java b/src/Interface/newInterface/QuestionPanel.java
+--- a/src/Interface/newInterface/QuestionPanel.java	(revision 6e7aaad8d69ed8c39b4859224b6f352f356f2359)
++++ b/src/Interface/newInterface/QuestionPanel.java	(date 1729876018085)
+@@ -16,6 +16,7 @@
+ import java.awt.*;
+ import java.awt.event.MouseAdapter;
+ import java.awt.event.MouseEvent;
++import java.io.IOException;
+ import java.util.ArrayDeque;
+ import java.util.ArrayList;
+ import java.util.Deque;
+@@ -185,8 +186,14 @@
+             btnSavePDF.addMouseListener(new MouseAdapter() {
+                 @Override
+                 public void mouseClicked(MouseEvent e) {
+-                    if (btnSavePDF.getText().equals("Finalizar") && getPilaPanelesVisibles().size() == 1)
++                    if (btnSavePDF.getText().equals("Finalizar") && getPilaPanelesVisibles().size() == 1) {
++                        try {
++                            p.getReportPanel().settearIcons();
++                        } catch (IOException ex) {
++                            throw new RuntimeException(ex);
++                        }
+                         p.getMenuPanel().panelControl(p, ReportPanel.Frame_Value);
++                    }
+                     setVisibilityDimensionsPanels(1, p);
+                 }
+             });
+Index: src/Interface/newInterface/MenuPanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Interface.newInterface;\r\n\r\n\r\nimport Interface.newInterface.Chart.ReportPanel;\r\n\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\nimport java.awt.event.MouseAdapter;\r\nimport java.awt.event.MouseEvent;\r\n\r\npublic class MenuPanel extends JPanel {\r\n    //Declaración de variables\r\n\r\n    private JPanel menuPanel;\r\n    private ButtonMenu btnSettings;\r\n    private ButtonMenu btnReports;\r\n    private ButtonMenu btnMainPanel;\r\n    private ButtonMenu btnQuestions;\r\n\r\n\r\n\r\n    public MenuPanel(Principal1 p){\r\n        menuPanel = new JPanel();\r\n        p.getContentPane().add(menuPanel);\r\n        menuPanel.setLayout(null);\r\n        menuPanel.setBounds(0, 101, 239, 619);\r\n        menuPanel.setBackground(Color.WHITE);\r\n        menuPanel.add(getBtnSettings(p));\r\n        menuPanel.add(getBtnReports(p));\r\n        menuPanel.add(getBtnMainPanel(p));\r\n        menuPanel.add(getBtnQuestionsPanel(p));\r\n\r\n\r\n\r\n    }\r\n\r\n    /*Configuración del botón de settings*/\r\n    //========================================================================\r\n\r\n    private ButtonMenu getBtnSettings(Principal1 p) {\r\n\r\n        if (btnSettings == null) {\r\n            btnSettings = new ButtonMenu();\r\n            btnSettings.setText(\"Configuración\");\r\n            btnSettings.setIcon(new ImageIcon(getClass().getResource(\"/util/settings-svgrepo-com(1).png\")));\r\n            btnSettings.setBounds(20, 20, 100, 100);\r\n            btnSettings.setCursor(new Cursor(Cursor.HAND_CURSOR));\r\n            btnSettings.setHorizontalAlignment(SwingConstants.LEFT);\r\n            btnSettings.setVerticalTextPosition(SwingConstants.BOTTOM);\r\n            btnSettings.setHorizontalTextPosition(SwingConstants.CENTER);\r\n\r\n\r\n\r\n            btnSettings.addMouseListener(new MouseAdapter()  {\r\n                @Override\r\n                public void mousePressed(MouseEvent e) {\r\n                    panelControl(p, SettingPanel.Frame_Value);\r\n\r\n                }\r\n\r\n                @Override\r\n                public void mouseEntered(MouseEvent e) {\r\n                    // Cambia el color de fondo cuando se pasa el cursor por encima\r\n                    btnSettings.setBackground(Color.gray);\r\n                }\r\n\r\n                @Override\r\n                public void mouseExited(MouseEvent e) {\r\n                    // Restaura el color de fondo cuando el cursor sale\r\n                    btnSettings.setBackground(null);\r\n                }\r\n            });\r\n        }\r\n        return btnSettings;\r\n    }\r\n    //========================================================================\r\n\r\n\r\n    /*Configuración del botón de Reportes*/\r\n    //========================================================================\r\n    private ButtonMenu getBtnReports(Principal1 p) {\r\n\r\n        if (btnReports == null) {\r\n            btnReports = new ButtonMenu();\r\n            btnReports.setText(\"Reportes\");\r\n            btnReports.setIcon(new ImageIcon(getClass().getResource(\"/util/chart.png\")));\r\n            btnReports.setBounds(130, 20, 100, 100);\r\n            btnReports.setCursor(new Cursor(Cursor.HAND_CURSOR));\r\n            btnReports.setHorizontalAlignment(SwingConstants.CENTER);\r\n            btnReports.setVerticalTextPosition(SwingConstants.BOTTOM);\r\n            btnReports.setHorizontalTextPosition(SwingConstants.CENTER);\r\n\r\n\r\n            btnReports.addMouseListener(new MouseAdapter()  {\r\n                @Override\r\n                public void mousePressed(MouseEvent e) {\r\n                    panelControl(p, ReportPanel.Frame_Value);\r\n                }\r\n\r\n                @Override\r\n                public void mouseEntered(MouseEvent e) {\r\n                    // Cambia el color de fondo cuando se pasa el cursor por encima\r\n                    btnReports.setBackground(Color.gray);\r\n                }\r\n\r\n                @Override\r\n                public void mouseExited(MouseEvent e) {\r\n                    // Restaura el color de fondo cuando el cursor sale\r\n                    btnReports.setBackground(null);\r\n                }\r\n            });\r\n        }\r\n        return btnReports;\r\n    }\r\n\r\n\r\n\r\n    //Configuración del botón para la pantalla principal\r\n    //=========================================================\r\n\r\n    private ButtonMenu getBtnMainPanel(Principal1 p) {\r\n\r\n        if (btnMainPanel == null) {\r\n            btnMainPanel = new ButtonMenu();\r\n            btnMainPanel.setText(\"Principal\");\r\n            btnMainPanel.setIcon(new ImageIcon(getClass().getResource(\"/util/página-principal-25.png\")));\r\n            btnMainPanel.setBounds(20, 140, 100, 100);\r\n            btnMainPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));\r\n            //btnMainPanel.setFont(new Font(\"Arial\", Font.BOLD, 16));\r\n            btnMainPanel.setHorizontalAlignment(SwingConstants.CENTER);\r\n            btnMainPanel.setVerticalTextPosition(SwingConstants.BOTTOM);\r\n            btnMainPanel.setHorizontalTextPosition(SwingConstants.CENTER);\r\n\r\n\r\n            btnMainPanel.addMouseListener(new MouseAdapter()  {\r\n                @Override\r\n                public void mousePressed(MouseEvent e) {\r\n                    panelControl(p,DashboardPanel.Frame_Value);\r\n                }\r\n\r\n                @Override\r\n                public void mouseEntered(MouseEvent e) {\r\n                    // Cambia el color de fondo cuando se pasa el cursor por encima\r\n                    btnMainPanel.setBackground(Color.gray);\r\n                }\r\n\r\n                @Override\r\n                public void mouseExited(MouseEvent e) {\r\n                    // Restaura el color de fondo cuando el cursor sale\r\n                    btnMainPanel.setBackground(null);\r\n                }\r\n            });\r\n        }\r\n        return btnMainPanel;\r\n    }\r\n\r\n    //Configuración del botón para la pantalla principal\r\n    //=========================================================\r\n\r\n    private ButtonMenu getBtnQuestionsPanel(Principal1 p) {\r\n\r\n        if (btnQuestions == null) {\r\n            btnQuestions = new ButtonMenu();\r\n            btnQuestions.setText(\"Cuestionario\");\r\n            btnQuestions.setIcon(new ImageIcon(getClass().getResource(\"/util/cuestionario-25.png\")));\r\n            btnQuestions.setBounds(130, 140, 100, 100);\r\n            btnQuestions.setCursor(new Cursor(Cursor.HAND_CURSOR));\r\n            //btnMainPanel.setFont(new Font(\"Arial\", Font.BOLD, 16));\r\n            btnQuestions.setHorizontalAlignment(SwingConstants.CENTER);\r\n            btnQuestions.setVerticalTextPosition(SwingConstants.BOTTOM);\r\n            btnQuestions.setHorizontalTextPosition(SwingConstants.CENTER);\r\n\r\n\r\n            btnQuestions.addMouseListener(new MouseAdapter()  {\r\n                @Override\r\n                public void mousePressed(MouseEvent e) {\r\n                    panelControl(p,QuestionPanel.Frame_Value);\r\n                }\r\n\r\n                @Override\r\n                public void mouseEntered(MouseEvent e) {\r\n                    // Cambia el color de fondo cuando se pasa el cursor por encima\r\n                    btnQuestions.setBackground(Color.gray);\r\n                }\r\n\r\n                @Override\r\n                public void mouseExited(MouseEvent e) {\r\n                    // Restaura el color de fondo cuando el cursor sale\r\n                    btnQuestions.setBackground(null);\r\n                }\r\n            });\r\n        }\r\n        return btnQuestions;\r\n    }\r\n\r\n\r\n    //Método para controlar la visibilidad de los paneles (Ventanas)\r\n    //================================================================\r\n    public void panelControl(Principal1 p, int i){\r\n\r\n        switch (i){\r\n\r\n            /*0 -> Para poner visible la pantalla principal*/\r\n            //===============================================\r\n            case 0:\r\n                p.getDashboardPanel().setVisible(true);\r\n                p.getReportPanel().setVisible(false);\r\n                p.getQuestionsPanel().setVisible(false);\r\n                p.getSettingPanel().setVisible(false);\r\n                break;\r\n\r\n            /*1 -> Para poner visible la pantalla de Reportes*/\r\n            //===============================================\r\n            case 1:\r\n                p.getReportPanel().setVisible(true);\r\n                p.getDashboardPanel().setVisible(false);\r\n                p.getQuestionsPanel().setVisible(false);\r\n                p.getSettingPanel().setVisible(false);\r\n                break;\r\n\r\n            /*2 -> Para poner visible la pantalla de Preguntas*/\r\n            //===============================================\r\n            case 2:\r\n                p.getQuestionsPanel().setVisible(true);\r\n                p.getDashboardPanel().setVisible(false);\r\n                p.getReportPanel().setVisible(false);\r\n                p.getSettingPanel().setVisible(false);\r\n                break;\r\n\r\n             /*3 -> Para poner visible la pantalla de Configuración*/\r\n            case 3:\r\n                p.getSettingPanel().setVisible(true);\r\n                p.getQuestionsPanel().setVisible(false);\r\n                p.getDashboardPanel().setVisible(false);\r\n                p.getReportPanel().setVisible(false);\r\n                break;\r\n            default:\r\n                break;\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Interface/newInterface/MenuPanel.java b/src/Interface/newInterface/MenuPanel.java
+--- a/src/Interface/newInterface/MenuPanel.java	(revision 6e7aaad8d69ed8c39b4859224b6f352f356f2359)
++++ b/src/Interface/newInterface/MenuPanel.java	(date 1729833728141)
+@@ -2,6 +2,8 @@
+ 
+ 
+ import Interface.newInterface.Chart.ReportPanel;
++import logic.GraphicsReport;
++import net.sf.jasperreports.engine.JRException;
+ 
+ 
+ import javax.swing.*;
+@@ -96,6 +98,7 @@
+                 @Override
+                 public void mousePressed(MouseEvent e) {
+                     panelControl(p, ReportPanel.Frame_Value);
++
+                 }
+ 
+                 @Override
+@@ -217,6 +220,13 @@
+                 p.getDashboardPanel().setVisible(false);
+                 p.getQuestionsPanel().setVisible(false);
+                 p.getSettingPanel().setVisible(false);
++                GraphicsReport graphicsReport = null;
++                try {
++                    graphicsReport = new GraphicsReport();
++                } catch (JRException ex) {
++                    throw new RuntimeException(ex);
++                }
++                graphicsReport.mostrarVentanaReporte();
+                 break;
+ 
+             /*2 -> Para poner visible la pantalla de Preguntas*/
+Index: src/util/table/TableTreeModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/util/table/TableTreeModel.java b/src/util/table/TableModel.java
+rename from src/util/table/TableTreeModel.java
+rename to src/util/table/TableModel.java
+--- a/src/util/table/TableTreeModel.java	(revision 6e7aaad8d69ed8c39b4859224b6f352f356f2359)
++++ b/src/util/table/TableModel.java	(date 1729790604514)
+@@ -1,33 +1,34 @@
+ package util.table;
+ 
+ 
+-import logic.Model;
++import logic.useful.Model;
++
+ import javax.swing.table.DefaultTableModel;
+ import java.util.List;
+ 
+-public class TableTreeModel extends DefaultTableModel{
++public class TableModel extends DefaultTableModel{
+ 
+-    public TableTreeModel(){
+-        String[] columnNames = {"Nombre"};
++    public TableModel(){
++        String[] columnNames = {"No.", "Nombre"};
+         this.setColumnIdentifiers(columnNames);
+     }
+ 
+-    public TableTreeModel(List<Model> list){
+-        String[] columnNames = {"Nombre"};
++    public TableModel(List<Model> list){
++        String[] columnNames = {"No.", "Nombre"};
+         this.setColumnIdentifiers(columnNames);
+ 
+         for(Model m: list){
+-            Object[] newRow = new Object[]{m.getLine()};
++            Object[] newRow = new Object[]{m.getId(), m.getLine()};
+             addRow(newRow);
+         }
+     }
+ 
+     public void actTable(List<Model> list){
+-        String[] columnNames = {"Nombre"};
++        String[] columnNames = {"No.", "Nombre"};
+         this.setColumnIdentifiers(columnNames);
+ 
+         for (Model m: list) {
+-            Object[] newRow = new Object[]{m.getLine()};
++            Object[] newRow = new Object[]{m.getId(), m.getLine()};
+             addRow(newRow);
+         }
+     }
+@@ -37,8 +38,8 @@
+         return false;
+     }
+ 
+-    public void insert(String name){
+-        Object[] newRow = new Object[]{name};
++    public void insert(Model m){
++        Object[] newRow = new Object[]{m.getId(), m.getLine()};
+         addRow(newRow);
+     }
+ 
+Index: src/Interface/newInterface/Chart/ReportPanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Interface.newInterface.Chart;\r\n\r\nimport Interface.export.swing.PanelShadow;\r\nimport Interface.export.swing.scrollbar.ScrollBarCustom;\r\nimport Interface.newInterface.Principal1;\r\nimport Interface.newInterface.python.PythonExecutor;\r\n\r\nimport javax.imageio.ImageIO;\r\nimport javax.swing.*;\r\nimport javax.swing.border.EmptyBorder;\r\nimport java.awt.*;\r\nimport java.awt.event.MouseAdapter;\r\nimport java.awt.event.MouseEvent;\r\nimport java.awt.image.BufferedImage;\r\nimport java.awt.image.ImageObserver;\r\nimport java.awt.image.ImageProducer;\r\nimport java.io.File;\r\nimport java.io.IOException;\r\nimport java.net.URL;\r\nimport java.util.Objects;\r\n\r\npublic class ReportPanel extends JScrollPane {\r\n\r\n\r\n    public static final int Frame_Value = 1;\r\n    private final JScrollPane reportPanel;\r\n    private JPanel chartPanel;\r\n\r\n    private JButton btnSavePDF;\r\n    private PanelShadow panelShadow;\r\n\r\n    private ChartMDG chartMDG;\r\n    private ChartAmbits chartAmbits;\r\n    private ChartPerspective chartPerspective;\r\n    private MdgMdaMdpTable mdgMdaMdpTable;\r\n\r\n    private JLabel jlabel;\r\n    private JLabel jPieLabel;\r\n\r\n\r\n    public ReportPanel(Principal1 p) throws Exception {\r\n        reportPanel = new JScrollPane();\r\n        p.getContentPane().add(reportPanel);\r\n        reportPanel.setBounds(241, 100, 1039, 620);\r\n        reportPanel.setBorder(null);\r\n        reportPanel.setVerticalScrollBar(new ScrollBarCustom());\r\n        reportPanel.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);\r\n        reportPanel.setViewportView(getChartPanel(p));\r\n        reportPanel.setViewportBorder(null);\r\n        reportPanel.setVisible(false);\r\n\r\n    }\r\n\r\n\r\n\r\n    private JPanel getChartPanel(Principal1 p) throws Exception {\r\n        if (chartPanel == null) {\r\n            chartPanel = new JPanel();\r\n            chartPanel.setLayout(null);\r\n            chartPanel.setBounds(241, 100, 1030, 900);\r\n            chartPanel.setPreferredSize(new Dimension(1030, 5000));\r\n            chartPanel.setBackground(Color.WHITE);\r\n            chartPanel.setOpaque(false);\r\n            chartPanel.setBorder(null);\r\n            chartPanel.add(getBtnSavePDF(p));\r\n            chartPanel.add(getShadowPanel());\r\n\r\n\r\n        }\r\n        return chartPanel;\r\n    }\r\n\r\n    private PanelShadow getShadowPanel() throws Exception {\r\n        if (panelShadow == null) {\r\n            panelShadow = new PanelShadow();\r\n            panelShadow.setBounds(3, 3, 1030, 4000);\r\n            panelShadow.setLayout(null);\r\n            panelShadow.add(getChartMDG());\r\n            panelShadow.add(getChartAmbits());\r\n            panelShadow.add(getCharPerspective());\r\n            panelShadow.add(getMdgMdaMdpTable());\r\n            //panelShadow.add(getMDChart(1));\r\n            //panelShadow.add(getMDChart(1));\r\n\r\n            // Crea la imagen del panel para luego exportarla al pdf y word\r\n            BufferedImage image = new BufferedImage(panelShadow.getWidth(), panelShadow.getHeight(), BufferedImage.TYPE_INT_RGB);\r\n            Graphics2D g2d = image.createGraphics();\r\n            panelShadow.paint(g2d);\r\n            g2d.dispose();\r\n\r\n            // Guarda la imagen\r\n            ImageIO.write(image, \"png\", new File(\"panel2.png\"));\r\n        }\r\n        return panelShadow;\r\n    }\r\n\r\n\r\n    /** Este método se encarga de construir las gráficas de índices porcentuales dependiendo del campo que se elija\r\n     *  ⇒ Puede ser 1, 2 o 3, para referirse a los campos de Ámbitos, Perspectivas y Dimensiones\r\n     *              respectivamente*/\r\n//    private JLabel getMDChart(int field){\r\n//        if(jlabel == null){\r\n//            jlabel = new JLabel(\"\");\r\n//\r\n//            if(field == 1)\r\n//                // Se crea la gráfica de MDA (Madurez Digital por Ámbitos)\r\n//                PythonExecutor.imdChart(\"['Centralidad en el Cliente', 'Procesos']\", \"[89.00, 25.00]\", \"6\", \"4\");\r\n//            else if(field == 2)\r\n//                // Se crea la gráfica de MDP (Madurez Digital por Perspectivas)\r\n//                PythonExecutor.imdChart(\"['Centralidad en el Cliente', 'Procesos']\", \"[50.00, 25.00]\", \"6\", \"4\");\r\n//            else{\r\n//                // Se crea la gráfica de MDD (Madurez Digital por Dimensiones)\r\n//                PythonExecutor.imdChart(\"['Centralidad en el Cliente', 'Procesos']\", \"[50.00, 25.00]\", \"6\", \"4\");\r\n//            }\r\n//            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/chartsPython/grafica.png\"), \"Imagen no encontrada\"));\r\n//            jlabel.setIcon(icon);\r\n//            jlabel.setBounds(10,1, 800,400);\r\n//        }\r\n//        return jlabel;\r\n//    }\r\n\r\n\r\n//    private JLabel getPieChart(int field){\r\n//        if(jPieLabel == null){\r\n//            jPieLabel = new JLabel(\"\");\r\n//\r\n//            if(field == 1)\r\n//                // Se crea la gráfica de MDA (Madurez Digital por Ámbitos)\r\n//                PythonExecutor.pieChart(\"'Centralidad en el Cliente'\", \"25.00\", \"6\", \"4\");\r\n//            else if(field == 2)\r\n//                // Se crea la gráfica de MDP (Madurez Digital por Perspectivas)\r\n//                PythonExecutor.pieChart(\"['Centralidad en el Cliente', 'Procesos']\", \"[50.00, 25.00]\", \"6\", \"4\");\r\n//            else{\r\n//                // Se crea la gráfica de MDD (Madurez Digital por Dimensiones)\r\n//                PythonExecutor.pieChart(\"['Centralidad en el Cliente', 'Procesos']\", \"[50.00, 25.00]\", \"6\", \"4\");\r\n//            }\r\n//            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource(\"/util/chartsPython/graficaCircular1.png\"), \"Imagen no encontrada\"));\r\n//            jPieLabel.setIcon(icon);\r\n//            jPieLabel.setBounds(30,300, 800,400);\r\n//        }\r\n//        return jPieLabel;\r\n//    }\r\n\r\n\r\n\r\n    private ChartMDG getChartMDG() {\r\n        if (chartMDG == null){\r\n            chartMDG = new ChartMDG(14.58f, 31.25f);\r\n            chartMDG.setLocation(10,10);\r\n            chartMDG.setBackground(null);\r\n            chartMDG.setOpaque(false);\r\n\r\n        }\r\n        return chartMDG;\r\n    }\r\n\r\n    /**Método para crear todas las cosas que tienen ver con los resultados del\r\n      índice de madurez digital por ámbitos*/\r\n    private ChartAmbits getChartAmbits() {\r\n        if (chartAmbits == null) {\r\n            chartAmbits = new ChartAmbits(50.58f, 31.25f);\r\n            int y = chartMDG.getY() + chartMDG.getHeight() + 22;\r\n            chartAmbits.setLocation(15, y);\r\n            chartAmbits.setOpaque(false);\r\n            chartAmbits.setBackground(Color.WHITE);\r\n        }\r\n        return chartAmbits;\r\n    }\r\n\r\n\r\n    /**Método para crear todas las cosas que tienen ver con los resultados del\r\n     índice de madurez digital por perspectivas*/\r\n    private ChartPerspective getCharPerspective() {\r\n        if (chartPerspective == null) {\r\n            chartPerspective = new ChartPerspective(12.50f, 20.83f, 0.00f, 25.00f, 50.00f, 12.50f);\r\n            int y = chartAmbits.getY() + chartAmbits.getHeight() + 22;\r\n            chartPerspective.setLocation(15, y);//1180\r\n            chartPerspective.setOpaque(false);\r\n            chartPerspective.setBackground(Color.WHITE);\r\n        }\r\n        return chartPerspective;\r\n    }\r\n\r\n\r\n    private MdgMdaMdpTable getMdgMdaMdpTable(){\r\n        if(mdgMdaMdpTable == null){\r\n            mdgMdaMdpTable = new MdgMdaMdpTable(23.3f, 34.5f, 23.67f);\r\n            int y = chartPerspective.getY() + chartPerspective.getHeight() + 22;\r\n            mdgMdaMdpTable.setLocation(12, y);\r\n            mdgMdaMdpTable.setOpaque(false);\r\n            mdgMdaMdpTable.setBackground(Color.WHITE);\r\n        }\r\n        return mdgMdaMdpTable;\r\n    }\r\n\r\n\r\n    private JButton getBtnSavePDF(Principal1 p) {\r\n\r\n        if (btnSavePDF == null) {\r\n            btnSavePDF = new JButton();\r\n            ImageIcon icon = new ImageIcon(getClass().getResource(\"/util/archive-down.png\"));\r\n            btnSavePDF.setIcon(icon);\r\n            btnSavePDF.setBackground(null);\r\n            btnSavePDF.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));\r\n            btnSavePDF.setHorizontalAlignment(SwingConstants.CENTER);\r\n            btnSavePDF.setHorizontalTextPosition(SwingConstants.CENTER);\r\n            btnSavePDF.setIconTextGap(1);\r\n            btnSavePDF.setBounds(970, 1300, 45, 45);\r\n            btnSavePDF.setBorder(new EmptyBorder(0, 0, 0, 0));\r\n            btnSavePDF.setToolTipText(\"Guardar información en un pdf\");\r\n\r\n            btnSavePDF.addMouseListener(new MouseAdapter() {\r\n                @Override\r\n                public void mouseClicked(MouseEvent e) {\r\n                    String filepath = \"\";\r\n                    try {\r\n                        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());\r\n                    } catch (ClassNotFoundException ex) {\r\n                        throw new RuntimeException(ex);\r\n                    } catch (InstantiationException ex) {\r\n                        throw new RuntimeException(ex);\r\n                    } catch (IllegalAccessException ex) {\r\n                        throw new RuntimeException(ex);\r\n                    } catch (UnsupportedLookAndFeelException ex) {\r\n                        throw new RuntimeException(ex);\r\n                    }\r\n                    JFileChooser chooser = new JFileChooser();\r\n                    chooser.setDialogTitle(\"Guardar pdf\");\r\n                    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);\r\n                    if(chooser.showOpenDialog(p) == JFileChooser.APPROVE_OPTION)\r\n                        filepath = chooser.getSelectedFile().getAbsolutePath();\r\n\r\n\r\n                }\r\n\r\n                @Override\r\n                public void mouseEntered(MouseEvent e) {\r\n                    // Cambia el color de fondo cuando se pasa el cursor por encima\r\n                    btnSavePDF.setBackground(Color.gray);\r\n                }\r\n\r\n                @Override\r\n                public void mouseExited(MouseEvent e) {\r\n                    // Restaura el color de fondo cuando el cursor sale\r\n                    btnSavePDF.setBackground(null);\r\n                }\r\n\r\n            });\r\n        }\r\n        return btnSavePDF;\r\n    }\r\n\r\n\r\n    @Override\r\n    public void setVisible(boolean a) {\r\n        this.reportPanel.setVisible(a);\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Interface/newInterface/Chart/ReportPanel.java b/src/Interface/newInterface/Chart/ReportPanel.java
+--- a/src/Interface/newInterface/Chart/ReportPanel.java	(revision 6e7aaad8d69ed8c39b4859224b6f352f356f2359)
++++ b/src/Interface/newInterface/Chart/ReportPanel.java	(date 1729875885462)
+@@ -156,7 +156,7 @@
+ 
+     /**Método para crear todas las cosas que tienen ver con los resultados del
+       índice de madurez digital por ámbitos*/
+-    private ChartAmbits getChartAmbits() {
++    private ChartAmbits getChartAmbits() throws IOException {
+         if (chartAmbits == null) {
+             chartAmbits = new ChartAmbits(50.58f, 31.25f);
+             int y = chartMDG.getY() + chartMDG.getHeight() + 22;
+@@ -250,6 +250,10 @@
+         return btnSavePDF;
+     }
+ 
++    public void settearIcons() throws IOException {
++        getChartAmbits().settearIcons();
++    }
++
+ 
+     @Override
+     public void setVisible(boolean a) {
+Index: src/logic/Model.java
+===================================================================
+diff --git a/src/logic/Model.java b/src/logic/Model.java
+deleted file mode 100644
+--- a/src/logic/Model.java	(revision 6e7aaad8d69ed8c39b4859224b6f352f356f2359)
++++ /dev/null	(revision 6e7aaad8d69ed8c39b4859224b6f352f356f2359)
+@@ -1,18 +0,0 @@
+-package logic;
+-
+-import java.io.Serializable;
+-
+-public class Model implements Serializable{
+-    protected String line;
+-
+-    public Model(String line) {
+-        this.line = line;
+-    }
+-
+-    public String getLine() {
+-        return line;
+-    }
+-    public void setName(String line) {
+-        this.line = line;
+-    }
+-}
+\ No newline at end of file
+Index: lib/reportes/ContratosVeterinarios.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/reportes/ContratosVeterinarios.java b/lib/reportes/ContratosVeterinarios.java
+new file mode 100644
+--- /dev/null	(date 1725976754000)
++++ b/lib/reportes/ContratosVeterinarios.java	(date 1725976754000)
+@@ -0,0 +1,98 @@
++package reportes;
++
++import com.spire.doc.Document;
++import conexion.Conexion;
++import net.sf.jasperreports.engine.*;
++import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
++import net.sf.jasperreports.engine.util.JRLoader;
++import net.sf.jasperreports.view.JasperViewer;
++
++import javax.swing.*;
++import javax.swing.filechooser.FileNameExtensionFilter;
++import java.awt.*;
++import java.awt.event.MouseAdapter;
++import java.awt.event.MouseEvent;
++import java.io.File;
++import java.io.IOException;
++import java.util.Objects;
++
++public class ContratosVeterinarios {
++    JasperPrint jprint;
++
++    public ContratosVeterinarios() throws JRException {
++
++        Conexion conexion = new Conexion();
++        JasperReport jr= (JasperReport) JRLoader.loadObject(Objects.requireNonNull(getClass().getResource("/utilesReportes/Contratos Veteriarios/ContratosVeterinarios.jasper")));
++        jprint = JasperFillManager.fillReport(jr, null, conexion.conectar());
++    }
++
++    public void mostrarVentanaReporte(){
++        JasperViewer view = new JasperViewer(jprint, false);
++        view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
++        view.setVisible(true);
++
++        view.getContentPane().setLayout(null);
++
++        view.getContentPane().getComponent(0).getComponentAt(0,0).getComponentAt(0,0).getComponentAt(0,2).setEnabled(false);
++        view.getContentPane().getComponent(0).getComponentAt(0,0).getComponentAt(0,0).getComponentAt(0,2).setVisible(false);
++        view.getContentPane().addMouseListener(new MouseAdapter() {
++            @Override
++            public void mouseClicked(MouseEvent e) {
++                if(e.getClickCount() == 2 && view.getContentPane().contains(e.getPoint())) {
++                    try {
++                        Toolkit.getDefaultToolkit().beep();
++                        if(JOptionPane.showConfirmDialog(null, "¿Desea guardar el reporte como pdf?", "Guardar", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION){
++                            JFileChooser fileChooser = new JFileChooser();
++                            fileChooser.setDialogTitle("Guardar reporte");
++                            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
++                            FileNameExtensionFilter filtroPdf = new FileNameExtensionFilter("Archivos pdf", "pdf");
++
++                            // Agregar el filtro al JFileChooser
++                            fileChooser.addChoosableFileFilter(filtroPdf);
++
++                            if(fileChooser.showDialog(view, "Guardar") == JFileChooser.APPROVE_OPTION) {
++                                Cursor cursorEspera = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
++                                view.setCursor(cursorEspera);
++                                exportarPDF_DOC(fileChooser.getSelectedFile());
++                                view.setCursor(Cursor.getDefaultCursor());
++                            }
++
++                        }
++
++                    } catch (JRException ex) {
++                        throw new RuntimeException(ex);
++                    }
++                }
++            }
++        });
++        Toolkit.getDefaultToolkit().beep();
++        JOptionPane.showMessageDialog(null, "Para guardar el reporte de doble click en la barra " +
++                "de herramientas", "Advertencia", JOptionPane.WARNING_MESSAGE);
++    }
++
++    public void exportarPDF_DOC(File currentD) throws JRException {
++
++        JRDocxExporter exporter = new JRDocxExporter();
++        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jprint);
++        //exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, "ConceptoAdopciones.docx");
++        exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, String.valueOf(currentD));
++        exporter.exportReport();
++
++        Document doc = new Document();
++
++        doc.loadFromFile(String.valueOf(currentD));
++        doc.saveToFile(String.valueOf(currentD));
++
++        try {
++            Desktop.getDesktop().open(currentD);
++        } catch (IOException e) {
++            throw new RuntimeException(e);
++        }
++
++        // Dispose resources
++        doc.dispose();
++
++
++
++    }
++}
+Index: lib/reportes/ContratosProveedoresAlimentos.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/reportes/ContratosProveedoresAlimentos.java b/lib/reportes/ContratosProveedoresAlimentos.java
+new file mode 100644
+--- /dev/null	(date 1725976754000)
++++ b/lib/reportes/ContratosProveedoresAlimentos.java	(date 1725976754000)
+@@ -0,0 +1,98 @@
++package reportes;
++
++import com.spire.doc.Document;
++import conexion.Conexion;
++import net.sf.jasperreports.engine.*;
++import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
++import net.sf.jasperreports.engine.util.JRLoader;
++import net.sf.jasperreports.view.JasperViewer;
++
++import javax.swing.*;
++import javax.swing.filechooser.FileNameExtensionFilter;
++import java.awt.*;
++import java.awt.event.MouseAdapter;
++import java.awt.event.MouseEvent;
++import java.io.File;
++import java.io.IOException;
++import java.util.Objects;
++
++public class ContratosProveedoresAlimentos {
++    JasperPrint jprint;
++
++    public ContratosProveedoresAlimentos() throws JRException {
++
++        Conexion conexion = new Conexion();
++        JasperReport jr= (JasperReport) JRLoader.loadObject(Objects.requireNonNull(getClass().getResource("/utilesReportes/Contrato Proveedores de Alimento/ContratosProveedoresAlimentos.jasper")));
++        jprint = JasperFillManager.fillReport(jr, null, conexion.conectar());
++    }
++
++    public void mostrarVentanaReporte(){
++        JasperViewer view = new JasperViewer(jprint, false);
++        view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
++        view.setVisible(true);
++
++        view.getContentPane().setLayout(null);
++
++        view.getContentPane().getComponent(0).getComponentAt(0,0).getComponentAt(0,0).getComponentAt(0,2).setEnabled(false);
++        view.getContentPane().getComponent(0).getComponentAt(0,0).getComponentAt(0,0).getComponentAt(0,2).setVisible(false);
++        view.getContentPane().addMouseListener(new MouseAdapter() {
++            @Override
++            public void mouseClicked(MouseEvent e) {
++                if(e.getClickCount() == 2 && view.getContentPane().contains(e.getPoint())) {
++                    try {
++                        Toolkit.getDefaultToolkit().beep();
++                        if(JOptionPane.showConfirmDialog(null, "¿Desea guardar el reporte como pdf?", "Guardar", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION){
++                            JFileChooser fileChooser = new JFileChooser();
++                            fileChooser.setDialogTitle("Guardar reporte");
++                            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
++                            FileNameExtensionFilter filtroPdf = new FileNameExtensionFilter("Archivos pdf", "pdf");
++
++                            // Agregar el filtro al JFileChooser
++                            fileChooser.addChoosableFileFilter(filtroPdf);
++
++                            if(fileChooser.showDialog(view, "Guardar") == JFileChooser.APPROVE_OPTION) {
++                                Cursor cursorEspera = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
++                                view.setCursor(cursorEspera);
++                                exportarPDF_DOC(fileChooser.getSelectedFile());
++                                view.setCursor(Cursor.getDefaultCursor());
++                            }
++
++                        }
++
++                    } catch (JRException ex) {
++                        throw new RuntimeException(ex);
++                    }
++                }
++            }
++        });
++        Toolkit.getDefaultToolkit().beep();
++        JOptionPane.showMessageDialog(null, "Para guardar el reporte de doble click en la barra " +
++                "de herramientas", "Advertencia", JOptionPane.WARNING_MESSAGE);
++    }
++
++    public void exportarPDF_DOC(File currentD) throws JRException {
++
++        JRDocxExporter exporter = new JRDocxExporter();
++        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jprint);
++        //exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, "ConceptoAdopciones.docx");
++        exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, String.valueOf(currentD));
++        exporter.exportReport();
++
++        Document doc = new Document();
++
++        doc.loadFromFile(String.valueOf(currentD));
++        doc.saveToFile(String.valueOf(currentD));
++
++        try {
++            Desktop.getDesktop().open(currentD);
++        } catch (IOException e) {
++            throw new RuntimeException(e);
++        }
++
++        // Dispose resources
++        doc.dispose();
++
++
++
++    }
++}
+Index: lib/reportes/ContratosVeterinariosActivos.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/reportes/ContratosVeterinariosActivos.java b/lib/reportes/ContratosVeterinariosActivos.java
+new file mode 100644
+--- /dev/null	(date 1725976754000)
++++ b/lib/reportes/ContratosVeterinariosActivos.java	(date 1725976754000)
+@@ -0,0 +1,97 @@
++package reportes;
++
++import com.spire.doc.Document;
++import conexion.Conexion;
++import net.sf.jasperreports.engine.*;
++import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
++import net.sf.jasperreports.engine.util.JRLoader;
++import net.sf.jasperreports.view.JasperViewer;
++
++import javax.swing.*;
++import javax.swing.filechooser.FileNameExtensionFilter;
++import java.awt.*;
++import java.awt.event.MouseAdapter;
++import java.awt.event.MouseEvent;
++import java.io.File;
++import java.io.IOException;
++import java.util.Objects;
++
++public class ContratosVeterinariosActivos {
++
++    JasperPrint jprint;
++
++    public ContratosVeterinariosActivos() throws JRException {
++
++        Conexion conexion = new Conexion();
++        JasperReport jr= (JasperReport) JRLoader.loadObject(Objects.requireNonNull(getClass().getResource("/utilesReportes/Contratos veterinarios activos/ContratosVeterinariosActivos.jasper")));
++        jprint = JasperFillManager.fillReport(jr, null, conexion.conectar());
++    }
++
++    public void mostrarVentanaReporte(){
++        JasperViewer view = new JasperViewer(jprint, false);
++        view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
++        view.setVisible(true);
++
++        view.getContentPane().setLayout(null);
++
++        view.getContentPane().getComponent(0).getComponentAt(0,0).getComponentAt(0,0).getComponentAt(0,2).setEnabled(false);
++        view.getContentPane().getComponent(0).getComponentAt(0,0).getComponentAt(0,0).getComponentAt(0,2).setVisible(false);
++        view.getContentPane().addMouseListener(new MouseAdapter() {
++            @Override
++            public void mouseClicked(MouseEvent e) {
++                if(e.getClickCount() == 2 && view.getContentPane().contains(e.getPoint())) {
++                    try {
++                        Toolkit.getDefaultToolkit().beep();
++                        if(JOptionPane.showConfirmDialog(null, "¿Desea guardar el reporte como pdf?", "Guardar", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION){
++                            JFileChooser fileChooser = new JFileChooser();
++                            fileChooser.setDialogTitle("Guardar reporte");
++                            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
++                            FileNameExtensionFilter filtroPdf = new FileNameExtensionFilter("Archivos pdf", "pdf");
++
++                            // Agregar el filtro al JFileChooser
++                            fileChooser.addChoosableFileFilter(filtroPdf);
++
++                            if(fileChooser.showDialog(view, "Guardar") == JFileChooser.APPROVE_OPTION) {
++                                Cursor cursorEspera = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
++                                view.setCursor(cursorEspera);
++                                exportarPDF_DOC(fileChooser.getSelectedFile());
++                                view.setCursor(Cursor.getDefaultCursor());
++                            }
++
++                        }
++
++                    } catch (JRException ex) {
++                        throw new RuntimeException(ex);
++                    }
++                }
++            }
++        });
++        Toolkit.getDefaultToolkit().beep();
++        JOptionPane.showMessageDialog(null, "Para guardar el reporte de doble click en la barra " +
++                "de herramientas", "Advertencia", JOptionPane.WARNING_MESSAGE);
++
++    }
++
++    public void exportarPDF_DOC(File currentD) throws JRException {
++
++        JRDocxExporter exporter = new JRDocxExporter();
++        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jprint);
++        //exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, "ConceptoAdopciones.docx");
++        exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, String.valueOf(currentD));
++        exporter.exportReport();
++
++        Document doc = new Document();
++
++        doc.loadFromFile(String.valueOf(currentD));
++        doc.saveToFile(String.valueOf(currentD));
++
++        try {
++            Desktop.getDesktop().open(currentD);
++        } catch (IOException e) {
++            throw new RuntimeException(e);
++        }
++
++        // Dispose resources
++        doc.dispose();
++    }
++}
+Index: lib/reportes/ContratosServicioComplementario.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/reportes/ContratosServicioComplementario.java b/lib/reportes/ContratosServicioComplementario.java
+new file mode 100644
+--- /dev/null	(date 1725976754000)
++++ b/lib/reportes/ContratosServicioComplementario.java	(date 1725976754000)
+@@ -0,0 +1,97 @@
++package reportes;
++
++import com.spire.doc.Document;
++import conexion.Conexion;
++import net.sf.jasperreports.engine.*;
++import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
++import net.sf.jasperreports.engine.util.JRLoader;
++import net.sf.jasperreports.view.JasperViewer;
++
++import javax.swing.*;
++import javax.swing.filechooser.FileNameExtensionFilter;
++import java.awt.*;
++import java.awt.event.MouseAdapter;
++import java.awt.event.MouseEvent;
++import java.io.File;
++import java.io.IOException;
++import java.util.Objects;
++
++public class ContratosServicioComplementario {
++
++    JasperPrint jprint;
++
++    public ContratosServicioComplementario() throws JRException {
++
++        Conexion conexion = new Conexion();
++        JasperReport jr= (JasperReport) JRLoader.loadObject(Objects.requireNonNull(getClass().getResource("/utilesReportes/Reporte contratos de servicios complementarios/ContratosServiciosComplementarios.jasper")));
++        jprint = JasperFillManager.fillReport(jr, null, conexion.conectar());
++    }
++
++    public void mostrarVentanaReporte(){
++        JasperViewer view = new JasperViewer(jprint, false);
++        view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
++        view.setVisible(true);
++
++        view.getContentPane().setLayout(null);
++
++        view.getContentPane().getComponent(0).getComponentAt(0,0).getComponentAt(0,0).getComponentAt(0,2).setEnabled(false);
++        view.getContentPane().getComponent(0).getComponentAt(0,0).getComponentAt(0,0).getComponentAt(0,2).setVisible(false);
++        view.getContentPane().addMouseListener(new MouseAdapter() {
++            @Override
++            public void mouseClicked(MouseEvent e) {
++                if(e.getClickCount() == 2 && view.getContentPane().contains(e.getPoint())) {
++                    try {
++                        Toolkit.getDefaultToolkit().beep();
++                        if(JOptionPane.showConfirmDialog(null, "¿Desea guardar el reporte como pdf?", "Guardar", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION){
++                            JFileChooser fileChooser = new JFileChooser();
++                            fileChooser.setDialogTitle("Guardar reporte");
++                            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
++                            FileNameExtensionFilter filtroPdf = new FileNameExtensionFilter("Archivos pdf", "pdf");
++
++                            // Agregar el filtro al JFileChooser
++                            fileChooser.addChoosableFileFilter(filtroPdf);
++
++                            if(fileChooser.showDialog(view, "Guardar") == JFileChooser.APPROVE_OPTION) {
++                                Cursor cursorEspera = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
++                                view.setCursor(cursorEspera);
++                                exportarPDF_DOC(fileChooser.getSelectedFile());
++                                view.setCursor(Cursor.getDefaultCursor());
++                            }
++
++                        }
++
++                    } catch (JRException ex) {
++                        throw new RuntimeException(ex);
++                    }
++                }
++            }
++        });
++        Toolkit.getDefaultToolkit().beep();
++        JOptionPane.showMessageDialog(null, "Para guardar el reporte de doble click en la barra " +
++                "de herramientas", "Advertencia", JOptionPane.WARNING_MESSAGE);
++
++    }
++
++    public void exportarPDF_DOC(File currentD) throws JRException {
++
++        JRDocxExporter exporter = new JRDocxExporter();
++        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jprint);
++        //exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, "ConceptoAdopciones.docx");
++        exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, String.valueOf(currentD));
++        exporter.exportReport();
++
++        Document doc = new Document();
++
++        doc.loadFromFile(String.valueOf(currentD));
++        doc.saveToFile(String.valueOf(currentD));
++
++        try {
++            Desktop.getDesktop().open(currentD);
++        } catch (IOException e) {
++            throw new RuntimeException(e);
++        }
++
++        // Dispose resources
++        doc.dispose();
++    }
++}
+Index: lib/reportes/ReporteActividadCuidadoAnimal.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/reportes/ReporteActividadCuidadoAnimal.java b/lib/reportes/ReporteActividadCuidadoAnimal.java
+new file mode 100644
+--- /dev/null	(date 1725976754000)
++++ b/lib/reportes/ReporteActividadCuidadoAnimal.java	(date 1725976754000)
+@@ -0,0 +1,101 @@
++package reportes;
++
++import com.spire.doc.Document;
++import conexion.Conexion;
++import net.sf.jasperreports.engine.*;
++import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
++import net.sf.jasperreports.engine.util.JRLoader;
++import net.sf.jasperreports.view.JasperViewer;
++
++import javax.swing.*;
++import javax.swing.filechooser.FileNameExtensionFilter;
++import java.awt.*;
++import java.awt.event.MouseAdapter;
++import java.awt.event.MouseEvent;
++import java.io.File;
++import java.io.IOException;
++import java.util.HashMap;
++import java.util.Map;
++import java.util.Objects;
++
++public class ReporteActividadCuidadoAnimal {
++    JasperPrint jprint;
++
++    public ReporteActividadCuidadoAnimal(int id) throws JRException {
++
++        Conexion conexion = new Conexion();
++        JasperReport jr = (JasperReport) JRLoader.loadObject(Objects.requireNonNull(getClass().getResource("/utilesReportes/Programa de Actividades de Cuidado para un Animal/ActividadesCuidadoAnimal.jasper")));
++        Map parametro;
++        parametro = new HashMap();
++        parametro.put("ID_ANIMAL", id);
++        jprint = JasperFillManager.fillReport(jr, parametro, conexion.conectar());
++    }
++
++    public void mostrarVentanaReporte() {
++        JasperViewer view = new JasperViewer(jprint, false);
++        view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
++        view.setVisible(true);
++
++        view.getContentPane().setLayout(null);
++
++        view.getContentPane().getComponent(0).getComponentAt(0, 0).getComponentAt(0, 0).getComponentAt(0, 2).setEnabled(false);
++        view.getContentPane().getComponent(0).getComponentAt(0, 0).getComponentAt(0, 0).getComponentAt(0, 2).setVisible(false);
++        view.getContentPane().addMouseListener(new MouseAdapter() {
++            @Override
++            public void mouseClicked(MouseEvent e) {
++                if (e.getClickCount() == 2 && view.getContentPane().contains(e.getPoint())) {
++                    try {
++                        Toolkit.getDefaultToolkit().beep();
++                        if (JOptionPane.showConfirmDialog(null, "¿Desea guardar el reporte como pdf?", "Guardar", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
++                            JFileChooser fileChooser = new JFileChooser();
++                            fileChooser.setDialogTitle("Guardar reporte");
++                            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
++                            FileNameExtensionFilter filtroPdf = new FileNameExtensionFilter("Archivos pdf", "pdf");
++
++                            // Agregar el filtro al JFileChooser
++                            fileChooser.addChoosableFileFilter(filtroPdf);
++
++                            if(fileChooser.showDialog(view, "Guardar") == JFileChooser.APPROVE_OPTION) {
++                                Cursor cursorEspera = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
++                                view.setCursor(cursorEspera);
++                                exportarPDF_DOC(fileChooser.getSelectedFile());
++                                view.setCursor(Cursor.getDefaultCursor());
++                            }
++
++                        }
++
++                    } catch (JRException ex) {
++                        throw new RuntimeException(ex);
++                    }
++                }
++            }
++        });
++        Toolkit.getDefaultToolkit().beep();
++        JOptionPane.showMessageDialog(null, "Para guardar el reporte de doble click en la barra " +
++                "de herramientas", "Advertencia", JOptionPane.WARNING_MESSAGE);
++
++    }
++
++    public void exportarPDF_DOC(File currentD) throws JRException {
++
++        JRDocxExporter exporter = new JRDocxExporter();
++        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jprint);
++        //exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, "ConceptoAdopciones.docx");
++        exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, String.valueOf(currentD));
++        exporter.exportReport();
++
++        Document doc = new Document();
++
++        doc.loadFromFile(String.valueOf(currentD));
++        doc.saveToFile(String.valueOf(currentD));
++
++        try {
++            Desktop.getDesktop().open(currentD);
++        } catch (IOException e) {
++            throw new RuntimeException(e);
++        }
++
++        // Dispose resources
++        doc.dispose();
++    }
++}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"0c51127f-4dde-4999-8521-4c484000c7bb\" name=\"Changes\" comment=\"Corregidos errores generales. Agregada la funcionalidad de cargar preguntas desde la base de datos\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <excluded-from-favorite>\r\n      <branch-storage>\r\n        <map>\r\n          <entry type=\"LOCAL\">\r\n            <value>\r\n              <list>\r\n                <branch-info repo=\"$PROJECT_DIR$\" source=\"master\" />\r\n              </list>\r\n            </value>\r\n          </entry>\r\n        </map>\r\n      </branch-storage>\r\n    </excluded-from-favorite>\r\n    <branch-grouping />\r\n    <option name=\"PUSH_TAGS\">\r\n      <GitPushTagMode>\r\n        <option name=\"argument\" value=\"--follow-tags\" />\r\n        <option name=\"title\" value=\"Current Branch\" />\r\n      </GitPushTagMode>\r\n    </option>\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Leyderhr&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/Leyderhr/T3TRADIG.git&quot;,\r\n    &quot;accountId&quot;: &quot;ce341ce6-4b52-4e39-a93d-bfe6c4e091d2&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 8\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2gQuJNGhQFhwEJjqCbS1QRh5Ilw\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.BugTestApp.executor\": \"Run\",\r\n    \"Application.Example01.executor\": \"Run\",\r\n    \"Application.ExampleGood.executor\": \"Run\",\r\n    \"Application.Interface.Export.main.Main.executor\": \"Run\",\r\n    \"Application.Launcher.executor\": \"Run\",\r\n    \"Application.Main.executor\": \"Run\",\r\n    \"Application.SwingDemo.executor\": \"Run\",\r\n    \"Application.SwtDemo.executor\": \"Run\",\r\n    \"Application.SwtTest.executor\": \"Run\",\r\n    \"Python.PythonCharts.executor\": \"Run\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"E:/Escuela de Leyder/Trabajo Leyder/T4TRADIG/T4TRADIG/lib\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.40229884\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"E:\\Escuela de Leyder\\Trabajo Leyder\\T4TRADIG\\T4TRADIG\\lib\" />\r\n      <recent name=\"E:\\Escuela de Leyder\\Trabajo Leyder\\T4TRADIG\\T4TRADIG\\src\\Interface\\newInterface\\python\" />\r\n      <recent name=\"E:\\Escuela de Leyder\\Trabajo Leyder\\T4TRADIG\\T4TRADIG\\src\\Interface\\Export\\swing\" />\r\n      <recent name=\"E:\\Escuela de Leyder\\Trabajo Leyder\\T4TRADIG\\T4TRADIG\\src\\Util\" />\r\n      <recent name=\"E:\\Escuela de Leyder\\Trabajo Leyder\\T4TRADIG\\T4TRADIG\\src\\Interface\\newInterface\\Chart\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"E:\\Escuela de Leyder\\Trabajo Leyder\\T4TRADIG\\T4TRADIG\\lib\" />\r\n      <recent name=\"E:\\Escuela de Leyder\\Trabajo Leyder\\T4TRADIG\\T4TRADIG\\src\\util\\chartsPython\" />\r\n      <recent name=\"E:\\Escuela de Leyder\\Trabajo Leyder\\T4TRADIG\\T4TRADIG\\src\\Util\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"Interface.newInterface.python\" />\r\n      <recent name=\"Interface\" />\r\n      <recent name=\"Interface.Event\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunAnythingCache\">\r\n    <myKeys>\r\n      <visibility group=\"Gradle Tasks\" flag=\"true\" />\r\n      <visibility group=\"Maven Goals\" flag=\"true\" />\r\n      <visibility group=\"Recent projects\" flag=\"true\" />\r\n      <visibility group=\"Run configurations\" flag=\"true\" />\r\n    </myKeys>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.Main\">\r\n    <configuration name=\"Launcher\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Interface.export.main.Launcher\" />\r\n      <module name=\"T4TRADIG\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Interface.export.main.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Main\" />\r\n      <module name=\"T4TRADIG\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"PythonCharts\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"T4TRADIG\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"SDK_NAME\" value=\"Python 3.12\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/src/Interface/newInterface/python\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/src/Interface/newInterface/python/PythonCharts.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"Python.PythonCharts\" />\r\n        <item itemvalue=\"Application.Launcher\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"0c51127f-4dde-4999-8521-4c484000c7bb\" name=\"Changes\" comment=\"\" />\r\n      <created>1715642055320</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1715642055320</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Primer commit de la Interfaz\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1728595624792</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1728595624792</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Primer commit de la Interfaz\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1728596988571</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1728596988571</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Primer commit de la Interfaz\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1728597178894</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1728597178894</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Agregada funcionalidad de crear gráficas con Python\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1728765023501</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1728765023502</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Corregidos errores generales.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1728963507233</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1728963507233</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"Corregidos errores generales. Agregados resultados para los ámbitos y las perspectivas\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729112414781</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729112414781</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"Corregidos errores generales.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729115565294</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729115565294</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"Corregidos errores generales. Agregada la funcionalidad de cargar preguntas desde la base de datos\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729738587371</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729738587371</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"9\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"RECENT_FILTERS\">\r\n      <map>\r\n        <entry key=\"Branch\">\r\n          <value>\r\n            <list>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"origin/main\" />\r\n                </option>\r\n              </RecentGroup>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"origin/master\" />\r\n                </option>\r\n              </RecentGroup>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"HEAD\" />\r\n                </option>\r\n              </RecentGroup>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"master\" />\r\n                </option>\r\n              </RecentGroup>\r\n            </list>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"origin/main\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Primer commit de la Interfaz\" />\r\n    <MESSAGE value=\"Agregada funcionalidad de crear gráficas con Python\" />\r\n    <MESSAGE value=\"Corregidos errores generales. Agregados resultados para los ámbitos y las perspectivas\" />\r\n    <MESSAGE value=\"Corregidos errores generales.\" />\r\n    <MESSAGE value=\"Corregidos errores generales. Agregada la funcionalidad de cargar preguntas desde la base de datos\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Corregidos errores generales. Agregada la funcionalidad de cargar preguntas desde la base de datos\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <breakpoint enabled=\"true\" type=\"java-exception\">\r\n          <properties class=\"java.lang.NullPointerException\" package=\"java.lang\" />\r\n          <option name=\"timeStamp\" value=\"2\" />\r\n        </breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/Interface/export/main/Launcher.java</url>\r\n          <line>22</line>\r\n          <option name=\"timeStamp\" value=\"31\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 6e7aaad8d69ed8c39b4859224b6f352f356f2359)
++++ b/.idea/workspace.xml	(date 1729876661813)
+@@ -4,9 +4,36 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Corregidos errores generales. Agregada la funcionalidad de cargar preguntas desde la base de datos">
++    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Arreglado los paneles de preguntas">
++      <change afterPath="$PROJECT_DIR$/.idea/libraries/commons_collections4_4_5_0_M2.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/libraries/commons_digester_2_1.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/libraries/commons_logging_1_3_3.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/libraries/jasperreports_6_21_3.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/lib/commons-collections4-4.5.0-M2.jar" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/lib/commons-digester-2.1.jar" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/lib/commons-logging-1.3.3.jar" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/lib/jasperreports-6.21.3.jar" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/lib/reportes/ContratosProveedoresAlimentos.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/lib/reportes/ContratosServicioComplementario.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/lib/reportes/ContratosVeterinarios.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/lib/reportes/ContratosVeterinariosActivos.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/lib/reportes/ReporteActividadCuidadoAnimal.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/graficaBarra1.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/logic/GraphicsReport.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_10_2024_4_34__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_10_2024_4_34__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/T4TRADIG.iml" beforeDir="false" afterPath="$PROJECT_DIR$/T4TRADIG.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartAmbits.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartAmbits.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/MenuPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/MenuPanel.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/SettingPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/SettingPanel.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/logic/Model.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/logic/useful/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/useful/Model.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaBarra1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/chartsPython/graficaBarra1.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular8.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/chartsPython/graficaCircular8.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/util/chartsPython/tabla.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/chartsPython/tabla.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/util/table/TableTreeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/table/TableModel.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -77,7 +104,7 @@
+     "Application.ExampleGood.executor": "Run",
+     "Application.Interface.Export.main.Main.executor": "Run",
+     "Application.Launcher.executor": "Run",
+-    "Application.Main.executor": "Run",
++    "Application.Main.executor": "Debug",
+     "Application.SwingDemo.executor": "Run",
+     "Application.SwtDemo.executor": "Run",
+     "Application.SwtTest.executor": "Run",
+@@ -87,7 +114,7 @@
+     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+     "git-widget-placeholder": "master",
+     "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "E:/Escuela de Leyder/Trabajo Leyder/T4TRADIG/T4TRADIG/lib",
++    "last_opened_file_path": "C:/Users/Dell/Documents/Abdiel/T3TRADIG/lib",
+     "project.structure.last.edited": "Modules",
+     "project.structure.proportion": "0.15",
+     "project.structure.side.proportion": "0.40229884",
+@@ -96,30 +123,25 @@
+ }]]></component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
++      <recent name="C:\Users\Dell\Documents\Abdiel\T3TRADIG\lib" />
+       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\lib" />
+       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Interface\newInterface\python" />
+       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Interface\Export\swing" />
+       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Util" />
+-      <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Interface\newInterface\Chart" />
+     </key>
+     <key name="MoveFile.RECENT_KEYS">
+       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\lib" />
+       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\util\chartsPython" />
+       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Util" />
++    </key>
++    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
++      <recent name="logic" />
+     </key>
+     <key name="CopyClassDialog.RECENTS_KEY">
+       <recent name="Interface.newInterface.python" />
+       <recent name="Interface" />
+       <recent name="Interface.Event" />
+     </key>
+-  </component>
+-  <component name="RunAnythingCache">
+-    <myKeys>
+-      <visibility group="Gradle Tasks" flag="true" />
+-      <visibility group="Maven Goals" flag="true" />
+-      <visibility group="Recent projects" flag="true" />
+-      <visibility group="Run configurations" flag="true" />
+-    </myKeys>
+   </component>
+   <component name="RunManager" selected="Application.Main">
+     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+@@ -168,7 +190,6 @@
+     <recent_temporary>
+       <list>
+         <item itemvalue="Application.Main" />
+-        <item itemvalue="Python.PythonCharts" />
+         <item itemvalue="Application.Launcher" />
+       </list>
+     </recent_temporary>
+@@ -321,6 +342,25 @@
+           <url>file://$PROJECT_DIR$/src/Interface/export/main/Launcher.java</url>
+           <line>22</line>
+           <option name="timeStamp" value="31" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/Interface/newInterface/SettingPanel.java</url>
++          <line>358</line>
++          <option name="timeStamp" value="33" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java</url>
++          <line>190</line>
++          <option name="timeStamp" value="37" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-method">
++          <url>file://$PROJECT_DIR$/src/Interface/newInterface/SettingPanel.java</url>
++          <line>172</line>
++          <properties method="mousePressed">
++            <option name="EMULATED" value="true" />
++            <option name="WATCH_EXIT" value="false" />
++          </properties>
++          <option name="timeStamp" value="32" />
+         </line-breakpoint>
+       </breakpoints>
+     </breakpoint-manager>
+Index: T4TRADIG.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/venv\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" name=\"miglayout-4.0\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"TimingFramework-0.55\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"iText-2.0.8\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"tree-package-v3.0\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"sqlite-jdbc-3.46.1.3\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"flatlaf-3.5\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/T4TRADIG.iml b/T4TRADIG.iml
+--- a/T4TRADIG.iml	(revision 6e7aaad8d69ed8c39b4859224b6f352f356f2359)
++++ b/T4TRADIG.iml	(date 1729831381428)
+@@ -14,5 +14,9 @@
+     <orderEntry type="library" name="tree-package-v3.0" level="project" />
+     <orderEntry type="library" name="sqlite-jdbc-3.46.1.3" level="project" />
+     <orderEntry type="library" name="flatlaf-3.5" level="project" />
++    <orderEntry type="library" name="commons-collections4-4.5.0-M2" level="project" />
++    <orderEntry type="library" name="commons-digester-2.1" level="project" />
++    <orderEntry type="library" name="commons-logging-1.3.3" level="project" />
++    <orderEntry type="library" name="jasperreports-6.21.3" level="project" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: .idea/libraries/commons_digester_2_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/commons_digester_2_1.xml b/.idea/libraries/commons_digester_2_1.xml
+new file mode 100644
+--- /dev/null	(date 1729831381462)
++++ b/.idea/libraries/commons_digester_2_1.xml	(date 1729831381462)
+@@ -0,0 +1,9 @@
++<component name="libraryTable">
++  <library name="commons-digester-2.1">
++    <CLASSES>
++      <root url="jar://$PROJECT_DIR$/lib/commons-digester-2.1.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/libraries/commons_collections4_4_5_0_M2.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/commons_collections4_4_5_0_M2.xml b/.idea/libraries/commons_collections4_4_5_0_M2.xml
+new file mode 100644
+--- /dev/null	(date 1729831381453)
++++ b/.idea/libraries/commons_collections4_4_5_0_M2.xml	(date 1729831381453)
+@@ -0,0 +1,9 @@
++<component name="libraryTable">
++  <library name="commons-collections4-4.5.0-M2">
++    <CLASSES>
++      <root url="jar://$PROJECT_DIR$/lib/commons-collections4-4.5.0-M2.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/libraries/jasperreports_6_21_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/jasperreports_6_21_3.xml b/.idea/libraries/jasperreports_6_21_3.xml
+new file mode 100644
+--- /dev/null	(date 1729831381506)
++++ b/.idea/libraries/jasperreports_6_21_3.xml	(date 1729831381506)
+@@ -0,0 +1,9 @@
++<component name="libraryTable">
++  <library name="jasperreports-6.21.3">
++    <CLASSES>
++      <root url="jar://$PROJECT_DIR$/lib/jasperreports-6.21.3.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/libraries/commons_logging_1_3_3.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/commons_logging_1_3_3.xml b/.idea/libraries/commons_logging_1_3_3.xml
+new file mode 100644
+--- /dev/null	(date 1729831381487)
++++ b/.idea/libraries/commons_logging_1_3_3.xml	(date 1729831381487)
+@@ -0,0 +1,9 @@
++<component name="libraryTable">
++  <library name="commons-logging-1.3.3">
++    <CLASSES>
++      <root url="jar://$PROJECT_DIR$/lib/commons-logging-1.3.3.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: src/logic/useful/Model.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package logic.useful;\r\n\r\npublic class Model {\r\n    private int id, supId, level;\r\n    private String line;\r\n\r\n    public int getId() {\r\n        return id;\r\n    }\r\n\r\n    public void setId(int id) {\r\n        this.id = id;\r\n    }\r\n\r\n    public int getSupId() {\r\n        return supId;\r\n    }\r\n\r\n    public void setSupId(int supId) {\r\n        this.supId = supId;\r\n    }\r\n\r\n    public int getLevel() {\r\n        return level;\r\n    }\r\n\r\n    public void setLevel(int level) {\r\n        this.level = level;\r\n    }\r\n\r\n    public String getLine() {\r\n        return line;\r\n    }\r\n\r\n    public void setLine(String line) {\r\n        this.line = line;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/logic/useful/Model.java b/src/logic/useful/Model.java
+--- a/src/logic/useful/Model.java	(revision 6e7aaad8d69ed8c39b4859224b6f352f356f2359)
++++ b/src/logic/useful/Model.java	(date 1729790143502)
+@@ -4,6 +4,13 @@
+     private int id, supId, level;
+     private String line;
+ 
++    public Model(int id,int supId,int level, String line){
++        setId(id);
++        setSupId(supId);
++        setLevel(level);
++        setLine(line);
++    }
++
+     public int getId() {
+         return id;
+     }
+Index: src/logic/GraphicsReport.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/logic/GraphicsReport.java b/src/logic/GraphicsReport.java
+new file mode 100644
+--- /dev/null	(date 1729831519753)
++++ b/src/logic/GraphicsReport.java	(date 1729831519753)
+@@ -0,0 +1,98 @@
++package logic;
++
++
++import net.sf.jasperreports.engine.*;
++import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
++import net.sf.jasperreports.engine.util.JRLoader;
++import net.sf.jasperreports.view.JasperViewer;
++
++import javax.swing.*;
++import javax.swing.filechooser.FileNameExtensionFilter;
++import java.awt.*;
++import java.awt.event.*;
++import java.io.File;
++import java.io.IOException;
++import java.util.Objects;
++
++
++
++
++public class GraphicsReport {
++
++    JasperPrint jprint;
++
++    public GraphicsReport() throws JRException {
++
++        //Conexion conexion = new Conexion();
++        JasperReport jr= (JasperReport) JRLoader.loadObject(Objects.requireNonNull(getClass().getResource("/T4TRADIG/Graficas.jasper")));
++        jprint = JasperFillManager.fillReport(jr, null/*conexion.conectar()*/);
++    }
++
++    public void mostrarVentanaReporte(){
++        JasperViewer view = new JasperViewer(jprint, false);
++        view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
++        view.setVisible(true);
++
++        view.getContentPane().setLayout(null);
++
++        view.getContentPane().getComponent(0).getComponentAt(0,0).getComponentAt(0,0).getComponentAt(0,2).setEnabled(false);
++        view.getContentPane().getComponent(0).getComponentAt(0,0).getComponentAt(0,0).getComponentAt(0,2).setVisible(false);
++        view.getContentPane().addMouseListener(new MouseAdapter() {
++            @Override
++            public void mouseClicked(MouseEvent e) {
++                if(e.getClickCount() == 2 && view.getContentPane().contains(e.getPoint())) {
++                    try {
++                        Toolkit.getDefaultToolkit().beep();
++                        if(JOptionPane.showConfirmDialog(null, "¿Desea guardar el reporte como pdf?", "Guardar", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION){
++                            JFileChooser fileChooser = new JFileChooser();
++                            fileChooser.setDialogTitle("Guardar reporte");
++                            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
++                            FileNameExtensionFilter filtroPdf = new FileNameExtensionFilter("Archivos pdf", "pdf");
++
++                            // Agregar el filtro al JFileChooser
++                            fileChooser.addChoosableFileFilter(filtroPdf);
++
++                            if(fileChooser.showDialog(view, "Guardar") == JFileChooser.APPROVE_OPTION) {
++                                Cursor cursorEspera = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
++                                view.setCursor(cursorEspera);
++                                //exportarPDF_DOC(fileChooser.getSelectedFile());
++                                view.setCursor(Cursor.getDefaultCursor());
++                            }
++
++                        }
++
++                    } catch (Exception ex/*JRException ex*/) {
++                        throw new RuntimeException(ex);
++                    }
++                }
++            }
++        });
++        Toolkit.getDefaultToolkit().beep();
++        JOptionPane.showMessageDialog(null, "Para guardar el reporte de doble click en la barra " +
++                "de herramientas", "Advertencia", JOptionPane.WARNING_MESSAGE);
++
++    }
++
++//    public void exportarPDF_DOC(File currentD) throws JRException {
++//
++//        JRDocxExporter exporter = new JRDocxExporter();
++//        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jprint);
++//        //exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, "ConceptoAdopciones.docx");
++//        exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, String.valueOf(currentD));
++//        exporter.exportReport();
++//
++//        Document doc = new Document();
++//
++//        doc.loadFromFile(String.valueOf(currentD));
++//        doc.saveToFile(String.valueOf(currentD));
++//
++//        try {
++//            Desktop.getDesktop().open(currentD);
++//        } catch (IOException e) {
++//            throw new RuntimeException(e);
++//        }
++//
++//        // Dispose resources
++//        doc.dispose();
++//    }
++}

@@ -1,0 +1,44 @@
+<changelist name="Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM_[Changes]" date="1729877445740" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 10/25/2024 1:30 PM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="src/graficaBarra1.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM_[Changes]/graficaBarra1.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/util/chartsPython/graficaBarra1.png" />
+    <option name="AFTER_PATH" value="src/util/chartsPython/graficaBarra1.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM_[Changes]/graficaBarra11.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="lib/commons-logging-1.3.3.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM_[Changes]/commons-logging-1.3.3.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/util/chartsPython/graficaCircular8.png" />
+    <option name="AFTER_PATH" value="src/util/chartsPython/graficaCircular8.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM_[Changes]/graficaCircular8.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="lib/commons-digester-2.1.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM_[Changes]/commons-digester-2.1.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="lib/jasperreports-6.21.3.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM_[Changes]/jasperreports-6.21.3.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="lib/commons-collections4-4.5.0-M2.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM_[Changes]/commons-collections4-4.5.0-M2.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/util/chartsPython/tabla.png" />
+    <option name="AFTER_PATH" value="src/util/chartsPython/tabla.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM_[Changes]/tabla.png" />
+  </binary>
+</changelist>
