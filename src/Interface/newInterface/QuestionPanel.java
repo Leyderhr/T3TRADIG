@@ -3,12 +3,10 @@ package Interface.newInterface;
 import Interface.export.swing.PanelShadow;
 import Interface.export.swing.scrollbar.ScrollBarCustom;
 import Interface.newInterface.Chart.ReportPanel;
-import logic.DAO.DAODimension;
-import logic.DAO.DAOPerspectiva;
-import logic.DAO.DAOPregunta;
 import logic.Entitys.Perspectiva;
 import logic.Entitys.Pregunta;
-import util.table.MyTableCellRenderer;
+import logic.useful.Controlador;
+import util.table.MyTableCellRendererCeldas;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -54,9 +52,6 @@ public class QuestionPanel extends JPanel {
     private ButtonMenu btnPreview;
     private JLabel header;
 
-    private final DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
-    private final DAOPregunta daoPregunta = new DAOPregunta();
-    private final DAODimension daoDimension = new DAODimension();
     // ========================================================================
 
 
@@ -100,7 +95,7 @@ public class QuestionPanel extends JPanel {
 
     private void addQuestions(JPanel superPanel) {
 
-        ArrayList<Perspectiva> perspectivas = daoPerspectiva.consultPerspectivas();
+        ArrayList<Perspectiva> perspectivas = Controlador.getPerspectiva(0);
         ArrayList<logic.Entitys.Dimension> dimensiones;
         ArrayList<Pregunta> preguntas;
         int dimensionesAnteriores = 0;
@@ -109,7 +104,7 @@ public class QuestionPanel extends JPanel {
         /* Se utiliza un triple for anidado para englobar a las perspectivas, las dimensiones y a las preguntas*/
         // Este for recorre todas las perspectivas
         for (int i = 0; i < perspectivas.size(); i++) {
-            dimensiones = daoDimension.consultDimensiones(i + 1);
+            dimensiones = Controlador.getDimension(i + 1);
             // Este for recorre todas las dimensiones pertenecientes a la perspectiva del for de afuera
             for (int j = 0; j < dimensiones.size(); j++) {
 
@@ -121,7 +116,7 @@ public class QuestionPanel extends JPanel {
                 header.setBounds(50, 20, 600, 50);
 
 
-                preguntas = daoPregunta.consultPregunta(j + 1 + dimensionesAnteriores);
+                preguntas = Controlador.getPregunta(j + 1 + dimensionesAnteriores);
 
                 JPanel panel = new JPanel();
                 panel.setLayout(null);
@@ -180,7 +175,6 @@ public class QuestionPanel extends JPanel {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (btnSavePDF.getText().equals("Finalizar") && getPilaPanelesVisibles().size() == 1) {
-                        p.getReportPanel().settearIcons();
                         p.getMenuPanel().panelControl(p, ReportPanel.Frame_Value);
                     }
                     setVisibilityDimensionsPanels(1, p);
@@ -291,6 +285,8 @@ public class QuestionPanel extends JPanel {
         };
         questionsTable.setRowHeight(60);
         questionsTable.getTableHeader().setReorderingAllowed(false);
+
+
         questionsTable.setModel(new DefaultTableModel(
                 new Object[][]{
                         {null, null, null},
@@ -320,25 +316,21 @@ public class QuestionPanel extends JPanel {
         model.addColumn("Requisitos, iniciativas y buenas prácticas de transformación digital (DO/LD)");
         model.addColumn("Valor");
 
-
         actualizarTabla(lista, model, questionsTable);
 
         return scrollPane;
     }
 
     public void actualizarTabla(ArrayList<Pregunta> lista, DefaultTableModel model, JTable questionsTable) {
-        MyTableCellRenderer cellRenderer = new MyTableCellRenderer();
 
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
 
-
-        questionsTable.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
         for (int i = 0; i < lista.size(); i++) {
             Object[] ob = new Object[3];
             ob[0] = i + 1;
-            ob[1] = "<html> <p style=\"text-align: left; vertical-align: middle;\">" + lista.get(i).getPregunta() + "</p></html>";
+            ob[1] = "<html> <p style=\"text-align: left; vertical-align: top;\">" + lista.get(i).getPregunta() + "</p></html>";
             ob[2] = lista.get(i).getPtos();
 
             model.addRow(ob);
@@ -417,7 +409,8 @@ public class QuestionPanel extends JPanel {
         questionsTable.getColumnModel().getColumn(2).setMaxWidth(50);
         questionsTable.getColumnModel().getColumn(0).setMaxWidth(50);
 
-        questionsTable.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
-        questionsTable.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
+        questionsTable.getColumnModel().getColumn(0).setCellRenderer(new MyTableCellRendererCeldas());
+        questionsTable.getColumnModel().getColumn(1).setCellRenderer(new MyTableCellRendererCeldas());
+        questionsTable.getColumnModel().getColumn(2).setCellRenderer(new MyTableCellRendererCeldas());
     }
 }

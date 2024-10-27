@@ -26,6 +26,8 @@ public class ProgressCircleUI extends BasicProgressBarUI {
 //        });
     }
 
+
+
 //    private void createImage() {
 //        int width = pro.getWidth();
 //        int height = pro.getHeight();
@@ -92,6 +94,7 @@ public class ProgressCircleUI extends BasicProgressBarUI {
         gg2.fill(createCircle(100));
         g.drawImage(img, 0, 0, null);
 
+        paintString(g);
         //Este if determina en que momento dibujar el progreso del círculo
 //        if (progressBar.isStringPainted()) {
 //            paintString(g);
@@ -99,11 +102,29 @@ public class ProgressCircleUI extends BasicProgressBarUI {
     }
 
     //Este metodo se encarga de dibujar el progreso del círculo
-    private void paintString(Graphics g) {
+    public void paintString(Graphics g) {
         Insets b = progressBar.getInsets(); // area for border
         int barRectWidth = progressBar.getWidth() - b.right - b.left;
         int barRectHeight = progressBar.getHeight() - b.top - b.bottom;
-        g.setColor(pro.getForeground());
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
         paintString(g, b.left, b.top, barRectWidth, barRectHeight, 0,b);
+
+    }
+
+    @Override
+    protected void paintString(Graphics g, int x, int y, int width, int height, int amountFull, Insets b) {
+        // Obtén el valor de la barra de progreso
+        int value = progressBar.getValue();
+
+        // Calcula el porcentaje
+        float percentage = (float) value / progressBar.getMaximum() * 100;
+
+        // Dibuja el texto del porcentaje
+        g.setColor(Color.BLACK);
+        g.drawString(String.format("%.2f%%", percentage), x + (width - g.getFontMetrics().stringWidth(String.format("%.2f%%", percentage))) / 2, y + (height + g.getFontMetrics().getHeight()) / 2);
+
+        // Llama al método original para que también se dibuje el texto estándar de la barra de progreso
+        //super.paintString(g, x, y, width, height, amountFull, b);
     }
 }

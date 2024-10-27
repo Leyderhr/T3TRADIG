@@ -3,6 +3,9 @@ package Interface.newInterface.Chart;
 
 import Interface.export.swing.CircleProgressBar;
 import Interface.newInterface.python.PythonExecutor;
+import logic.DAO.DAOAmbito;
+import logic.Entitys.Ambito;
+import logic.useful.Controlador;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,10 +13,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -30,11 +30,13 @@ public class ChartAmbits extends JPanel {
 
     private JLabel header;
 
-    private JLabel indicatorIndex1;
     private JLabel pieChartCapEst;
 
-    private JLabel indicatorIndex2;
     private JLabel pieChartResultDig;
+    private int donutChartWidth;
+    private int donutCartHeight;
+
+    HorizontalBarChart horizontalBarChart;
 
     private JLabel imdaChart;
 
@@ -45,15 +47,30 @@ public class ChartAmbits extends JPanel {
 
         add(getHeader());
 
-        add(getIndicatorIndex1());
-        add(getPieChartCapEst());
 
-        add(getIndicatorIndex2());
-        add(getPieChartResultDig());
+        getDonutsCharts();
         add(getImdaChart());
-        setSize(1000, imdaChart.getY() + imdaChart.getHeight());
+        add(getHorizontalBarChar());
+
+
+
     }
 
+    public int getDonutChartWidth() {
+        return donutChartWidth;
+    }
+
+    public void setDonutChartWidth(int donutChartWidth) {
+        this.donutChartWidth = donutChartWidth;
+    }
+
+    public int getDonutCartHeight() {
+        return donutCartHeight;
+    }
+
+    public void setDonutCartHeight(int donutCartHeight) {
+        this.donutCartHeight = donutCartHeight;
+    }
 
     public float getIndex1() {
         return index1;
@@ -72,6 +89,33 @@ public class ChartAmbits extends JPanel {
     }
 
 
+
+
+    private void getDonutsCharts(){
+            ArrayList<Ambito> ambitos = Controlador.getAmbitos();
+            int y = header.getHeight();
+            int width = 0;
+            float pnts;
+            String nombreAmb;
+
+        for (Ambito ambito : ambitos) {
+            nombreAmb = ambito.getNombre_ambito();
+            pnts = (float) ambito.getCant_ptos() / (ambito.getCant_perspectivas() * 4);
+
+            DonutPie dp = new DonutPie("IMDA: "+nombreAmb, pnts, 50, 100, 200, 150);
+            dp.setLocation(20, y);
+            this.add(dp);
+
+            y += dp.getHeight();
+            width = dp.getWidth();
+            setSize(1000, y);
+        }
+        setDonutChartWidth(width);
+        setDonutCartHeight(y);
+
+    }
+
+
     /**
      * Este método se encarga de crear el Encabezado para las gráficas
      */
@@ -86,68 +130,8 @@ public class ChartAmbits extends JPanel {
         return header;
     }
 
-    private JLabel getIndicatorIndex1() {
-        if (indicatorIndex1 == null) {
-            indicatorIndex1 = new JLabel();
-            indicatorIndex1.setFont(new Font("Arial", Font.PLAIN, 18));
-            indicatorIndex1.setBounds(145, 300, 300, 20);
-            indicatorIndex1.setOpaque(false);
-            indicatorIndex1.setHorizontalAlignment(SwingConstants.LEFT);
-            indicatorIndex1.setHorizontalTextPosition(SwingConstants.RIGHT);
 
 
-            if (index1 >= 0 && index1 <= 25) {
-                indicatorIndex1.setText("BÁSICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Basico.png")));
-                indicatorIndex1.setIcon(icon);
-            } else if (index1 > 25 && index1 <= 50) {
-                indicatorIndex1.setText("INICIAL");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Inicial.png")));
-                indicatorIndex1.setIcon(icon);
-            } else if (index1 > 50 && index1 <= 75) {
-                indicatorIndex1.setText("ESTRATÉGICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Estrategico.png")));
-                indicatorIndex1.setIcon(icon);
-            } else {
-                indicatorIndex1.setText("INNOVADOR - DIRSUPTIVO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Innovador.png")));
-                indicatorIndex1.setIcon(icon);
-            }
-        }
-        return indicatorIndex1;
-    }
-
-
-    private JLabel getIndicatorIndex2() {
-        if (indicatorIndex2 == null) {
-            indicatorIndex2 = new JLabel();
-            indicatorIndex2.setFont(new Font("Arial", Font.PLAIN, 18));
-            indicatorIndex2.setBounds(145, 515, 300, 20);
-            indicatorIndex2.setOpaque(false);
-            indicatorIndex2.setHorizontalAlignment(SwingConstants.LEFT);
-            indicatorIndex2.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-
-            if (index2 >= 0 && index2 <= 25) {
-                indicatorIndex2.setText("BÁSICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Basico.png")));
-                indicatorIndex2.setIcon(icon);
-            } else if (index2 > 25 && index2 <= 50) {
-                indicatorIndex2.setText("INICIAL");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Inicial.png")));
-                indicatorIndex2.setIcon(icon);
-            } else if (index2 > 50 && index2 <= 75) {
-                indicatorIndex2.setText("ESTRATÉGICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Estrategico.png")));
-                indicatorIndex2.setIcon(icon);
-            } else {
-                indicatorIndex2.setText("INNOVADOR - DIRSUPTIVO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Innovador.png")));
-                indicatorIndex2.setIcon(icon);
-            }
-        }
-        return indicatorIndex2;
-    }
 
     private JLabel getPieChartCapEst() {
         if (pieChartCapEst == null) {
@@ -160,7 +144,7 @@ public class ChartAmbits extends JPanel {
                 PythonExecutor.pieChart("'IMDA: Capacidades estratégicas\\n y de creación de valor sustentable'", value, "", "2", "'2'");
 
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular2.png")));
-            pieChartCapEst.setIcon(icon);
+            //pieChartCapEst.setIcon(icon);
             pieChartCapEst.setBounds(1, header.getHeight() + 20, icon.getIconWidth(), icon.getIconHeight());
         }
         return pieChartCapEst;
@@ -177,7 +161,7 @@ public class ChartAmbits extends JPanel {
                 PythonExecutor.pieChart("'IMDA: Resultados de digitalización'", value, "", "2", "'3'");
 
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular3.png")));
-            pieChartResultDig.setIcon(icon);
+            //pieChartResultDig.setIcon(icon);
             pieChartResultDig.setBounds(5, pieChartCapEst.getY() + pieChartCapEst.getHeight() + 20, icon.getIconWidth(), icon.getIconHeight());
         }
         return pieChartResultDig;
@@ -197,38 +181,25 @@ public class ChartAmbits extends JPanel {
                 PythonExecutor.imdChart(categories, values, "6", "4", "'1'", title);
 
             Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaBarra1.png")));
-            imdaChart.setIcon(icon);
-            imdaChart.setBounds(pieChartCapEst.getWidth(), header.getHeight() + 70, icon.getIconWidth(), icon.getIconHeight());
+            //imdaChart.setIcon(icon);
+            imdaChart.setBounds(donutChartWidth + 20, header.getHeight() + 70, icon.getIconWidth(), icon.getIconHeight());
         }
         return imdaChart;
     }
 
-
-    public void settearIcons() {
-        String values = "[" + 45.3 + "," + 50 + "]";
-        String categories = "['RESULTADOS de Digitalización', 'CAPACIDADES estratégicas\\n y de creación de valor sustentable']";
-        String title = "'Índice de madurez digital por ámbitos (IMDA) %'";
-
-        PythonExecutor.imdChart(categories, values, "6", "4", "'1'", title);
-        Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaBarra1.png")));
-        imdaChart.setIcon(icon);
-        imdaChart.repaint();
-
-        HashMap<String, BufferedImage> imageCache = new HashMap<>();
-        try {
-            BufferedImage img = ImageIO.read(getClass().getResourceAsStream("/util/chartsPython/graficaBarra1.png"));
-            imageCache.put("imagen1", img);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private HorizontalBarChart getHorizontalBarChar(){
+        if(horizontalBarChart == null){
+            horizontalBarChart = new HorizontalBarChart(Controlador.getAmbitos());
+            horizontalBarChart.setBounds(430, header.getHeight() + 20, 570, 430);
+            horizontalBarChart.setBackground(Color.white);
+            //horizontalBarChart.setBounds(450, header.getHeight() + 100, 400, 300);
+            //add(chartPanel);
+            setVisible(true);
         }
-
-        BufferedImage img = imageCache.get("imagen1");
-        if (img != null) {
-            imdaChart.setIcon(new ImageIcon(img));
-            imdaChart.repaint();
-        }
-
+        return horizontalBarChart;
     }
+
+
 
 
     @Override

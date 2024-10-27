@@ -55,6 +55,7 @@ public class ButtonMenu extends JButton {
         setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
         setBackground(new Color(255, 255, 255));
         setForeground(new Color(80, 80, 80));
+        setFocusable(false);
         rippleEffect.setRippleColor(new Color(107, 120, 125));
 
         addMouseListener(new MouseAdapter()  {

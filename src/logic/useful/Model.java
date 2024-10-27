@@ -4,10 +4,16 @@ public class Model {
     private int id, supId, level;
     private String line;
 
+    public Model(int id, int supId, int level, String line) {
+        setId(id);
+        setSupId(supId);
+        setLevel(level);
+        setLine(line);
+    }
+
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }

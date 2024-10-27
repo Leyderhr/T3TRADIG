@@ -1,10 +1,13 @@
 package Interface.newInterface.Chart;
 
 import Interface.newInterface.python.PythonExecutor;
+import logic.DAO.DAOPerspectiva;
+import logic.Entitys.Perspectiva;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ChartPerspective extends JPanel{
@@ -42,7 +45,8 @@ public class ChartPerspective extends JPanel{
     private float index6;
 
 
-    private int height;
+    private int donutChartWidth;
+    private int donutCartHeight;
 
     private JLabel header;
 
@@ -61,6 +65,25 @@ public class ChartPerspective extends JPanel{
     private JLabel pieChartFinanzas;
 
     private JLabel imdpChart;
+
+
+    public int getDonutCartHeight() {
+        return donutCartHeight;
+    }
+
+    public void setDonutCartHeight(int donutCartHeight) {
+        this.donutCartHeight = donutCartHeight;
+    }
+
+    public int getDonutChartWidth() {
+        return donutChartWidth;
+    }
+
+    public void setDonutChartWidth(int donutChartWidth) {
+        this.donutChartWidth = donutChartWidth;
+    }
+
+    private final DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
 
     public float getIndex1() {
         return index1;
@@ -124,27 +147,64 @@ public class ChartPerspective extends JPanel{
 
         add(getHeader()); //0
 
-        add(getIndicatorIndex1()); //1
-        add(getPieChartDisOrg()); //2
+//        add(getIndicatorIndex1()); //1
+//        add(getPieChartDisOrg()); //2
+//
+//        add(getIndicatorIndex2()); //3
+//        add(getPieChartTecInfEst());//4
+//
+//        add(getIndicatorIndex3());//5
+//        add(getPieChartCompEst());//6
+//
+//        add(getIndicatorIndex4());//7
+//        add(getPieChartProcesos());//8
+//
+//        add(getIndicatorIndex5());//9
+//        add(getPieChartCentClient());//10
+//
+//        add(getIndicatorIndex6());//11
+//        add(getPieChartFinanzas());//12
 
-        add(getIndicatorIndex2()); //3
-        add(getPieChartTecInfEst());//4
+        //add(getImdpChart());//13
 
-        add(getIndicatorIndex3());//5
-        add(getPieChartCompEst());//6
+        getPerspectivesDonutsCharts();
 
-        add(getIndicatorIndex4());//7
-        add(getPieChartProcesos());//8
+    }
 
-        add(getIndicatorIndex5());//9
-        add(getPieChartCentClient());//10
+    private void getPerspectivesDonutsCharts(){
+        ArrayList<Perspectiva> perspectivas = daoPerspectiva.consultPerspectivas();
+        String nombrePersp;
+        float pnts;
+        int x = 1;
+        int y = header.getHeight() + 20;
+        int width = 0;
+        int index = 0;
 
-        add(getIndicatorIndex6());//11
-        add(getPieChartFinanzas());//12
+        for(int i = 0; i < perspectivas.size() / 2; i++){
+            for(int j = 0; j < 2; j++){
+                index += j;
+                nombrePersp = perspectivas.get(index).getNombre_perspectiva();
+                pnts = (float) perspectivas.get(index).getCant_ptos() / (perspectivas.get(index).getCant_dimensiones() * 4);
 
-        add(getImdpChart());//13
+                DonutPie dp = new DonutPie("IMDP: "+nombrePersp, pnts, 50, 100, 100, 100);
 
-        setSize(1000, 650);
+                dp.setLocation(x, y);
+                this.add(dp);
+
+                x += dp.getWidth() - 50;
+                setDonutCartHeight(dp.getHeight());
+                setSize(1000, y + dp.getHeight());
+            }
+            y += donutCartHeight;
+            x = 1;
+            index++;
+        }
+//            y += dp.getHeight();
+//            width = dp.getWidth();
+//        }
+
+        setDonutChartWidth(width);
+
     }
 
     private JLabel getHeader(){

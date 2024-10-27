@@ -11,17 +11,16 @@ public class ChartMDG extends JPanel {
 
     private JLabel matrixIMDG;
     private JLabel generalIMDG;
-    private JLabel pieLabel;
+    private DonutPie donutChartIMDG;
     private JLabel header;
-    private JLabel indicator;
     private float generalIndex;
 
     /*Estos valores le pertenecen a los índices de
      * RESULTADOS DE DIGITALIZACIÓN Y CAPACIDADES ESTRATÉGICAS Y DE CREACIÓN DE VALOR SUSTENTABLES
      * Necesarios para colocar el IMDG en la gráfica*/
     //==================================================================
-    private float valorX;
-    private float valorY;
+    private float valorX;  // Capacidades Estrategicas
+    private float valorY;  // Resultados de digitalizacion
     //==================================================================
 
     public float getGeneralIndex() {
@@ -55,15 +54,14 @@ public class ChartMDG extends JPanel {
         this.generalIndex = ((this.valorX + this.valorY) / 2);
 
         add(getHeader());
-        add(getIndicator());
 
-        add(getPieChart());
+        add(getDonutChartIMDG());
         add(getGeneralIMDG());
         update();
         add(getMatrixIMDG());
 
         setBackground(Color.blue);
-        setSize(matrixIMDG.getWidth() + pieLabel.getWidth() + 100, header.getHeight() + matrixIMDG.getHeight() + 50);
+        setSize(matrixIMDG.getWidth() + donutChartIMDG.getWidth() + 100, header.getHeight() + matrixIMDG.getHeight() + 50);
     }
 
     /**
@@ -80,37 +78,6 @@ public class ChartMDG extends JPanel {
         return header;
     }
 
-    private JLabel getIndicator() {
-        if (indicator == null) {
-            indicator = new JLabel();
-            indicator.setFont(new Font("Arial", Font.PLAIN, 18));
-            indicator.setBounds(145, 440, 300, 20);
-            indicator.setOpaque(false);
-            indicator.setHorizontalAlignment(SwingConstants.LEFT);
-            indicator.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-
-
-            if (generalIndex >= 0 && generalIndex <= 25) {
-                indicator.setText("BÁSICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Basico.png")));
-                indicator.setIcon(icon);
-            } else if (generalIndex > 25 && generalIndex <= 50) {
-                indicator.setText("INICIAL");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Inicial.png")));
-                indicator.setIcon(icon);
-            } else if (generalIndex > 50 && generalIndex <= 75) {
-                indicator.setText("ESTRATÉGICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Estrategico.png")));
-                indicator.setIcon(icon);
-            } else {
-                indicator.setText("INNOVADOR - DIRSUPTIVO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Innovador.png")));
-                indicator.setIcon(icon);
-            }
-        }
-        return indicator;
-    }
 
     private JLabel getMatrixIMDG() {
         if (matrixIMDG == null) {
@@ -119,7 +86,7 @@ public class ChartMDG extends JPanel {
             matrixIMDG.setIcon(icon);
             matrixIMDG.setHorizontalAlignment(SwingConstants.CENTER);
             matrixIMDG.setHorizontalTextPosition(SwingConstants.CENTER);
-            matrixIMDG.setBounds(pieLabel.getHeight() + 31, header.getHeight() + 30, icon.getIconWidth(), icon.getIconHeight());
+            matrixIMDG.setBounds(donutChartIMDG.getHeight() + 60, header.getHeight() + 30, icon.getIconWidth(), icon.getIconHeight());
         }
         return matrixIMDG;
     }
@@ -130,7 +97,54 @@ public class ChartMDG extends JPanel {
             generalIMDG = new JLabel();
             ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/icons8-emoji-circulo-azul-20.png")));
             generalIMDG.setIcon(icon);
-            generalIMDG.setToolTipText(this.valorX + ";" + " " + this.valorY + ";" + " " + this.generalIndex);
+            generalIMDG.setToolTipText("<html>" +
+                    "<head>\n" +
+                    "    <meta charset=\"UTF-8\">\n" +
+                    "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                    "    <title>Tooltip Personalizado</title>\n" +
+                    "    <style>\n" +
+                    "        /* Estilo del tooltip */\n" +
+                    "        .tooltip {\n" +
+                    "            position: relative;\n" +
+                    "            display: inline-block;\n" +
+                    "            cursor: pointer;\n" +
+                    "        }\n" +
+                    "\n" +
+                    "        .tooltip .tooltiptext {\n" +
+                    "            visibility: hidden;\n" +
+                    "            width: 80px;\n" +
+                    "            height: 10px;\n" +
+                    "            /*background-color: #555;*/\n" +
+                    "            color: black;\n" +
+                    "            text-align: left;\n" +
+                    "            border-radius: 5px;\n" +
+                    "            padding: 10px;\n" +
+                    "            position: absolute;\n" +
+                    "            z-index: 1;\n" +
+                    "            bottom: 125%; /* Posición del tooltip */\n" +
+                    "            left: 50%;\n" +
+                    "            margin-left: -250px; /* Centrar el tooltip */\n" +
+                    "            opacity: 0;\n" +
+                    "            transition: opacity 0.3s;\n" +
+                    "        }\n" +
+                    "\n" +
+                    "        .tooltip:hover .tooltiptext {\n" +
+                    "            visibility: visible;\n" +
+                    "            opacity: 1;\n" +
+                    "        }\n" +
+                    "    </style>\n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "\n" +
+                    "<div class=\"tooltip\">\n" +
+                    "    <div class=\"tooltiptext\"> <p align: center>" + valorX + "; " + valorY + ";" + "<br> <b>"+
+                    generalIndex +
+                    "</b></p> </div>\n" +
+                    "</div>\n" +
+                    "\n" +
+                    "</body>" +
+                    "</html>");
+
         }
         return generalIMDG;
     }
@@ -140,12 +154,12 @@ public class ChartMDG extends JPanel {
      * <l>@param: x -> Valor del resultado de digitalización</l>
      */
     private Integer[] calcIndexPosition(float x, float y) {
-        y = 100-y;
+        y = 100 - y;
         //NOTA → Cada cuadrado tiene 137px de ancho por 110px de largo
         // 445x365 → medida de la gráfica central (los 12 cuadrados)
         Integer[] pos = new Integer[2];
         pos[0] = Math.round((x * 4.45f) + 446);
-        pos[1] = Math.round((y * 3.65f) +127);
+        pos[1] = Math.round((y * 3.65f) + 127);
 
 
         return pos;
@@ -159,22 +173,12 @@ public class ChartMDG extends JPanel {
     }
 
 
-    private JLabel getPieChart() {
-        if (pieLabel == null) {
-            pieLabel = new JLabel("");
-
-            // Se crea la gráfica de MDA (Madurez Digital por Ámbitos)
-            String generalValue = String.valueOf(this.generalIndex);
-
-            File file = new File("/util/chartsPython/graficaCircular1.png");
-            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
-                PythonExecutor.pieChart("'Índice de Madurez Digital Global\\n (IMDG)'", generalValue, "3", "3.8", "'1'");
-
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaCircular1.png"), "Imagen no encontrada"));
-            pieLabel.setIcon(icon);
-            pieLabel.setBounds(1, header.getHeight() + 50, icon.getIconWidth(), icon.getIconHeight());
+    private DonutPie getDonutChartIMDG() {
+        if (donutChartIMDG == null) {
+            donutChartIMDG = new DonutPie("Índice Madurez Digital Global (IMDG)", generalIndex, 30, header.getHeight() + 50, 250, 250);
+            donutChartIMDG.setLocation(30, header.getHeight() + 50);
         }
-        return pieLabel;
+        return donutChartIMDG;
     }
 
 }

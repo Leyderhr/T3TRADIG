@@ -10,13 +10,12 @@ import logic.Entitys.Perspectiva;
 import logic.Entitys.Pregunta;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Objects;
+
 
 public class Controlador {
 
     public void delete(Model model){
-        updatePoints(model, 2);
+        updateCantPoints(model, 2);
         recursiveDelete(model.getId(), model.getLevel());
     }
 
@@ -26,10 +25,9 @@ public class Controlador {
                 DAOAmbito daoAmbito = new DAOAmbito();
                 daoAmbito.deleteAmbito(id);
                 DAOPerspectiva dao_Perspectiva = new DAOPerspectiva();
-                Iterator<Perspectiva> iteratorP = dao_Perspectiva.consultPerspectivas(id).iterator();
 
-                while(iteratorP.hasNext()){
-                    recursiveDelete(iteratorP.next().getId_perspectiva(), level + 1);
+                for (Perspectiva perspectiva : dao_Perspectiva.consultPerspectivas(id)) {
+                    recursiveDelete(perspectiva.getId_perspectiva(), level + 1);
                 }
                 break;
 
@@ -37,10 +35,9 @@ public class Controlador {
                 DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
                 daoPerspectiva.deletePerspectiva(id);
                 DAODimension dao_Dimension = new DAODimension();
-                Iterator<Dimension> iteratorD = dao_Dimension.consultDimensiones(id).iterator();
 
-                while(iteratorD.hasNext()){
-                    recursiveDelete(iteratorD.next().getId_dimension(), level + 1);
+                for (Dimension dimension : dao_Dimension.consultDimensiones(id)) {
+                    recursiveDelete(dimension.getId_dimension(), level + 1);
                 }
                 break;
 
@@ -51,36 +48,34 @@ public class Controlador {
                 dao_Pregunta.deletePreguntaForDimension(id);
                 break;
 
-            default:
+            case 4:
                 DAOPregunta daoPregunta = new DAOPregunta();
                 daoPregunta.deletePregunta(id);
                 break;
+            default: break;
         }
     }
 
-    public void updatePoints(Model model, int choise){
-        int cant;
+    private void updateCantPoints(Model model, int choise){
         switch (model.getLevel()){
             case 2:
                 DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
-                recursiveUpdatePoints(model.getLevel() - 1, model.getSupId(), daoPerspectiva.findPerspectiva(model.getId()).getCant_dimensiones(), 2);
+                recursiveCantUpdatePoints(model.getLevel() - 1, model.getSupId(), daoPerspectiva.findPerspectiva(model.getId()).getCant_dimensiones(), 2);
                 break;
 
             case 3:
                 DAODimension daoDimension = new DAODimension();
-                recursiveUpdatePoints(model.getLevel() - 1, model.getSupId(), daoDimension.findDimension(model.getId()).getCant_preguntas(), 2);
+                recursiveCantUpdatePoints(model.getLevel() - 1, model.getSupId(), daoDimension.findDimension(model.getId()).getCant_preguntas(), 2);
                 break;
 
             case 4:
-                DAOPregunta daoPregunta = new DAOPregunta();
-                recursiveUpdatePoints(model.getLevel() - 1, model.getSupId(), 1, choise);
+                recursiveCantUpdatePoints(model.getLevel() - 1, model.getSupId(), 1, choise);
                 break;
-            default:
-                break;
+            default: break;
         }
     }
 
-    private void recursiveUpdatePoints(int level, int id, int cant, int choise){
+    private void recursiveCantUpdatePoints(int level, int id, int cant, int choise){
         switch (level){
             case 1:
                 DAOAmbito daoAmbito = new DAOAmbito();
@@ -91,7 +86,7 @@ public class Controlador {
                 else
                     ambito.setCant_perspectivas(ambito.getCant_perspectivas() - cant);
 
-                daoAmbito.updateAmbito(ambito, 2);
+                daoAmbito.updateAmbito(ambito, 1);
                 break;
             case 2:
                 DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
@@ -102,10 +97,10 @@ public class Controlador {
                 else
                     perspectiva.setCant_dimensiones(perspectiva.getCant_dimensiones() - cant);
 
-                daoPerspectiva.updatePerspectiva(perspectiva, 2);
-                recursiveUpdatePoints(level - 1, perspectiva.getId_ambito(), cant, choise);
+                daoPerspectiva.updatePerspectiva(perspectiva, 1);
+                recursiveCantUpdatePoints(level - 1, perspectiva.getId_ambito(), cant, choise);
                 break;
-            default:
+            case 3:
                 DAODimension daoDimension = new DAODimension();
                 Dimension dimension = daoDimension.findDimension(id);
 
@@ -114,38 +109,59 @@ public class Controlador {
                 else
                     dimension.setCant_preguntas(dimension.getCant_preguntas() - cant);
 
-                daoDimension.updateDimension(dimension, 2);
-                recursiveUpdatePoints(level - 1, dimension.getId_perspectiva(), cant, choise);
+                daoDimension.updateDimension(dimension, 1);
+                recursiveCantUpdatePoints(level - 1, dimension.getId_perspectiva(), cant, choise);
                 break;
+            default: break;
         }
     }
 
-    public void calculatePoints(){
+    public void calculatePoints(ArrayList<Dimension> dimensions, ArrayList<Pregunta> questions){
+        DAOPregunta daoPregunta = new DAOPregunta();
+        DAODimension daoDimension = new DAODimension();
+        DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
+        DAOAmbito daoAmbito = new DAOAmbito();
 
-    }
+        daoPregunta.updatePregunta(questions);
+        daoPregunta.calculatePoints(dimensions);
 
-    private void recursiceCalculatePoints(){
+        daoDimension.updateDimension(dimensions);
+        ArrayList<Perspectiva> perspectivas = daoPerspectiva.consultPerspectivas();
+        daoDimension.calculatePoints(perspectivas);
 
+        daoPerspectiva.updatePerspectiva(perspectivas);
+        ArrayList<Ambito> ambitos = daoAmbito.consultAmbitos();
+        daoPerspectiva.calculatePoints(ambitos);
     }
 
     private void addRecicleBin(){
 
     }
 
-    public void insert(int level){
-        switch (level){
+    public void insert(Model model){
+        switch (model.getLevel()){
             case 1:
-                Ambito ambito = new Ambito();
+                Ambito ambito = new Ambito(model.getId(), 0, 0, model.getLine());
+                DAOAmbito daoAmbito = new DAOAmbito();
+                daoAmbito.insertAmbito(ambito);
                 break;
             case 2:
-                Perspectiva perspectiva = new Perspectiva();
+                Perspectiva perspectiva = new Perspectiva(model.getId(), 0, 0, model.getSupId(), model.getLine());
+                DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
+                daoPerspectiva.insertPerspectiva(perspectiva);
                 break;
             case 3:
-                Dimension dimension = new Dimension();
+                Dimension dimension = new Dimension(model.getId(), 0, 0, model.getSupId(), model.getLine());
+                DAODimension daoDimension = new DAODimension();
+                daoDimension.insertDimension(dimension);
                 break;
-            default:
-                Pregunta pregunta = new Pregunta();
+            case 4:
+                Pregunta pregunta = new Pregunta(model.getId(), 0, model.getSupId(), model.getLine());
+                DAOPregunta daoPregunta = new DAOPregunta();
+                daoPregunta.insertPregunta(pregunta);
+                updateCantPoints(model, 1);
                 break;
+            default: break;
         }
     }
 
@@ -153,12 +169,12 @@ public class Controlador {
 
     }
 
-    public ArrayList<Ambito> getAmbitos(){
+    public static ArrayList<Ambito> getAmbitos(){
         DAOAmbito dao = new DAOAmbito();
         return dao.consultAmbitos();
     }
 
-    public ArrayList<Perspectiva> getPerspectiva(int id){
+    public static ArrayList<Perspectiva> getPerspectiva(int id){
         DAOPerspectiva dao = new DAOPerspectiva();
 
         if(id > 0)
@@ -167,7 +183,7 @@ public class Controlador {
             return dao.consultPerspectivas();
     }
 
-    public ArrayList<Dimension> getDimension(int id){
+    public static ArrayList<Dimension> getDimension(int id){
         DAODimension dao = new DAODimension();
 
         if(id > 0)
@@ -176,12 +192,32 @@ public class Controlador {
             return dao.consultDimensiones();
     }
 
-    public ArrayList<Pregunta> getPregunta(int id){
+    public static ArrayList<Pregunta> getPregunta(int id){
         DAOPregunta dao = new DAOPregunta();
 
         if(id > 0)
             return dao.consultPregunta(id);
         else
             return dao.consultPregunta();
+    }
+
+    public static Ambito findAmbito(int id){
+        DAOAmbito dao = new DAOAmbito();
+        return dao.findAmbito(id);
+    }
+
+    public static Perspectiva findPerspectiva(int id){
+        DAOPerspectiva dao = new DAOPerspectiva();
+        return dao.findPerspectiva(id);
+    }
+
+    public static Dimension findDimension(int id){
+        DAODimension dao = new DAODimension();
+        return dao.findDimension(id);
+    }
+
+    public static Pregunta findPregunta(int id){
+        DAOPregunta dao = new DAOPregunta();
+        return dao.findPregunta(id);
     }
 }

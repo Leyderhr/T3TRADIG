@@ -1,33 +1,33 @@
 package util.table;
 
 
-import logic.Model;
+import logic.useful.Model;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
-public class TableTreeModel extends DefaultTableModel{
+public class TableModel extends DefaultTableModel{
 
-    public TableTreeModel(){
-        String[] columnNames = {"Nombre"};
+    public TableModel(){
+        Object[] columnNames = {"No.", "Nombre"};
         this.setColumnIdentifiers(columnNames);
     }
 
-    public TableTreeModel(List<Model> list){
-        String[] columnNames = {"Nombre"};
+    public TableModel(List<Model> list){
+        Object[] columnNames = {"No.", "Nombre"};
         this.setColumnIdentifiers(columnNames);
 
         for(Model m: list){
-            Object[] newRow = new Object[]{m.getLine()};
+            Object[] newRow = new Object[]{m.getId(), m.getLine()};
             addRow(newRow);
         }
     }
 
     public void actTable(List<Model> list){
-        String[] columnNames = {"Nombre"};
+        String[] columnNames = {"No.", "Nombre"};
         this.setColumnIdentifiers(columnNames);
 
         for (Model m: list) {
-            Object[] newRow = new Object[]{m.getLine()};
+            Object[] newRow = new Object[]{m.getId(), m.getLine()};
             addRow(newRow);
         }
     }
@@ -37,8 +37,8 @@ public class TableTreeModel extends DefaultTableModel{
         return false;
     }
 
-    public void insert(String name){
-        Object[] newRow = new Object[]{name};
+    public void insert(Model m){
+        Object[] newRow = new Object[]{m.getId(), m.getLine()};
         addRow(newRow);
     }
 

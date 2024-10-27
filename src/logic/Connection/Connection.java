@@ -7,7 +7,7 @@ public class Connection {
 
     java.sql.Connection connection = null;
     String bd = "DB.db";
-    String cadena = "jdbc:sqlite:src/util/DB/" + bd;
+    String cadena = "jdbc:sqlite:src/Util/DB/" + bd;
 
 
     public java.sql.Connection connect() {

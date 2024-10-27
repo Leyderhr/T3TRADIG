@@ -132,11 +132,11 @@ public class MenuPanel extends JPanel {
             btnMainPanel.setVerticalTextPosition(SwingConstants.BOTTOM);
             btnMainPanel.setHorizontalTextPosition(SwingConstants.CENTER);
 
-
             btnMainPanel.addMouseListener(new MouseAdapter()  {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     panelControl(p,DashboardPanel.Frame_Value);
+
                 }
 
                 @Override
