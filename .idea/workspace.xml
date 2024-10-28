@@ -4,33 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pfg">
+    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pdf">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartAmbits.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartAmbits.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartMDG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartMDG.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartPerspective.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartPerspective.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/DonutPie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/DonutPie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/HorizontalBarChart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/HorizontalBarChart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/MdgMdaMdpTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/MdgMdaMdpTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartDimension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartDimension.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/DonutPie2.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/SettingPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/SettingPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/Connection/Connection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/DAO/DAOAmbito.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/DAO/DAODimension.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/DAO/DAOPerspectiva.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/DAO/DAOPregunta.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/Entitys/Ambito.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/Entitys/Dimension.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/Entitys/Perspectiva.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/Entitys/Pregunta.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/Model.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/Questions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/WordCreator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/useful/Controlador.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/useful/Model.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/DB/DB.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/DB/DB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/table/MyTableCellRendererGeneralTables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/table/MyTableCellRendererGeneralTables.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +114,7 @@
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Util" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Interface.newInterface.Chart" />
       <recent name="Interface.newInterface.python" />
       <recent name="Interface" />
       <recent name="Interface.Event" />
@@ -297,7 +277,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730011949172</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pdf">
+      <option name="closed" value="true" />
+      <created>1730143752727</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1730143752727</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -360,7 +348,8 @@
     <MESSAGE value="Corregidos errores generales." />
     <MESSAGE value="Corregidos errores generales. Agregada la funcionalidad de cargar preguntas desde la base de datos" />
     <MESSAGE value="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pfg" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pfg" />
+    <MESSAGE value="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pdf" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pdf" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -48,7 +48,7 @@ public class SettingPanel extends PanelShadow {
     public SettingPanel(Principal1 window){
         setBounds(241, 100, 1039, 620);
         setLayout(null);
-        setVisible(true);
+        setVisible(false);
         thisModel = new Model(0, -1, 0, "TetraDig System");
         models = new ArrayList<>();
 

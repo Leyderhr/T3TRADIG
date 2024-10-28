@@ -9,14 +9,14 @@ public class ChartDimension extends JPanel {
 
     private JLabel header;
     private HorizontalBarChart horizontalBarChartDimension;
-    private DonutPie2 donutPie2;
+    private DonutChartPanel donutPie2;
 
     public ChartDimension(){
         setLayout(null);
 
         add(getHeader());
         add(getHorizontalBarChartDimension());
-        add(getDonutPie2());
+        add(getDonutChart());
         setSize(1000,horizontalBarChartDimension.getHeight() + header.getHeight() + header.getY());
 
     }
@@ -35,7 +35,7 @@ public class ChartDimension extends JPanel {
     private HorizontalBarChart getHorizontalBarChartDimension(){
         if(horizontalBarChartDimension == null){
             horizontalBarChartDimension = new HorizontalBarChart(null, null, Controlador.getDimension(0));
-            horizontalBarChartDimension.setBounds(20, header.getHeight() + 20, 700, 760);
+            horizontalBarChartDimension.setBounds(1, header.getHeight() + 20, 700, 760);
             setOpaque(true);
             horizontalBarChartDimension.setBackground(Color.WHITE);
             setVisible(true);
@@ -43,12 +43,12 @@ public class ChartDimension extends JPanel {
         return horizontalBarChartDimension;
     }
 
-    private DonutPie2 getDonutPie2(){
+    private DonutChartPanel getDonutChart(){
         if(donutPie2 == null){
-            donutPie2 = new DonutPie2(Controlador.getDimension(0));
-            donutPie2.setBounds(57, header.getHeight() + 20, 600, 760);
+            donutPie2 = new DonutChartPanel(Controlador.getDimension(0));
+            donutPie2.setBounds(700, header.getHeight() + 200, 300, 500);
             setOpaque(true);
-            donutPie2.setBackground(Color.ORANGE);
+            donutPie2.setBackground(Color.WHITE);
             setVisible(true);
         }
         return donutPie2;

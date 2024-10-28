@@ -21,6 +21,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +35,8 @@ public class ReportPanel extends JScrollPane  implements Printable {
     private final JScrollPane reportPanel;
     private JPanel chartPanel;
 
-    private JButton btnSavePDF;
+    private ButtonMenu btnSavePDF;
+    private ButtonMenu btnSaveWORD;
     private PanelShadow panelShadow;
 
     private ChartMDG chartMDG;
@@ -70,6 +72,7 @@ public class ReportPanel extends JScrollPane  implements Printable {
             chartPanel.setBorder(null);
             chartPanel.add(getShadowPanel());
             chartPanel.add(getBtnSavePDF());
+            chartPanel.add(getBtnSaveWORD());
             chartPanel.setPreferredSize(new Dimension(1030, panelShadow.getHeight() + btnSavePDF.getHeight()));
 
 
@@ -286,6 +289,107 @@ public class ReportPanel extends JScrollPane  implements Printable {
             });
         }
         return btnSavePDF;
+    }
+
+
+    private JButton getBtnSaveWORD() {
+
+        if (btnSaveWORD == null) {
+            btnSaveWORD = new ButtonMenu();
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/archive-down.png")));
+            btnSaveWORD.setIcon(icon);
+            btnSaveWORD.setBackground(null);
+            btnSaveWORD.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            btnSaveWORD.setHorizontalAlignment(SwingConstants.CENTER);
+            btnSaveWORD.setHorizontalTextPosition(SwingConstants.CENTER);
+            btnSaveWORD.setIconTextGap(1);
+            btnSaveWORD.setBounds(900, panelShadow.getHeight() + 1, 60, 60);
+            btnSaveWORD.setBorder(new EmptyBorder(0, 0, 0, 0));
+            btnSaveWORD.setToolTipText("Guardar en un word");
+
+            btnSaveWORD.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+
+                    JFileChooser fileChooser = new JFileChooser();
+                    fileChooser.setDialogTitle("Guardar Imagen");
+                    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+//                    FileNameExtensionFilter filter = new FileNameExtensionFilter(ResourceBundleWrapper.getBundle("org.jfree.chart.LocalizationBundle").getString("PNG_Image_Files"), new String[]{"png"});
+//                    fileChooser.addChoosableFileFilter(filter);
+//                    fileChooser.setFileFilter(filter);
+
+
+                    // Muestra el JFileChooser
+                    int resultado = fileChooser.showSaveDialog(ReportPanel.this);
+
+                    // Si el usuario seleccionó un archivo
+                    if (resultado == JFileChooser.APPROVE_OPTION) {
+                        String filename = fileChooser.getSelectedFile().getPath();
+                        if (!filename.endsWith(".docx")) {
+                            filename = filename + ".docx";
+                        }
+                        saveWord(filename);
+                    }
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    // Cambia el color de fondo cuando se pasa el cursor por encima
+                    btnSaveWORD.setBackground(Color.gray);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    // Restaura el color de fondo cuando el cursor sale
+                    btnSaveWORD.setBackground(null);
+                }
+
+            });
+        }
+        return btnSaveWORD;
+    }
+
+
+    private void saveWord(String path) {
+        //Carga la imagen del panel
+        BufferedImage image = new BufferedImage(chartAmbits.getWidth(), chartAmbits.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = image.createGraphics();
+        // Establece el color de fondo a blanco
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, image.getWidth(), image.getHeight()); // Rellena el fondo con color blanco
+        chartAmbits.paint(g2d);
+        g2d.dispose();
+
+        //Se transforma la imagen en bytes
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", baos);
+            baos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Se crean todas las secciones del documento
+//        Document doc = new Document();
+//        DocPicture picture = new DocPicture(doc);
+//        Section section = doc.addSection();
+//        section.getPageSetup().getMargins().setAll(40f);
+//        Paragraph paragraph = section.addParagraph();
+//
+//        //Se le da formato a la imagen
+//        picture.loadImage(baos.toByteArray());
+//        picture.setWidth(300);
+//        picture.setHeight(300);
+//        picture.setTextWrappingStyle(TextWrappingStyle.Square);
+//
+//        //Se agrega al documento
+//        doc.getSections().get(0).getParagraphs().get(0).getChildObjects().insert(0, picture);
+//
+//        doc.saveToFile(path, FileFormat.Docx_2013);
+//
+//        doc.close();
+
     }
 
     @Override
