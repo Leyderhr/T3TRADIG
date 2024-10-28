@@ -22,10 +22,10 @@ public class DAOPerspectiva {
 
         try {
 
-            ps = cx.connect().prepareStatement("insert into perspectiva(nombre_perspectiva, cant_dimensiones, cant_puntos ,id_ambito, eliminado)values(?, ?, ?, ?, ?)");
+            ps = cx.connect().prepareStatement("insert into perspectiva(nombre_perspectiva, cant_preguntas, cant_puntos ,id_ambito, eliminado)values(?, ?, ?, ?, ?)");
 
             ps.setString(1, p.getNombre_perspectiva());
-            ps.setInt(2, p.getCant_dimensiones());
+            ps.setInt(2, p.getCant_preguntas());
             ps.setInt(3, p.getCant_ptos());
             ps.setInt(4, p.getId_ambito());
             ps.setInt(5, 0);
@@ -50,7 +50,7 @@ public class DAOPerspectiva {
                 p.setId_perspectiva(rs.getInt("id_perspectiva"));
                 p.setCant_ptos(rs.getInt("cant_puntos"));
                 p.setId_ambito(rs.getInt("id_ambito"));
-                p.setCant_dimensiones(rs.getInt("cant_dimensiones"));
+                p.setCant_preguntas(rs.getInt("cant_preguntas"));
                 p.setNombre_perspectiva(rs.getString("nombre_perspectiva"));
                 lista.add(p);
             }
@@ -75,7 +75,7 @@ public class DAOPerspectiva {
                 p.setId_perspectiva(rs.getInt("id_perspectiva"));
                 p.setCant_ptos(rs.getInt("cant_puntos"));
                 p.setId_ambito(rs.getInt("id_ambito"));
-                p.setCant_dimensiones(rs.getInt("cant_dimensiones"));
+                p.setCant_preguntas(rs.getInt("cant_preguntas"));
                 p.setNombre_perspectiva(rs.getString("nombre_perspectiva"));
                 lista.add(p);
             }
@@ -101,7 +101,7 @@ public class DAOPerspectiva {
                 p.setId_perspectiva(rs.getInt("id_perspectiva"));
                 p.setCant_ptos(rs.getInt("cant_puntos"));
                 p.setId_ambito(rs.getInt("id_ambito"));
-                p.setCant_dimensiones(rs.getInt("cant_dimensiones"));
+                p.setCant_preguntas(rs.getInt("cant_preguntas"));
                 p.setNombre_perspectiva(rs.getString("nombre_perspectiva"));
             }
         }catch (SQLException e){
@@ -144,8 +144,8 @@ public class DAOPerspectiva {
         try {
             switch (choise){
                 case 1:
-                    ps = cx.connect().prepareStatement("UPDATE perspectiva SET cant_dimensiones = ? WHERE id_perspectiva = ? AND eliminado = 0");
-                    ps.setInt(1, p.getCant_dimensiones());
+                    ps = cx.connect().prepareStatement("UPDATE perspectiva SET cant_preguntas = ? WHERE id_perspectiva = ? AND eliminado = 0");
+                    ps.setInt(1, p.getCant_preguntas());
                     break;
                 case 2:
                     ps = cx.connect().prepareStatement("UPDATE perspectiva SET nombre_perspectiva = ? WHERE id_perspectiva = ? AND eliminado = 0");

@@ -21,11 +21,11 @@ public class DAOAmbito {
         PreparedStatement ps;
 
         try {
-            ps = cx.connect().prepareStatement("insert into ambito(nombre_ambito, cant_puntos, cant_perspectiva, eliminado)values(?, ?, ?, ?)");
+            ps = cx.connect().prepareStatement("insert into ambito(nombre_ambito, cant_puntos, cant_preguntas, eliminado)values(?, ?, ?, ?)");
 
             ps.setString(1, a.getNombre_ambito());
             ps.setInt(2, a.getCant_ptos());
-            ps.setInt(3, a.getCant_perspectivas());
+            ps.setInt(3, a.getCant_preguntas());
             ps.setInt(4, 0);
             ps.execute();
             cx.desconect();
@@ -47,7 +47,7 @@ public class DAOAmbito {
                 Ambito a = new Ambito();
                 a.setId_ambito(rs.getInt("id_ambito"));
                 a.setNombre_ambito(rs.getString("nombre_ambito"));
-                a.setCant_perspectivas(rs.getInt("cant_perspectiva"));
+                a.setCant_preguntas(rs.getInt("cant_preguntas"));
                 a.setCant_ptos(rs.getInt("cant_puntos"));
                 lista.add(a);
             }
@@ -72,7 +72,7 @@ public class DAOAmbito {
                 a = new Ambito();
                 a.setId_ambito(rs.getInt("id_ambito"));
                 a.setNombre_ambito(rs.getString("nombre_ambito"));
-                a.setCant_perspectivas(rs.getInt("cant_perspectiva"));
+                a.setCant_preguntas(rs.getInt("cant_preguntas"));
                 a.setCant_ptos(rs.getInt("cant_puntos"));
             }
             cx.desconect();
@@ -116,8 +116,8 @@ public class DAOAmbito {
         try {
             switch (choise){
                 case 1:
-                    ps = cx.connect().prepareStatement("UPDATE ambito SET cant_perspectiva = ? WHERE id_ambito = ? AND eliminado = 0");
-                    ps.setInt(1, a.getCant_perspectivas());
+                    ps = cx.connect().prepareStatement("UPDATE ambito SET cant_preguntas = ? WHERE id_ambito = ? AND eliminado = 0");
+                    ps.setInt(1, a.getCant_preguntas());
                     break;
                 case 2:
                     ps = cx.connect().prepareStatement("UPDATE ambito SET nombre_ambito = ? WHERE id_ambito = ? AND eliminado = 0");

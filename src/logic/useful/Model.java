@@ -39,6 +39,9 @@ public class Model {
     }
 
     public void setLine(String line) {
-        this.line = line;
+        if(line != null && !(line.replaceAll(" ","").equalsIgnoreCase("")))
+            this.line = line;
+        else
+            throw new IllegalArgumentException("Los valores introducidos no son admisibles");
     }
 }

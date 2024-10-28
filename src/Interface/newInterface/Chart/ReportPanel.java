@@ -2,6 +2,7 @@ package Interface.newInterface.Chart;
 
 import Interface.export.swing.PanelShadow;
 import Interface.export.swing.scrollbar.ScrollBarCustom;
+import Interface.newInterface.ButtonMenu;
 import Interface.newInterface.Principal1;
 import Interface.newInterface.python.PythonExecutor;
 
@@ -40,9 +41,8 @@ public class ReportPanel extends JScrollPane  implements Printable {
     private ChartAmbits chartAmbits;
     private ChartPerspective chartPerspective;
     private MdgMdaMdpTable mdgMdaMdpTable;
-
-    private JLabel jlabel;
-    private JLabel jPieLabel;
+    private ChartDimension chartDimension;
+    private MddResumenTable mddResumenTable;
 
 
     public ReportPanel(Principal1 p) throws Exception {
@@ -52,7 +52,7 @@ public class ReportPanel extends JScrollPane  implements Printable {
         reportPanel.setBorder(null);
         reportPanel.setVerticalScrollBar(new ScrollBarCustom());
         reportPanel.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
-        reportPanel.setViewportView(getChartPanel(p));
+        reportPanel.setViewportView(getChartPanel());
         reportPanel.setViewportBorder(null);
         reportPanel.setVisible(false);
 
@@ -60,7 +60,7 @@ public class ReportPanel extends JScrollPane  implements Printable {
 
 
 
-    private JPanel getChartPanel(Principal1 p) throws Exception {
+    private JPanel getChartPanel() throws Exception {
         if (chartPanel == null) {
             chartPanel = new JPanel();
             chartPanel.setLayout(null);
@@ -68,9 +68,9 @@ public class ReportPanel extends JScrollPane  implements Printable {
             chartPanel.setBackground(Color.WHITE);
             chartPanel.setOpaque(false);
             chartPanel.setBorder(null);
-            chartPanel.add(getBtnSavePDF(p));
             chartPanel.add(getShadowPanel());
-            chartPanel.setPreferredSize(new Dimension(1030, panelShadow.getHeight()));
+            chartPanel.add(getBtnSavePDF());
+            chartPanel.setPreferredSize(new Dimension(1030, panelShadow.getHeight() + btnSavePDF.getHeight()));
 
 
         }
@@ -80,23 +80,24 @@ public class ReportPanel extends JScrollPane  implements Printable {
     private PanelShadow getShadowPanel() throws Exception {
         if (panelShadow == null) {
             panelShadow = new PanelShadow();
-            panelShadow.setBounds(3, 3, 1030, 4000);
             panelShadow.setLayout(null);
             panelShadow.add(getChartMDG());
             panelShadow.add(getChartAmbits());
             panelShadow.add(getCharPerspective());
             panelShadow.add(getMdgMdaMdpTable());
-            //panelShadow.add(getMDChart(1));
-            //panelShadow.add(getMDChart(1));
+            panelShadow.add(getChartDimension());
+            panelShadow.add(getMddResumenTable());
 
-            // Crea la imagen del panel para luego exportarla al pdf y word
-            BufferedImage image = new BufferedImage(panelShadow.getWidth(), panelShadow.getHeight(), BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = image.createGraphics();
-            panelShadow.paint(g2d);
-            g2d.dispose();
-
-            // Guarda la imagen
-            ImageIO.write(image, "png", new File("panel2.png"));
+            int height = chartMDG.getHeight() + chartAmbits.getHeight() + chartPerspective.getHeight()+ mdgMdaMdpTable.getHeight() + chartDimension.getHeight() + mddResumenTable.getHeight();
+            panelShadow.setBounds(3, 3, 1030, height);
+//            // Crea la imagen del panel para luego exportarla al pdf y word
+//            BufferedImage image = new BufferedImage(panelShadow.getWidth(), panelShadow.getHeight(), BufferedImage.TYPE_INT_RGB);
+//            Graphics2D g2d = image.createGraphics();
+//            panelShadow.paint(g2d);
+//            g2d.dispose();
+//
+//            // Guarda la imagen
+//            ImageIO.write(image, "png", new File("panel2.png"));
         }
         return panelShadow;
     }
@@ -150,7 +151,7 @@ public class ReportPanel extends JScrollPane  implements Printable {
 
 
 
-    private ChartMDG getChartMDG() throws IOException {
+    private ChartMDG getChartMDG(){
         if (chartMDG == null){
             chartMDG = new ChartMDG(14.58f, 31.25f);
             chartMDG.setLocation(10,10);
@@ -171,21 +172,21 @@ public class ReportPanel extends JScrollPane  implements Printable {
 
     /**Método para crear todas las cosas que tienen ver con los resultados del
       índice de madurez digital por ámbitos*/
-    private ChartAmbits getChartAmbits() throws IOException {
+    private ChartAmbits getChartAmbits() {
         if (chartAmbits == null) {
             chartAmbits = new ChartAmbits(50.58f, 31.25f);
             int y = chartMDG.getY() + chartMDG.getHeight() + 22;
             chartAmbits.setLocation(15, y);
             chartAmbits.setBackground(Color.WHITE);
 
-            // Crea la imagen del panel para luego exportarla al pdf y word
-            BufferedImage image = new BufferedImage(chartAmbits.getWidth(), chartAmbits.getHeight(), BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = image.createGraphics();
-            chartAmbits.paint(g2d);
-            g2d.dispose();
-
-            // Guarda la imagen
-            ImageIO.write(image, "png", new File("panel3.png"));
+//            // Crea la imagen del panel para luego exportarla al pdf y word
+//            BufferedImage image = new BufferedImage(chartAmbits.getWidth(), chartAmbits.getHeight(), BufferedImage.TYPE_INT_RGB);
+//            Graphics2D g2d = image.createGraphics();
+//            chartAmbits.paint(g2d);
+//            g2d.dispose();
+//
+//            // Guarda la imagen
+//            ImageIO.write(image, "png", new File("panel3.png"));
         }
         return chartAmbits;
     }
@@ -195,7 +196,7 @@ public class ReportPanel extends JScrollPane  implements Printable {
      índice de madurez digital por perspectivas*/
     private ChartPerspective getCharPerspective() {
         if (chartPerspective == null) {
-            chartPerspective = new ChartPerspective(12.50f, 20.83f, 0.00f, 25.00f, 50.00f, 12.50f);
+            chartPerspective = new ChartPerspective();
             int y = chartAmbits.getY() + chartAmbits.getHeight() + 22;
             chartPerspective.setLocation(15, y);//1180
             chartPerspective.setOpaque(false);
@@ -207,7 +208,7 @@ public class ReportPanel extends JScrollPane  implements Printable {
 
     private MdgMdaMdpTable getMdgMdaMdpTable(){
         if(mdgMdaMdpTable == null){
-            mdgMdaMdpTable = new MdgMdaMdpTable(23.3f, 34.5f, 23.67f);
+            mdgMdaMdpTable = new MdgMdaMdpTable();
             int y = chartPerspective.getY() + chartPerspective.getHeight() + 22;
             mdgMdaMdpTable.setLocation(12, y);
             mdgMdaMdpTable.setOpaque(false);
@@ -216,49 +217,54 @@ public class ReportPanel extends JScrollPane  implements Printable {
         return mdgMdaMdpTable;
     }
 
+    private ChartDimension getChartDimension(){
+        if(chartDimension == null){
+            chartDimension = new ChartDimension();
+            int y = mdgMdaMdpTable.getY() + mdgMdaMdpTable.getHeight() + 22;
+            chartDimension.setLocation(12, y);
+            chartDimension.setOpaque(true);
+            chartDimension.setBackground(Color.WHITE);
+        }
+        return chartDimension;
+    }
 
-    private JButton getBtnSavePDF(Principal1 p) {
+    private MddResumenTable getMddResumenTable(){
+        if(mddResumenTable == null){
+            mddResumenTable  = new MddResumenTable();
+            int y = chartDimension.getY() + chartDimension.getHeight() + 22;
+            mddResumenTable.setLocation(12, y);
+            mddResumenTable.setOpaque(false);
+            mddResumenTable.setBackground(Color.WHITE);
+        }
+        return mddResumenTable;
+    }
+
+
+    private JButton getBtnSavePDF() {
 
         if (btnSavePDF == null) {
-            btnSavePDF = new JButton();
-            ImageIcon icon = new ImageIcon(getClass().getResource("/util/archive-down.png"));
+            btnSavePDF = new ButtonMenu();
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/archive-down.png")));
             btnSavePDF.setIcon(icon);
             btnSavePDF.setBackground(null);
             btnSavePDF.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             btnSavePDF.setHorizontalAlignment(SwingConstants.CENTER);
             btnSavePDF.setHorizontalTextPosition(SwingConstants.CENTER);
             btnSavePDF.setIconTextGap(1);
-            btnSavePDF.setBounds(970, 1300, 45, 45);
+            btnSavePDF.setBounds(970, panelShadow.getHeight() + 1, 60, 60);
             btnSavePDF.setBorder(new EmptyBorder(0, 0, 0, 0));
-            btnSavePDF.setToolTipText("Guardar información en un pdf");
+            btnSavePDF.setToolTipText("Guardar en un pdf");
 
             btnSavePDF.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-//                    String filepath = "";
-//                    try {
-//                        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//                    } catch (ClassNotFoundException ex) {
-//                        throw new RuntimeException(ex);
-//                    } catch (InstantiationException ex) {
-//                        throw new RuntimeException(ex);
-//                    } catch (IllegalAccessException ex) {
-//                        throw new RuntimeException(ex);
-//                    } catch (UnsupportedLookAndFeelException ex) {
-//                        throw new RuntimeException(ex);
-//                    }
-//                    JFileChooser chooser = new JFileChooser();
-//                    chooser.setDialogTitle("Guardar pdf");
-//                    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//                    if(chooser.showOpenDialog(p) == JFileChooser.APPROVE_OPTION)
-//                        filepath = chooser.getSelectedFile().getAbsolutePath();
-
 
                     try {
                         PrinterJob job = PrinterJob.getPrinterJob();
                         job.setPrintable(ReportPanel.this);
-                        job.printDialog();
-                        job.print();
+
+                        if(job.printDialog())
+                            job.print();
                     } catch (PrinterException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -282,49 +288,75 @@ public class ReportPanel extends JScrollPane  implements Printable {
         return btnSavePDF;
     }
 
+    @Override
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) {
+
+        Component[] internalPanels = panelShadow.getComponents();
+
+        Graphics2D g2d = (Graphics2D)graphics;
+
+        // Imprime cada JPanel interno en una nueva página
+        if (pageIndex < internalPanels.length) {
+            JPanel panelToPrint = (JPanel) internalPanels[pageIndex];
+
+            double AlturaPag = pageFormat.getImageableHeight();
+            double AnchoPag = pageFormat.getImageableWidth();
+
+            // Calcula el ancho y alto del JPanel
+            double AnchoPanel = panelToPrint.getWidth();
+            double AlturaPanel = panelToPrint.getHeight();
+
+            // Escala para ajustar el JPanel a la página
+            double escala = AnchoPag / AnchoPanel;
+
+            // Ajusta la escala y traslada el origen
+            g2d.scale(escala, escala);
+            g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+
+
+            // Imprime el JPanel
+            panelToPrint.paint(g2d);
+
+            return PAGE_EXISTS;
+        } else {
+            return NO_SUCH_PAGE;
+        }
+
+    }
+
+
+    //        //El panel no cabria en la hoja, asi que necesitamos reescalarlo:
+//        if(AnchoPanel >= AnchoPag) {
+//            escala =  AnchoPag / AnchoPanel;
+//        }
+//        int NumPages = (int) (AlturaPanel / AlturaPag);
+//
+//        g2d.translate(0f,-pageIndex*AlturaPag);
+//        if(pageIndex+1 != NumPages){
+//            g2d.setClip(0, (int)(pageIndex*AlturaPag) + 50,(int)AnchoPag,(int)AlturaPag);
+//        }
+//        else{
+//            int RestoPanel = (int) (AlturaPanel - pageIndex*AlturaPag)-5;
+//            g2d.setClip(0, (int)(pageIndex*AlturaPag),(int)AnchoPag, RestoPanel);
+//        }
+//        //Cambiamos la escala para que quepa el panel en la hoja:
+//        g2d.scale(escala,escala);
+//
+//
+//        if(pageIndex >=NumPages)
+//            return NO_SUCH_PAGE;
+//
+//        else{
+//            panelShadow.paint(g2d);
+//            return PAGE_EXISTS;
+//        }
+
+
+
 
     @Override
     public void setVisible(boolean a) {
         this.reportPanel.setVisible(a);
     }
 
-
-    @Override
-    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-
-        double AlturaPag = pageFormat.getImageableHeight();
-        double AnchoPag = pageFormat.getImageableWidth();
-        double AnchoPanel = (double)panelShadow.getWidth();
-        double AlturaPanel = (double)panelShadow.getHeight();
-        double escala = 1;
-
-        Graphics2D g2d = (Graphics2D)graphics;
-
-        //El panel no cabria en la hoja, asi que necesitamos reescalarlo:
-        if(AnchoPanel >= AnchoPag) {
-            escala =  AnchoPag / AnchoPanel;
-        }
-        int NumPages = (int) (AlturaPanel / AlturaPag);
-
-        g2d.translate(0f,-pageIndex*AlturaPag);
-        if(pageIndex+1 != NumPages){
-            g2d.setClip(0, (int)(pageIndex*AlturaPag),(int)AnchoPag,(int)AlturaPag);
-        }
-        else{
-            int RestoPanel = (int) (AlturaPanel - pageIndex*AlturaPag)-5;
-            g2d.setClip(0, (int)(pageIndex*AlturaPag),(int)AnchoPag, RestoPanel);
-        }
-        //Cambiamos la escala para que quepa el panel en la hoja:
-        g2d.scale(escala,escala);
-
-
-        if(pageIndex >=NumPages)
-            return NO_SUCH_PAGE;
-
-        else{
-            panelShadow.paint(g2d);
-            return PAGE_EXISTS;
-        }
-
-    }
 }

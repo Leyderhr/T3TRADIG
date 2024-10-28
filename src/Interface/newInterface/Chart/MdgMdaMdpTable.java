@@ -1,83 +1,46 @@
 package Interface.newInterface.Chart;
 
 import Interface.newInterface.python.PythonExecutor;
-import logic.DAO.DAOAmbito;
-import logic.DAO.DAODimension;
-import logic.DAO.DAOPerspectiva;
 import logic.Entitys.Ambito;
-import logic.Entitys.Dimension;
 import logic.Entitys.Perspectiva;
 import logic.useful.Controlador;
-import util.table.MyTableCellRendererCeldas;
+import util.table.MyTableCellRendererGeneralPerspective;
 import util.table.MyTableCellRendererGeneralTables;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.Vector;
 
 public class MdgMdaMdpTable extends JPanel {
 
     private JTable resumenGeneralAmbits;
-    private float index1;
-
-    private float index2;
-
-    private float index3;
+    private JTable resumenGeneralPerspectives;
 
     private JLabel header;
-    private JLabel generalIndexTable;
+    private DefaultTableModel model = new DefaultTableModel();
 
-    private final DefaultTableModel model = new DefaultTableModel();
-    private ArrayList<Ambito> ambitos;
-    private ArrayList<Perspectiva> perspectivas;
-    private ArrayList<Dimension> dimensions;
+    private JScrollPane scrollPaneResumenGeneralAmbits;
+    private JScrollPane scrollPaneResumenGeneralPerspectives;
 
 
-    private JScrollPane scrollPane;
-
-    public float getIndex1() {
-        return index1;
-    }
-
-    public void setIndex1(float index1) {
-        this.index1 = index1;
-    }
-
-    public float getIndex2() {
-        return index2;
-    }
-
-    public void setIndex2(float index2) {
-        this.index2 = index2;
-    }
-
-    public float getIndex3() {
-        return index3;
-    }
-
-    public void setIndex3(float index3) {
-        this.index3 = index3;
-    }
-
-    public MdgMdaMdpTable(float index1, float index3, float index2){
+    public MdgMdaMdpTable() {
         setLayout(null);
-        setIndex1(index1);
-        setIndex2(index2);
-        setIndex3(index3);
 
         add(getHeader());
-        //add(getGeneralIndexTable());
-        //add(getTableResumenGeneralAmbits());
-        add(getScrollPane());
-        setSize(1000, 500);
+        add(getScrollPaneResumenGeneralAmbits());
+        add(getScrollPaneResumenGeneralPerspectives());
+
+        // El height del panel se calcula sumando la altura de cada panel + la separación entre ellos
+        int height = (header.getHeight() + scrollPaneResumenGeneralAmbits.getHeight() + scrollPaneResumenGeneralPerspectives.getHeight()) + 20;
+        setSize(1000, height);
     }
 
-    private JLabel getHeader(){
-        if (header == null){
+    private JLabel getHeader() {
+        if (header == null) {
             header = new JLabel("Resultados: Resumen madurez digital MDG, MDA y MDP");
             header.setFont(new Font("Myriad Pro Bold Cond", Font.BOLD, 30));
             header.setBounds(20, 10, 850, 80);
@@ -87,37 +50,16 @@ public class MdgMdaMdpTable extends JPanel {
         return header;
     }
 
-    private JLabel getGeneralIndexTable(){
-        if(generalIndexTable == null){
-            generalIndexTable = new JLabel();
 
-
-            String rows = "[['GLOBAL (MDG)',"+ index1 +"," + index2 +"," + index3 + "," + "'BÁSICO'], " +
-                    "['ÁMBITOS (MDA)', '', '', '', 'ẋ']]";
-            String columnLables = "['', 'Madurez Digital\\n(MDm) X maximo', 'Madurez Digital (MDr)', 'Indice de Madurez', 'Nivel de Madurez Digital']";
-
-            PythonExecutor.createTable(rows, columnLables);
-            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/tabla.png")));
-            generalIndexTable.setIcon(icon);
-
-            int y = header.getY()+ header.getHeight();
-            generalIndexTable.setBounds(1,  y + 20, icon.getIconWidth(), icon.getIconHeight());
-        }
-        return generalIndexTable;
-    }
-
-
-
-
-
-    // Tabla del Resumen de madures digital global y por ambitos
-    // =========================================================================
-    private JScrollPane getScrollPane() {
-        if (scrollPane == null) {
-            scrollPane = new JScrollPane();
-            scrollPane.setBounds(15, 100, 970, 329);
-            scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-            scrollPane.setViewportView(getTableResumenGeneralAmbits());
+    // Tabla del Resumen de madures digital global y por ámbitos
+    // =================================================================================================================
+    private JScrollPane getScrollPaneResumenGeneralAmbits() {
+        if (scrollPaneResumenGeneralAmbits == null) {
+            scrollPaneResumenGeneralAmbits = new JScrollPane();
+            scrollPaneResumenGeneralAmbits.setBounds(15, 100, 970, 245);
+            scrollPaneResumenGeneralAmbits.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+            scrollPaneResumenGeneralAmbits.setViewportView(getTableResumenGeneralAmbits());
+            scrollPaneResumenGeneralAmbits.setBorder(null);
 
             model.addColumn("");
             model.addColumn("<html> <p align: center>Madurez Digital<br>(MDm) X̅ máximo</p></html>");
@@ -126,8 +68,13 @@ public class MdgMdaMdpTable extends JPanel {
             model.addColumn("<html> <p align: center>Nivel de Madurez Digital<br> (NMD)</p></html>");
             actualizarTablaAmbits();
 
+            int heightTable = (50 * (getTableResumenGeneralAmbits().getRowCount())) +
+                    getTableResumenGeneralAmbits().getTableHeader().getBounds().height + 45;
+
+            int y = header.getY() + header.getHeight() + 10;
+            scrollPaneResumenGeneralAmbits.setBounds(15, y, 970, heightTable);
         }
-        return scrollPane;
+        return scrollPaneResumenGeneralAmbits;
     }
 
     private JTable getTableResumenGeneralAmbits() {
@@ -145,20 +92,22 @@ public class MdgMdaMdpTable extends JPanel {
                             {null, null, null, null, null, null},
                     },
                     new String[]{
-                            "", "<html> <p align: center>Madurez Digital (MDm) X máximo</p></html>" ,
-                            "<html> <p align: center>Madurez Digital (MDr) X real de autoevaluación</p></html>" ,
-                            "<html> <p align: center>Índice de Madurez Digital (IMD)%</p></html>" ,
-                            "<html> <p align: center>Nivel de Madurez Digital (NMD)</p></html>" ,
+                            "", "<html> <p align: center>Madurez Digital (MDm) X máximo</p></html>",
+                            "<html> <p align: center>Madurez Digital (MDr) X real de autoevaluación</p></html>",
+                            "<html> <p align: center>Índice de Madurez Digital (IMD)%</p></html>",
+                            "<html> <p align: center>Nivel de Madurez Digital (NMD)</p></html>",
                     }
             ));
 
+            // Customización del encabezado de la tabla
             resumenGeneralAmbits.setShowVerticalLines(false);
             resumenGeneralAmbits.getTableHeader().setBackground(new Color(8, 52, 128));
             resumenGeneralAmbits.getTableHeader().setForeground(Color.white);
             resumenGeneralAmbits.getTableHeader().setFont(new Font("Myriad Pro Bold Cond", Font.BOLD, 15));
             resumenGeneralAmbits.getTableHeader().setAlignmentX(CENTER_ALIGNMENT);
 
-
+            resumenGeneralAmbits.setFont(new Font("Arial", Font.PLAIN, 14));
+            resumenGeneralAmbits.setRowHeight(50);
 
         }
         return resumenGeneralAmbits;
@@ -169,26 +118,151 @@ public class MdgMdaMdpTable extends JPanel {
         while (model.getRowCount() > 0)
             model.removeRow(0);
 
-        ambitos = Controlador.getAmbitos();
-        for (Ambito a: ambitos) {
+        Object[] ob = new Object[5];
+        ArrayList<Ambito> ambitos = Controlador.getAmbitos();
+        float mdgAutoevaluacion = 0f;
+        float mdgQuestionCant = 0f;
 
-            Object[] ob = new Object[5];
-            ob[0] = a.getNombre_ambito();
-            ob[1] = (a.getCant_perspectivas() * 4) / a.getCant_perspectivas();
-            ob[2] = a.getCant_ptos()  / a.getCant_perspectivas();
-            ob[3] = a.getCant_ptos() / a.getCant_perspectivas() * 4;
-            ob[4] = (a.getCant_ptos() / a.getCant_perspectivas() * 4) > 25 ? "INICIAL":"BASICO";
+        // Valores para el resumen da Madurez Digital Global
+        ob[0] = "<html><p><strong>GLOBAL (MDG) </strong></p></html>";
+        ob[1] = 4.0f;
+        for(Ambito a: ambitos){
+            mdgQuestionCant += a.getCant_preguntas();
+            mdgAutoevaluacion += a.getCant_ptos();
+        }
+        ob[2] = mdgAutoevaluacion/mdgQuestionCant;
+        ob[3] = "<html> <p><strong>" + ((Float)ob[2] / 4) * 100 + "</strong></p></html>";
+        ob[4] = ((Float)ob[2] / 4) * 100;
+        model.addRow(ob);
+
+        model.addRow(new String[]{"<html><p><strong>ÁMBITOS (MDA) </strong></p></html>"});
+
+        // Relleno de la tabla con los Ámbitos
+        for (Ambito ambito : ambitos) {
+            ob[0] = "<html> <p style=\"text-align: left; vertical-align: down;\">" + ambito.getNombre_ambito() + "</p></html>";
+            ob[1] = "<html> <p>" + 4.0f +"</p></html>";
+            ob[2] = Float.parseFloat(String.valueOf(ambito.calculate_MDr_IMD()[0]));
+            ob[3] = "<html> <p><strong>" + Float.parseFloat(String.valueOf(ambito.calculate_MDr_IMD()[1])) + "</strong></p></html>";
+            ob[4] = ambito.calculate_MDr_IMD()[1];
             model.addRow(ob);
         }
+
         resumenGeneralAmbits.setModel(model);
-        for(int i = 0; i< resumenGeneralAmbits.getColumnCount(); i++){
+        for (int i = 0; i < resumenGeneralAmbits.getColumnCount(); i++) {
             resumenGeneralAmbits.getColumnModel().getColumn(i).setCellRenderer(new MyTableCellRendererGeneralTables());
         }
 
 
-        resumenGeneralAmbits.getColumnModel().getColumn(0).setMinWidth(200);
+        resumenGeneralAmbits.getColumnModel().getColumn(0).setMinWidth(204);
+        resumenGeneralAmbits.getColumnModel().getColumn(1).setMinWidth(180);
+        resumenGeneralAmbits.getColumnModel().getColumn(2).setMinWidth(194);
+        resumenGeneralAmbits.getColumnModel().getColumn(3).setMinWidth(194);
+        resumenGeneralAmbits.getColumnModel().getColumn(4).setMinWidth(194);
+    }
+    // =================================================================================================================
+
+
+
+
+    // Tabla del Resumen de madures digital global y por perspectivas
+    // =================================================================================================================
+    private JScrollPane getScrollPaneResumenGeneralPerspectives() {
+        if (scrollPaneResumenGeneralPerspectives == null) {
+            scrollPaneResumenGeneralPerspectives = new JScrollPane();
+            scrollPaneResumenGeneralPerspectives.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+            scrollPaneResumenGeneralPerspectives.setViewportView(getTableResumenGeneralPerspectives());
+            scrollPaneResumenGeneralPerspectives.setBorder(null);
+
+            // Primero vaciamos el table model para que no se dupliquen las columnas
+            model = new DefaultTableModel();
+            model.addColumn("");
+            model.addColumn("<html> <p align: center>Madurez Digital<br>(MDm) X̅ máximo</p></html>");
+            model.addColumn("<html> <p align: center>Madurez Digital (MDr)<br>X̅ real de autoevaluación</p></html>");
+            model.addColumn("<html> <p align: center>Índice de Madurez<br>Digital (IMD)%</p></html>");
+            model.addColumn("<html> <p align: center>Nivel de Madurez Digital<br> (NMD)</p></html>");
+            actualizarTablaPerspectives();
+
+            int heightTable = (50 * getTableResumenGeneralPerspectives().getRowCount()) +
+                    getTableResumenGeneralPerspectives().getTableHeader().getBounds().height + 55;
+
+            int y = scrollPaneResumenGeneralAmbits.getY() + scrollPaneResumenGeneralAmbits.getHeight() + 10;
+            scrollPaneResumenGeneralPerspectives.setBounds(15, y,970, heightTable);
+        }
+        return scrollPaneResumenGeneralPerspectives;
+    }
+
+    private JTable getTableResumenGeneralPerspectives() {
+        if (resumenGeneralPerspectives == null) {
+            resumenGeneralPerspectives = new JTable() {
+                public boolean isCellEditable(int rowIndex, int colIndex) {
+                    return false;
+                }
+            };
+
+            resumenGeneralPerspectives.getTableHeader().setReorderingAllowed(false);
+            resumenGeneralPerspectives.setModel(new DefaultTableModel(
+                    new Object[][]{
+                            {null, null, null, null, null, null},
+                            {null, null, null, null, null, null},
+                    },
+                    new String[]{
+                            "", "<html> <p align: center>Madurez Digital (MDm) X máximo</p></html>",
+                            "<html> <p align: center>Madurez Digital (MDr) X real de autoevaluación</p></html>",
+                            "<html> <p align: center>Índice de Madurez Digital (IMD)%</p></html>",
+                            "<html> <p align: center>Nivel de Madurez Digital (NMD)</p></html>",
+                    }
+            ));
+
+            // Customización del encabezado de la tabla
+            resumenGeneralPerspectives.setShowVerticalLines(false);
+            resumenGeneralPerspectives.getTableHeader().setBackground(new Color(8, 52, 128));
+            resumenGeneralPerspectives.getTableHeader().setForeground(Color.white);
+            resumenGeneralPerspectives.getTableHeader().setFont(new Font("Myriad Pro Bold Cond", Font.BOLD, 15));
+            resumenGeneralPerspectives.getTableHeader().setAlignmentX(CENTER_ALIGNMENT);
+
+            resumenGeneralPerspectives.setFont(new Font("Arial", Font.PLAIN, 14));
+            resumenGeneralPerspectives.setRowHeight(50);
+
+
+        }
+        return resumenGeneralPerspectives;
+    }
+
+
+    public void actualizarTablaPerspectives() {
+        while (model.getRowCount() > 0)
+            model.removeRow(0);
+
+        Object[] ob = new Object[5];
+        ArrayList<Perspectiva> perspectivas = Controlador.getPerspectiva(0);
+
+        // Valores para el resumen da Madurez Digital de Perspectivas
+        model.addRow(new String[]{"<html><p><strong>PERSPECTIVAS (MDP) </strong></p></html>"});
+
+
+        for (Perspectiva perspectiva : perspectivas) {
+            ob[0] = "<html> <p style=\"text-align: left; vertical-align: down;\">" + perspectiva.getNombre_perspectiva() + "</p></html>";
+            ob[1] = "<html> <p>" + 4.0f + "</p></html>";
+            ob[2] = Float.parseFloat(String.valueOf(perspectiva.calculate_MDr_IMD()[0]));
+            ob[3] = "<html> <p><strong>" + Float.parseFloat(String.valueOf(perspectiva.calculate_MDr_IMD()[1])) + "</strong></p></html>";
+            ob[4] = perspectiva.calculate_MDr_IMD()[1];
+            model.addRow(ob);
+        }
+
+        resumenGeneralPerspectives.setModel(model);
+        for (int i = 0; i < resumenGeneralPerspectives.getColumnCount(); i++) {
+            resumenGeneralPerspectives.getColumnModel().getColumn(i).setCellRenderer(new MyTableCellRendererGeneralPerspective());
+        }
+
+        resumenGeneralPerspectives.getColumnModel().getColumn(0).setMinWidth(194);
+        resumenGeneralPerspectives.getColumnModel().getColumn(1).setMinWidth(194);
+        resumenGeneralPerspectives.getColumnModel().getColumn(2).setMinWidth(194);
+        resumenGeneralPerspectives.getColumnModel().getColumn(3).setMinWidth(194);
+        resumenGeneralPerspectives.getColumnModel().getColumn(4).setMinWidth(194);
+
+
     }
     // =========================================================================
-
 
 }

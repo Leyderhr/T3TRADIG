@@ -3,6 +3,7 @@ package Interface.newInterface.Chart;
 import Interface.newInterface.python.PythonExecutor;
 import logic.DAO.DAOPerspectiva;
 import logic.Entitys.Perspectiva;
+import logic.useful.Controlador;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,7 +65,7 @@ public class ChartPerspective extends JPanel{
     private JLabel pieChartCentClient;
     private JLabel pieChartFinanzas;
 
-    private JLabel imdpChart;
+    private HorizontalBarChart imdpChart;
 
 
     public int getDonutCartHeight() {
@@ -83,7 +84,6 @@ public class ChartPerspective extends JPanel{
         this.donutChartWidth = donutChartWidth;
     }
 
-    private final DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
 
     public float getIndex1() {
         return index1;
@@ -133,17 +133,8 @@ public class ChartPerspective extends JPanel{
         this.index6 = index6;
     }
 
-    public ChartPerspective(float index1, float index2, float index3, float index4, float index5, float index6){
+    public ChartPerspective(){
         setLayout(null);
-
-        setIndex1(index1);
-        setIndex2(index2);
-        setIndex3(index3);
-        setIndex4(index4);
-        setIndex5(index5);
-        setIndex6(index6);
-
-
 
         add(getHeader()); //0
 
@@ -168,11 +159,12 @@ public class ChartPerspective extends JPanel{
         //add(getImdpChart());//13
 
         getPerspectivesDonutsCharts();
+        add(getImdpChart());
 
     }
 
     private void getPerspectivesDonutsCharts(){
-        ArrayList<Perspectiva> perspectivas = daoPerspectiva.consultPerspectivas();
+        ArrayList<Perspectiva> perspectivas = Controlador.getPerspectiva(0);
         String nombrePersp;
         float pnts;
         int x = 1;
@@ -184,14 +176,14 @@ public class ChartPerspective extends JPanel{
             for(int j = 0; j < 2; j++){
                 index += j;
                 nombrePersp = perspectivas.get(index).getNombre_perspectiva();
-                pnts = (float) perspectivas.get(index).getCant_ptos() / (perspectivas.get(index).getCant_dimensiones() * 4);
+                pnts = perspectivas.get(i).calculate_MDr_IMD()[1] * 100;
 
                 DonutPie dp = new DonutPie("IMDP: "+nombrePersp, pnts, 50, 100, 100, 100);
 
                 dp.setLocation(x, y);
                 this.add(dp);
 
-                x += dp.getWidth() - 50;
+                x += dp.getWidth() - 120;
                 setDonutCartHeight(dp.getHeight());
                 setSize(1000, y + dp.getHeight());
             }
@@ -199,13 +191,20 @@ public class ChartPerspective extends JPanel{
             x = 1;
             index++;
         }
-//            y += dp.getHeight();
-//            width = dp.getWidth();
-//        }
 
         setDonutChartWidth(width);
-
     }
+
+    private HorizontalBarChart getImdpChart(){
+        if(imdpChart == null){
+            imdpChart = new HorizontalBarChart(null, Controlador.getPerspectiva(0), null);
+            imdpChart.setBounds(400, header.getHeight() + 80, 600, 430);
+            imdpChart.setBackground(Color.white);
+            setVisible(true);
+        }
+        return imdpChart;
+    }
+
 
     private JLabel getHeader(){
         if (header == null){
@@ -218,199 +217,6 @@ public class ChartPerspective extends JPanel{
         return header;
     }
 
-
-    private JLabel getIndicatorIndex1() {
-        if (indicatorIndex1 == null) {
-            indicatorIndex1 = new JLabel();
-            indicatorIndex1.setFont(new Font("Arial", Font.PLAIN, 18));
-            indicatorIndex1.setBounds(140, 250, 300, 20);
-            indicatorIndex1.setOpaque(false);
-            indicatorIndex1.setHorizontalAlignment(SwingConstants.LEFT);
-            indicatorIndex1.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-
-
-            if (index1 >= 0 && index1 <= 25) {
-                indicatorIndex1.setText("BÁSICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Basico.png")));
-                indicatorIndex1.setIcon(icon);
-            } else if (index1 > 25 && index1 <= 50) {
-                indicatorIndex1.setText("INICIAL");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Inicial.png")));
-                indicatorIndex1.setIcon(icon);
-            } else if (index1 > 50 && index1 <= 75) {
-                indicatorIndex1.setText("ESTRATÉGICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Estrategico.png")));
-                indicatorIndex1.setIcon(icon);
-            } else {
-                indicatorIndex1.setText("INNOVADOR - DIRSUPTIVO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Innovador.png")));
-                indicatorIndex1.setIcon(icon);
-            }
-        }
-        return indicatorIndex1;
-    }
-
-
-    private JLabel getIndicatorIndex2() {
-        if (indicatorIndex2 == null) {
-            indicatorIndex2 = new JLabel();
-            indicatorIndex2.setFont(new Font("Arial", Font.PLAIN, 18));
-            indicatorIndex2.setBounds(325, 250, 300, 20);
-            indicatorIndex2.setOpaque(false);
-            indicatorIndex2.setHorizontalAlignment(SwingConstants.LEFT);
-            indicatorIndex2.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-
-
-            if (index2 >= 0 && index2 <= 25) {
-                indicatorIndex2.setText("BÁSICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Basico.png")));
-                indicatorIndex2.setIcon(icon);
-            } else if (index2 > 25 && index2 <= 50) {
-                indicatorIndex2.setText("INICIAL");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Inicial.png")));
-                indicatorIndex2.setIcon(icon);
-            } else if (index2 > 50 && index2 <= 75) {
-                indicatorIndex2.setText("ESTRATÉGICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Estrategico.png")));
-                indicatorIndex2.setIcon(icon);
-            } else {
-                indicatorIndex2.setText("INNOVADOR - DIRSUPTIVO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Innovador.png")));
-                indicatorIndex2.setIcon(icon);
-            }
-        }
-        return indicatorIndex2;
-    }
-
-    private JLabel getIndicatorIndex3() {
-        if (indicatorIndex3 == null) {
-            indicatorIndex3 = new JLabel();
-            indicatorIndex3.setFont(new Font("Arial", Font.PLAIN, 18));
-            indicatorIndex3.setBounds(140, 445, 300, 20);
-            indicatorIndex3.setOpaque(false);
-            indicatorIndex3.setHorizontalAlignment(SwingConstants.LEFT);
-            indicatorIndex3.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-
-
-            if (index3 >= 0 && index3 <= 25) {
-                indicatorIndex3.setText("BÁSICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Basico.png")));
-                indicatorIndex3.setIcon(icon);
-            } else if (index3 > 25 && index3 <= 50) {
-                indicatorIndex3.setText("INICIAL");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Inicial.png")));
-                indicatorIndex3.setIcon(icon);
-            } else if (index3 > 50 && index3 <= 75) {
-                indicatorIndex3.setText("ESTRATÉGICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Estrategico.png")));
-                indicatorIndex3.setIcon(icon);
-            } else {
-                indicatorIndex3.setText("INNOVADOR - DIRSUPTIVO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Innovador.png")));
-                indicatorIndex3.setIcon(icon);
-            }
-        }
-        return indicatorIndex3;
-    }
-
-
-    private JLabel getIndicatorIndex4() {
-        if (indicatorIndex4 == null) {
-            indicatorIndex4 = new JLabel();
-            indicatorIndex4.setFont(new Font("Arial", Font.PLAIN, 18));
-            indicatorIndex4.setBounds(325, 445, 300, 20);
-            indicatorIndex4.setOpaque(false);
-            indicatorIndex4.setHorizontalAlignment(SwingConstants.LEFT);
-            indicatorIndex4.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-
-
-            if (index4 >= 0 && index4 <= 25) {
-                indicatorIndex4.setText("BÁSICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Basico.png")));
-                indicatorIndex4.setIcon(icon);
-            } else if (index4 > 25 && index4 <= 50) {
-                indicatorIndex4.setText("INICIAL");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Inicial.png")));
-                indicatorIndex4.setIcon(icon);
-            } else if (index4 > 50 && index4 <= 75) {
-                indicatorIndex4.setText("ESTRATÉGICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Estrategico.png")));
-                indicatorIndex4.setIcon(icon);
-            } else {
-                indicatorIndex4.setText("INNOVADOR - DIRSUPTIVO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Innovador.png")));
-                indicatorIndex4.setIcon(icon);
-            }
-        }
-        return indicatorIndex4;
-    }
-
-    private JLabel getIndicatorIndex5() {
-        if (indicatorIndex5 == null) {
-            indicatorIndex5 = new JLabel();
-            indicatorIndex5.setFont(new Font("Arial", Font.PLAIN, 18));
-            indicatorIndex5.setBounds(140, 620, 300, 20);
-            indicatorIndex5.setOpaque(false);
-            indicatorIndex5.setHorizontalAlignment(SwingConstants.LEFT);
-            indicatorIndex5.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-            if (index5 >= 0 && index5 <= 25) {
-                indicatorIndex5.setText("BÁSICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Basico.png")));
-                indicatorIndex5.setIcon(icon);
-            } else if (index5 > 25 && index5 <= 50) {
-                indicatorIndex5.setText("INICIAL");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Inicial.png")));
-                indicatorIndex5.setIcon(icon);
-            } else if (index5 > 50 && index5 <= 75) {
-                indicatorIndex5.setText("ESTRATÉGICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Estrategico.png")));
-                indicatorIndex5.setIcon(icon);
-            } else {
-                indicatorIndex5.setText("INNOVADOR - DIRSUPTIVO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Innovador.png")));
-                indicatorIndex5.setIcon(icon);
-            }
-        }
-        return indicatorIndex5;
-    }
-
-
-    private JLabel getIndicatorIndex6() {
-        if (indicatorIndex6 == null) {
-            indicatorIndex6 = new JLabel();
-            indicatorIndex6.setFont(new Font("Arial", Font.PLAIN, 18));
-            indicatorIndex6.setBounds(325, 620, 300, 20);
-            indicatorIndex6.setOpaque(false);
-            indicatorIndex6.setHorizontalAlignment(SwingConstants.LEFT);
-            indicatorIndex6.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-
-
-            if (index6 >= 0 && index6 <= 25) {
-                indicatorIndex6.setText("BÁSICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Basico.png")));
-                indicatorIndex6.setIcon(icon);
-            } else if (index6 > 25 && index6 <= 50) {
-                indicatorIndex6.setText("INICIAL");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador- Inicial.png")));
-                indicatorIndex6.setIcon(icon);
-            } else if (index6 > 50 && index6 <= 75) {
-                indicatorIndex6.setText("ESTRATÉGICO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Estrategico.png")));
-                indicatorIndex6.setIcon(icon);
-            } else {
-                indicatorIndex6.setText("INNOVADOR - DIRSUPTIVO");
-                Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/indicador - Innovador.png")));
-                indicatorIndex6.setIcon(icon);
-            }
-        }
-        return indicatorIndex6;
-    }
     // ============================================================================
 
     // Esta sección de código se encarga de crear las gráficas de anillo para cada PERSPECTIVA
@@ -531,27 +337,27 @@ public class ChartPerspective extends JPanel{
     // ============================================================================
 
 
-
-    private JLabel getImdpChart(){
-        if(imdpChart == null){
-            imdpChart = new JLabel();
-
-            String categories  = "['Finanzas', 'Centralidad en el cliente', 'Procesos', 'Competencias estratégicas', " +
-                    "'Tecnologías e información \\n estratégicas', 'Diseño Organizacional']";
-
-            String values = "[" + index6 + "," + index5 + "," + index4 + "," + index3 + "," + index2 + "," + index1 + "]";
-            String title = "'Índices de Madurez Digital por Perspectivas \\n(IMDP) %'";
-
-            File file = new File("/util/chartsPython/graficaBarra2.png");
-            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
-                PythonExecutor.imdChart(categories , values, "6", "4", "'2'", title);
-
-            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaBarra2.png")));
-            imdpChart.setIcon(icon);
-            imdpChart.setBounds(400, header.getHeight() + 100, icon.getIconWidth(), icon.getIconHeight());
-        }
-        return imdpChart;
-    }
+//    // Esta seccion de codigo se encarga de crear la grafica de barra con las perspectivas
+//    private JLabel getImdpChart(){
+//        if(imdpChart == null){
+//            imdpChart = new JLabel();
+//
+//            String categories  = "['Finanzas', 'Centralidad en el cliente', 'Procesos', 'Competencias estratégicas', " +
+//                    "'Tecnologías e información \\n estratégicas', 'Diseño Organizacional']";
+//
+//            String values = "[" + index6 + "," + index5 + "," + index4 + "," + index3 + "," + index2 + "," + index1 + "]";
+//            String title = "'Índices de Madurez Digital por Perspectivas \\n(IMDP) %'";
+//
+//            File file = new File("/util/chartsPython/graficaBarra2.png");
+//            if(!file.exists() && file.isFile() && file.getName().endsWith(".png"))
+//                PythonExecutor.imdChart(categories , values, "6", "4", "'2'", title);
+//
+//            Icon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/chartsPython/graficaBarra2.png")));
+//            imdpChart.setIcon(icon);
+//            imdpChart.setBounds(400, header.getHeight() + 100, icon.getIconWidth(), icon.getIconHeight());
+//        }
+//        return imdpChart;
+//    }
 
 
 }

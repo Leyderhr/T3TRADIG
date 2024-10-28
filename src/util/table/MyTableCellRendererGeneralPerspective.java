@@ -4,7 +4,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
-public class MyTableCellRendererGeneralTables extends DefaultTableCellRenderer {
+public class MyTableCellRendererGeneralPerspective extends DefaultTableCellRenderer {
+
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -19,21 +20,19 @@ public class MyTableCellRendererGeneralTables extends DefaultTableCellRenderer {
             setHorizontalAlignment(SwingConstants.LEFT);
             setVerticalAlignment(CENTER);
         }
-        // Pinta la fila 1 con el fondo azul claro
-        if (row == 1) {
+        // Pinta la fila 0 con el fondo azul claro
+        if (row == 0) {
             this.setBackground(new Color(211, 243, 254, 255));
             if (column == 0) {
-                // Solo escribe en la columna 0 de la fila 1
+                // Solo escribe en la columna 0 de la fila 0
                 setText(value.toString());
                 setFont(new Font("Arial", Font.BOLD, 15));
             }
             else {
-                // Limpia las otras columnas de la fila 1
+                // Limpia las otras columnas de la fila 0
                 setText("");
             }
         } else {
-            if(column == 0 && row == 0)
-                this.setFont(new Font("Arial", Font.BOLD, 15));
             // Para las que no están seleccionadas se pinta el fondo de las celdas de blanco
             this.setBackground(Color.white);
 
@@ -42,7 +41,7 @@ public class MyTableCellRendererGeneralTables extends DefaultTableCellRenderer {
         }
 
 
-        if (column == 4 && row != 1) {
+        if (column == 4 && row != 0) {
             if (value != null) {
                 try {
                     float valorFloat = Float.parseFloat(value.toString()); // Convierte el valor a float
@@ -74,4 +73,5 @@ public class MyTableCellRendererGeneralTables extends DefaultTableCellRenderer {
 
         return c;
     }
+
 }

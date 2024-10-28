@@ -56,4 +56,16 @@ public class Dimension {
     public void setNombre_dimension(String nombre_dimension) {
         this.nombre_dimension = nombre_dimension;
     }
+
+    /*Este metodo retorna un array de tamaño 2:
+     * En la posicion 0 se encuentra el MDr(Madurez Digital media real de autoevaluacion)
+     * En la posicion 1 se encuentra el IMD(Índice de Madurez Digital %)*/
+    public float[] calculate_MDr_IMD(){
+        float[] md = new float[2];
+
+        md[0] = cant_puntos / cant_preguntas;
+        md[1] = (md[0] / 4) * 100;
+
+        return md;
+    }
 }

@@ -14,12 +14,12 @@ import java.util.ArrayList;
 
 public class Controlador {
 
-    public void delete(Model model){
+    public static void delete(Model model){
         updateCantPoints(model, 2);
         recursiveDelete(model.getId(), model.getLevel());
     }
 
-    private void recursiveDelete(int id, int level){
+    private static void recursiveDelete(int id, int level){
         switch (level){
             case 1:
                 DAOAmbito daoAmbito = new DAOAmbito();
@@ -56,11 +56,11 @@ public class Controlador {
         }
     }
 
-    private void updateCantPoints(Model model, int choise){
+    private static void updateCantPoints(Model model, int choise){
         switch (model.getLevel()){
             case 2:
                 DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
-                recursiveCantUpdatePoints(model.getLevel() - 1, model.getSupId(), daoPerspectiva.findPerspectiva(model.getId()).getCant_dimensiones(), 2);
+                recursiveCantUpdatePoints(model.getLevel() - 1, model.getSupId(), daoPerspectiva.findPerspectiva(model.getId()).getCant_preguntas(), 2);
                 break;
 
             case 3:
@@ -75,16 +75,16 @@ public class Controlador {
         }
     }
 
-    private void recursiveCantUpdatePoints(int level, int id, int cant, int choise){
+    private static void recursiveCantUpdatePoints(int level, int id, int cant, int choise){
         switch (level){
             case 1:
                 DAOAmbito daoAmbito = new DAOAmbito();
                 Ambito ambito = daoAmbito.findAmbito(id);
 
                 if(choise == 1)
-                    ambito.setCant_perspectivas(ambito.getCant_perspectivas() + cant);
+                    ambito.setCant_preguntas(ambito.getCant_preguntas() + cant);
                 else
-                    ambito.setCant_perspectivas(ambito.getCant_perspectivas() - cant);
+                    ambito.setCant_preguntas(ambito.getCant_preguntas() - cant);
 
                 daoAmbito.updateAmbito(ambito, 1);
                 break;
@@ -93,9 +93,9 @@ public class Controlador {
                 Perspectiva perspectiva = daoPerspectiva.findPerspectiva(id);
 
                 if(choise == 1)
-                    perspectiva.setCant_dimensiones(perspectiva.getCant_dimensiones() + cant);
+                    perspectiva.setCant_preguntas(perspectiva.getCant_preguntas() + cant);
                 else
-                    perspectiva.setCant_dimensiones(perspectiva.getCant_dimensiones() - cant);
+                    perspectiva.setCant_preguntas(perspectiva.getCant_preguntas() - cant);
 
                 daoPerspectiva.updatePerspectiva(perspectiva, 1);
                 recursiveCantUpdatePoints(level - 1, perspectiva.getId_ambito(), cant, choise);
@@ -116,7 +116,7 @@ public class Controlador {
         }
     }
 
-    public void calculatePoints(ArrayList<Dimension> dimensions, ArrayList<Pregunta> questions){
+    public static void calculatePoints(ArrayList<Dimension> dimensions, ArrayList<Pregunta> questions){
         DAOPregunta daoPregunta = new DAOPregunta();
         DAODimension daoDimension = new DAODimension();
         DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
@@ -134,11 +134,11 @@ public class Controlador {
         daoPerspectiva.calculatePoints(ambitos);
     }
 
-    private void addRecicleBin(){
+    private static void addRecicleBin(){
 
     }
 
-    public void insert(Model model){
+    public static void insert(Model model){
         switch (model.getLevel()){
             case 1:
                 Ambito ambito = new Ambito(model.getId(), 0, 0, model.getLine());
@@ -165,7 +165,7 @@ public class Controlador {
         }
     }
 
-    public void recover(){
+    public static void recover(){
 
     }
 

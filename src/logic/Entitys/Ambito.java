@@ -2,16 +2,16 @@ package logic.Entitys;
 
 public class Ambito {
 
-    private int id_ambito, cant_ptos, cant_perspectivas;
+    private int id_ambito, cant_ptos, cant_preguntas;
     private String nombre_ambito;
 
     public Ambito() {
     }
 
-    public Ambito(int id_ambito, int cant_ptos, int cant_perspectivas, String nombre_ambito) {
+    public Ambito(int id_ambito, int cant_ptos, int cant_preguntas, String nombre_ambito) {
         setId_ambito(id_ambito);
         setCant_ptos(cant_ptos);
-        setCant_perspectivas(cant_perspectivas);
+        setCant_preguntas(cant_preguntas);
         setNombre_ambito(nombre_ambito);
     }
 
@@ -31,12 +31,12 @@ public class Ambito {
         this.cant_ptos = cant_ptos;
     }
 
-    public int getCant_perspectivas() {
-        return cant_perspectivas;
+    public int getCant_preguntas() {
+        return cant_preguntas;
     }
 
-    public void setCant_perspectivas(int cant_perspectivas) {
-        this.cant_perspectivas = cant_perspectivas;
+    public void setCant_preguntas(int cant_preguntas) {
+        this.cant_preguntas = cant_preguntas;
     }
 
     public String getNombre_ambito() {
@@ -45,5 +45,19 @@ public class Ambito {
 
     public void setNombre_ambito(String nombre_ambito) {
         this.nombre_ambito = nombre_ambito;
+    }
+
+    /*Este metodo retorna un array de tamaño 2:
+    * En la posicion 0 se encuentra el MDr(Madurez Digital media real de autoevaluacion)
+    * En la posicion 1 se encuentra el IMD(Índice de Madurez Digital %)*/
+    public float[] calculate_MDr_IMD(){
+        float[] md = new float[2];
+
+        nombre_ambito.translateEscapes();
+
+        md[0] = cant_ptos / cant_preguntas;
+        md[1] = (md[0] / 4) * 100;
+
+        return md;
     }
 }

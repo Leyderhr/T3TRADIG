@@ -48,14 +48,22 @@ public class SettingPanel extends PanelShadow {
     public SettingPanel(Principal1 window){
         setBounds(241, 100, 1039, 620);
         setLayout(null);
-        setVisible(false);
-
+        setVisible(true);
         thisModel = new Model(0, -1, 0, "TetraDig System");
         models = new ArrayList<>();
 
         add(getBtnInfo(window));
         add(getBtnHelp(window));
         add(getEditQuestionPanel());
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(tableExplorer.getSelectedRow() > -1) {
+                    tableExplorer.clearSelection();
+                }
+            }
+        });
     }
 
 
@@ -146,6 +154,14 @@ public class SettingPanel extends PanelShadow {
             editQuestionPanel.add(getBtnBack());
             editQuestionPanel.add(getBtnAdd());
             editQuestionPanel.add(getBtnDelete());
+
+            editQuestionPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if(!scrollPaneShowTable.contains(e.getPoint()))
+                        tableExplorer.clearSelection();
+                }
+            });
         }
         return editQuestionPanel;
     }
@@ -210,6 +226,45 @@ public class SettingPanel extends PanelShadow {
                 }
 
             });
+
+            btnAdd.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    StringBuilder message = new StringBuilder();
+
+                    switch(thisModel.getLevel()){
+                        case 0:
+                            message.append("Introduzca el nombre del nuevo ámbito para " + thisModel.getLine());
+                            break;
+
+                        case 1:
+                            message.append("Introduzca el nombre de la nueva perspectiva para " + thisModel.getLine());
+                            break;
+
+                        case 2:
+                            message.append("Introduzca el nombre de la nueva dimensión para " + thisModel.getLine());
+                            break;
+
+                        case 3:
+                            message.append("Introduzca el nombre de la nueva pregunta para " + thisModel.getLine());
+                            break;
+
+                        default:break;
+                    }
+
+                    String line = JOptionPane.showInputDialog(SettingPanel.this, message);
+
+                    try{
+                        if(line != null){
+                            Model model = new Model(0, thisModel.getId(), thisModel.getLevel() + 1, line);
+                            Controlador.insert(model);
+                            actTable();
+                        }
+                    }catch (IllegalArgumentException exception){
+                        JOptionPane.showMessageDialog(SettingPanel.this, exception.getMessage());
+                    }
+                }
+            });
         }
         return btnAdd;
     }
@@ -246,6 +301,38 @@ public class SettingPanel extends PanelShadow {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if(tableExplorer.getSelectedRow() > -1){
+                        int pos  = tableExplorer.getSelectedRow();
+                        Model model = models.get(pos);
+
+                        StringBuilder string = new StringBuilder();
+
+                        switch (thisModel.getLevel()){
+                            case 0:
+                                string.append("Al eliminar el ámbito " + model.getLine() + " del " + thisModel.getLine() + " eliminara todos los valores relacionados con el.");
+                                break;
+
+                            case 1:
+                                string.append("Al eliminar la perspectiva " + model.getLine() + " del ámbito " + thisModel.getLine() + " eliminara todos los valores relacionados con el.");
+                                break;
+
+                            case 2:
+                                string.append("Al eliminar la dimensión " + model.getLine() + " de la perspectiva " + thisModel.getLine() + " eliminara todos los valores relacionados con el.");
+                                break;
+
+                            case 3:
+                                string.append("Eliminara la pregunta #" + model.getId() + " de la dimensión " + thisModel.getLine());
+                                break;
+
+                            default: break;
+                        }
+                        string.append("\n¿Desea continuar?");
+
+                        //int choise = ;
+                        //System.out.println(choise);
+
+                        if(JOptionPane.showConfirmDialog(SettingPanel.this, string, "Confirmación", JOptionPane.YES_NO_OPTION) == 0)
+                            Controlador.delete(model);
+                        actTable();
 
                     }else
                         JOptionPane.showMessageDialog(SettingPanel.this, "Para eliminar una linea debe seleccionarla 1ro");

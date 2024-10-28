@@ -2,16 +2,16 @@ package logic.Entitys;
 
 public class Perspectiva {
 
-    private int id_perspectiva, cant_ptos, cant_dimensiones, id_ambito;
+    private int id_perspectiva, cant_ptos, cant_preguntas, id_ambito;
     private String nombre_perspectiva;
 
     public Perspectiva() {
     }
 
-    public Perspectiva(int id_perspectiva, int cant_ptos, int cant_dimensiones, int id_ambito, String nombre_perspectiva) {
+    public Perspectiva(int id_perspectiva, int cant_ptos, int cant_preguntas, int id_ambito, String nombre_perspectiva) {
         setId_perspectiva(id_perspectiva);
         setCant_ptos(cant_ptos);
-        setCant_dimensiones(cant_dimensiones);
+        setCant_preguntas(cant_preguntas);
         setId_ambito(id_ambito);
         setNombre_perspectiva(nombre_perspectiva);
     }
@@ -32,12 +32,12 @@ public class Perspectiva {
         this.cant_ptos = cant_ptos;
     }
 
-    public int getCant_dimensiones() {
-        return cant_dimensiones;
+    public int getCant_preguntas() {
+        return cant_preguntas;
     }
 
-    public void setCant_dimensiones(int cant_dimensiones) {
-        this.cant_dimensiones = cant_dimensiones;
+    public void setCant_preguntas(int cant_preguntas) {
+        this.cant_preguntas = cant_preguntas;
     }
 
     public int getId_ambito() {
@@ -54,5 +54,17 @@ public class Perspectiva {
 
     public void setNombre_perspectiva(String nombre_perspectiva) {
         this.nombre_perspectiva = nombre_perspectiva;
+    }
+
+    /*Este metodo retorna un array de tamaño 2:
+     * En la posicion 0 se encuentra el MDr(Madurez Digital media real de autoevaluacion)
+     * En la posicion 1 se encuentra el IMD(Índice de Madurez Digital %)*/
+    public float[] calculate_MDr_IMD(){
+        float[] md = new float[2];
+
+        md[0] = cant_ptos / cant_preguntas;
+        md[1] = (md[0] / 4) * 100;
+
+        return md;
     }
 }

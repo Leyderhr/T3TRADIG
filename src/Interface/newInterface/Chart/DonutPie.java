@@ -1,29 +1,22 @@
 package Interface.newInterface.Chart;
 
 import Interface.export.swing.CircleProgressBar;
-import org.jfree.chart.JFreeChart;
 import org.jfree.chart.util.ResourceBundleWrapper;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.PopupMenuUI;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 public class DonutPie extends JPanel implements Printable {
 
@@ -32,7 +25,7 @@ public class DonutPie extends JPanel implements Printable {
 
     private JLabel indicator;
     private JLabel valueLabel;
-    //Atributos de la grafica de anillo
+    //Atributos de la gráfica de anillo
     private CircleProgressBar donutChart;
     private float value;
     private int xDonutchart;
@@ -143,6 +136,7 @@ public class DonutPie extends JPanel implements Printable {
     private JLabel getHeader() {
         if (header == null) {
             header = new JLabel("<html><p align: center>" + nameDonutChart + "</p></html>");
+            header.setHorizontalAlignment(SwingConstants.CENTER);
             header.setFont(new Font("Arial", Font.PLAIN, 18));
             header.setBounds(1, 1, widthDonutChart + 100, 55);
             header.setOpaque(false);
@@ -153,7 +147,7 @@ public class DonutPie extends JPanel implements Printable {
     public JLabel getIndicator() {
         if (indicator == null) {
             indicator = new JLabel();
-            indicator.setFont(new Font("Arial", Font.PLAIN, 18));
+            indicator.setFont(new Font("Arial", Font.BOLD, 15));
             indicator.setOpaque(false);
             indicator.setHorizontalAlignment(SwingConstants.LEFT);
             indicator.setHorizontalTextPosition(SwingConstants.RIGHT);
@@ -179,7 +173,7 @@ public class DonutPie extends JPanel implements Printable {
 
             int indicatorX = donutChart.getX() + donutChart.getWidth() - 65;
             int indicatorY = donutChart.getY() + donutChart.getHeight();
-            indicator.setBounds(indicatorX, indicatorY, 250, indicator.getFont().getSize());
+            indicator.setBounds(indicatorX, indicatorY, 250, indicator.getFont().getSize()+ 1);
         }
         return indicator;
     }
@@ -253,13 +247,10 @@ public class DonutPie extends JPanel implements Printable {
         if (print == null) {
             print = new JMenuItem("Imprimir");
 
-            print.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Implementa la acción de impresión
-                    savePDF();
+            print.addActionListener(e -> {
+                // Implementa la acción de impresión
+                savePDF();
 
-                }
             });
         }
         return print;
@@ -270,12 +261,7 @@ public class DonutPie extends JPanel implements Printable {
         if (savePNG == null) {
             savePNG = new JMenuItem("Guardar imagen..");
 
-            savePNG.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    savePNG();
-                }
-            });
+            savePNG.addActionListener(e -> savePNG());
         }
         return savePNG;
     }
@@ -283,6 +269,7 @@ public class DonutPie extends JPanel implements Printable {
 
     private JPopupMenu getPopupMenu() {
         if (popupMenu == null) {
+
             popupMenu = new JPopupMenu();
 
             // Agrega elementos al menú contextual
@@ -293,7 +280,7 @@ public class DonutPie extends JPanel implements Printable {
         return popupMenu;
     }
 
-    private void savePNG(){
+    private void savePNG() {
         // Crea la imagen del panel para luego exportarla al pdf y word
         BufferedImage image = new BufferedImage(DonutPie.this.getWidth(), DonutPie.this.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = image.createGraphics();
@@ -309,52 +296,40 @@ public class DonutPie extends JPanel implements Printable {
         // Guarda la imagen
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Guardar Imagen");
-            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-            FileNameExtensionFilter filter = new FileNameExtensionFilter(ResourceBundleWrapper.getBundle("org.jfree.chart.LocalizationBundle").getString("PNG_Image_Files"), new String[]{"png"});
-            fileChooser.addChoosableFileFilter(filter);
-            fileChooser.setFileFilter(filter);
-
-
-
-            // Muestra el JFileChooser
-            int resultado = fileChooser.showSaveDialog(DonutPie.this);
-
-            // Si el usuario seleccionó un archivo
-            if (resultado == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = fileChooser.getSelectedFile();
-
-                // Guarda la imagen
-                try {
-                    ImageIO.write(image, "png", selectedFile);
-                    JOptionPane.showMessageDialog(null, "Imagen guardada en: " + selectedFile.getAbsolutePath(), "Error", JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Error al guardar la imagen: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-            else{
-                // Verificar que el nombre contenga la extension
-                String filename = fileChooser.getSelectedFile().getPath();
-                if (!filename.endsWith(".png")) {
-                    filename = filename + ".png";
-                }
-                // Guarda la imagen
-                File f = new File(filename);
-                try {
-                    ImageIO.write(image, "png",f );
-                    JOptionPane.showMessageDialog(null, "Imagen guardada en: " + f.getAbsolutePath(), "Error", JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Error al guardar la imagen: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-
-            //ImageIO.write(image, "png", new File("panel3.png"));
-        } catch ( UnsupportedLookAndFeelException | ClassNotFoundException |
-                  InstantiationException | IllegalAccessException ex) {
-            throw new RuntimeException(ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
+                 UnsupportedLookAndFeelException e) {
+            throw new RuntimeException(e);
         }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar Imagen");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(ResourceBundleWrapper.getBundle("org.jfree.chart.LocalizationBundle").getString("PNG_Image_Files"), new String[]{"png"});
+        fileChooser.addChoosableFileFilter(filter);
+        fileChooser.setFileFilter(filter);
+
+
+        // Muestra el JFileChooser
+        int resultado = fileChooser.showSaveDialog(DonutPie.this);
+
+        // Si el usuario seleccionó un archivo
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            String filename = fileChooser.getSelectedFile().getPath();
+            if (!filename.endsWith(".png")) {
+                filename = filename + ".png";
+            }
+            File selectedFile = new File(filename);
+
+            // Guarda la imagen
+            try {
+                ImageIO.write(image, "png", selectedFile);
+                JOptionPane.showMessageDialog(null, "Imagen guardada en: " + selectedFile.getAbsolutePath(), "Error", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Error al guardar la imagen: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
     }
 
 
@@ -363,37 +338,32 @@ public class DonutPie extends JPanel implements Printable {
         try {
             PrinterJob job = PrinterJob.getPrinterJob();
             job.setPrintable(this);
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            job.printDialog();
-            job.print();
-        } catch (PrinterException | UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException |
-                 IllegalAccessException e) {
+            if(job.printDialog())
+                job.print();
+        } catch (PrinterException  e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
 
     @Override
-    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-        double AlturaPag = pageFormat.getImageableHeight();
-        double AnchoPag = pageFormat.getImageableWidth();
-        double AnchoPanel = (double)this.getWidth();
-        double AlturaPanel = (double)this.getHeight();
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex){
+        double alturaPag = pageFormat.getImageableHeight();
+        double anchoPag = pageFormat.getImageableWidth();
+        double anchoPanel = (double) this.getWidth();
+        double alturaPanel = (double) this.getHeight();
         double escala = 1;
 
         //El panel no cabria en la hoja, asi que necesitamos reescalarlo:
-        if(AnchoPanel >= AnchoPag) {
-            escala =  AnchoPag / AnchoPanel;
+        if (anchoPanel >= anchoPag) {
+            escala = anchoPag / anchoPanel;
         }
 
-
         if (pageIndex > 0) return NO_SUCH_PAGE;
-        Graphics2D g2d = (Graphics2D)graphics;
+        Graphics2D g2d = (Graphics2D) graphics;
 
-        // Punto donde empezará a imprimir dentro la pagina (100, 50)
-        g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY()+50);
+        // Punto donde empezará a imprimir dentro la página (100, 50)
+        g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY() + 50);
 
         // Reducción de la impresión al 25%
         g2d.scale(escala, escala); // Cambia el valor para ajustar la escala

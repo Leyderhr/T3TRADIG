@@ -100,7 +100,7 @@ public class ChartAmbits extends JPanel {
 
         for (Ambito ambito : ambitos) {
             nombreAmb = ambito.getNombre_ambito();
-            pnts = (float) ambito.getCant_ptos() / (ambito.getCant_perspectivas() * 4);
+            pnts = ambito.calculate_MDr_IMD()[1] * 100;
 
             DonutPie dp = new DonutPie("IMDA: "+nombreAmb, pnts, 50, 100, 200, 150);
             dp.setLocation(20, y);
@@ -189,8 +189,8 @@ public class ChartAmbits extends JPanel {
 
     private HorizontalBarChart getHorizontalBarChar(){
         if(horizontalBarChart == null){
-            horizontalBarChart = new HorizontalBarChart(Controlador.getAmbitos());
-            horizontalBarChart.setBounds(430, header.getHeight() + 20, 570, 430);
+            horizontalBarChart = new HorizontalBarChart(Controlador.getAmbitos(), null, null);
+            horizontalBarChart.setBounds(380, header.getHeight() + 20, 570, 430);
             horizontalBarChart.setBackground(Color.white);
             //horizontalBarChart.setBounds(450, header.getHeight() + 100, 400, 300);
             //add(chartPanel);

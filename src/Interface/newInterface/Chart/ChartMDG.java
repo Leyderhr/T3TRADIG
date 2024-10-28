@@ -60,7 +60,7 @@ public class ChartMDG extends JPanel {
         update();
         add(getMatrixIMDG());
 
-        setBackground(Color.blue);
+        setBackground(Color.WHITE);
         setSize(matrixIMDG.getWidth() + donutChartIMDG.getWidth() + 100, header.getHeight() + matrixIMDG.getHeight() + 50);
     }
 
