@@ -113,10 +113,8 @@ class DonutChartPanel extends JPanel {
             g2d.fillRect(legendX, legendY, 20, 20);
             // Set the text color for the legend
             g2d.setColor(Color.black);
-            // Draw the legend text with slice number and percentage
-//            if(!(i % 2 == 0))
-//                legendX += 50;
-            g2d.drawString(category[i] + ": "+ cant[i] +"-" + data[i] + "%", legendX + 30, legendY + 15);
+            g2d.setFont(new Font("Arial", Font.BOLD, 12));
+            g2d.drawString(category[i] + ": "+ cant[i] +"-" +"("+Math.round(data[i]) + "%)", legendX + 30, legendY + 15);
             // Update the y-coordinate for the next legend entry
             legendY += 30;
         }

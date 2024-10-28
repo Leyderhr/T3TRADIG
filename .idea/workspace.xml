@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pdf">
+    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Corregidos errores generales. Fueron creadas todas las gráficas. Se implementó el método para exportar todo en un archivo .pdf y .word">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartDimension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ChartDimension.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/DonutPie2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/SettingPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/SettingPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/DonutChartPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/DonutChartPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -285,7 +282,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730143752727</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Corregidos errores generales. Fueron creadas todas las gráficas. Se implementó el método para exportar todo en un archivo .pdf y .word">
+      <option name="closed" value="true" />
+      <created>1730157645031</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1730157645031</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -349,7 +354,8 @@
     <MESSAGE value="Corregidos errores generales. Agregada la funcionalidad de cargar preguntas desde la base de datos" />
     <MESSAGE value="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pfg" />
     <MESSAGE value="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pdf" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pdf" />
+    <MESSAGE value="Corregidos errores generales. Fueron creadas todas las gráficas. Se implementó el método para exportar todo en un archivo .pdf y .word" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corregidos errores generales. Fueron creadas todas las gráficas. Se implementó el método para exportar todo en un archivo .pdf y .word" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
