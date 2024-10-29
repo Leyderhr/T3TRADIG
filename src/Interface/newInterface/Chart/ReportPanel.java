@@ -5,6 +5,9 @@ import Interface.export.swing.scrollbar.ScrollBarCustom;
 import Interface.newInterface.ButtonMenu;
 import Interface.newInterface.Principal1;
 import Interface.newInterface.python.PythonExecutor;
+import com.spire.doc.*;
+import com.spire.doc.documents.*;
+import com.spire.doc.fields.DocPicture;
 
 import javax.imageio.ImageIO;
 import javax.print.attribute.HashPrintRequestAttributeSet;
@@ -352,7 +355,106 @@ public class ReportPanel extends JScrollPane  implements Printable {
 
 
     private void saveWord(String path) {
-        //Carga la imagen del panel
+
+        //Se crean todas las secciones del documento
+        Document doc = new Document();
+
+        DocPicture headerPicture = new DocPicture(doc);
+        DocPicture header2Picture = new DocPicture(doc);
+
+        Section section = doc.addSection();//H de header, MDG de chartMDG y A chartAmbts
+
+        section.getPageSetup().getMargins().setAll(40f);
+
+        HeaderFooter header = section.getHeadersFooters().getHeader();
+        HeaderFooter footer = section.getHeadersFooters().getFooter();
+
+        Paragraph headerParagraph = header.addParagraph();
+        Paragraph paragraphMDG = section.addParagraph();
+
+
+        //Se le da formato a la imagen del header
+        headerPicture.loadImage("src/util/header1Word.png");
+        header2Picture.loadImage("src/util/header2Word.png");
+
+        header2Picture.setWidth(75);
+        header2Picture.setHeight(40);
+        headerPicture.setWidth(80);
+        headerPicture.setHeight(35);
+        headerPicture.setTextWrappingStyle(TextWrappingStyle.Square);
+        header2Picture.setTextWrappingStyle(TextWrappingStyle.Inline);
+
+        //Se inserta en el parrafo
+        headerParagraph.getChildObjects().insert(0, headerPicture);
+        headerParagraph.getChildObjects().insert(1,header2Picture);
+
+        //Se alinea al centro
+        headerParagraph.getFormat().setHorizontalAlignment(HorizontalAlignment.Center);
+
+        Paragraph footerParagraph = footer.addParagraph();
+
+        DocPicture footerPicture = new DocPicture(doc);
+        footerPicture.loadImage("src/util/footerWord.png");
+        footerPicture.setWidth(250);
+        footerPicture.setHeight(100);
+        footerPicture.setTextWrappingStyle(TextWrappingStyle.Inline);
+        footerParagraph.getChildObjects().insert(0, footerPicture);
+
+
+        //Se añaden todas las graficas al documento
+        addChartMDGToWord(doc);
+        addChartAmbitsToWord(doc);
+        addChartPerspectiveToWord(doc);
+        addChartMDGMDAMDPToWord(doc);
+        addChartDimensionToWord(doc);
+        addMDDResumeTableToWord(doc);
+
+        doc.saveToFile(path, FileFormat.Docx_2013);
+
+        doc.close();
+
+    }
+
+    private void addChartMDGToWord(Document doc){
+        BufferedImage image = new BufferedImage(chartMDG.getWidth(), chartMDG.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = image.createGraphics();
+        // Establece el color de fondo a blanco
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, image.getWidth(), image.getHeight()); // Rellena el fondo con color blanco
+        chartMDG.paint(g2d);
+        g2d.dispose();
+
+        //Se transforma la imagen en bytes
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", baos);
+            baos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        DocPicture picture = new DocPicture(doc);
+        //Se le da formato a la imagen
+        picture.loadImage(baos.toByteArray());
+
+        picture.setWidth(300);
+        picture.setHeight(300);
+
+        picture.setTextWrappingStyle(TextWrappingStyle.Square);
+
+        //Se agrega al documento
+        doc.getSections().get(0).getParagraphs().get(0).getChildObjects().insert(0, picture);
+        Body body = doc.getLastSection().getBody();
+        ParagraphStyle paragraphStyle = new ParagraphStyle(doc);
+        paragraphStyle.getCharacterFormat().setFontName("Arial");
+        doc.getStyles().add(paragraphStyle);
+        Paragraph paragraph = new Paragraph(doc);
+        paragraph.setText("\n\nObservaciones:");
+        paragraph.applyStyle(paragraphStyle.getName());
+        body.getChildObjects().add(paragraph);
+    }
+
+    private void addChartAmbitsToWord(Document doc){
         BufferedImage image = new BufferedImage(chartAmbits.getWidth(), chartAmbits.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = image.createGraphics();
         // Establece el color de fondo a blanco
@@ -370,25 +472,204 @@ public class ReportPanel extends JScrollPane  implements Printable {
             e.printStackTrace();
         }
 
-        //Se crean todas las secciones del documento
-//        Document doc = new Document();
-//        DocPicture picture = new DocPicture(doc);
-//        Section section = doc.addSection();
-//        section.getPageSetup().getMargins().setAll(40f);
-//        Paragraph paragraph = section.addParagraph();
-//
-//        //Se le da formato a la imagen
-//        picture.loadImage(baos.toByteArray());
-//        picture.setWidth(300);
-//        picture.setHeight(300);
-//        picture.setTextWrappingStyle(TextWrappingStyle.Square);
-//
-//        //Se agrega al documento
-//        doc.getSections().get(0).getParagraphs().get(0).getChildObjects().insert(0, picture);
-//
-//        doc.saveToFile(path, FileFormat.Docx_2013);
-//
-//        doc.close();
+        DocPicture picture = new DocPicture(doc);
+        //Se le da formato a la imagen
+        picture.loadImage(baos.toByteArray());
+
+        picture.setWidth(300);
+        picture.setHeight(300);
+
+        picture.setTextWrappingStyle(TextWrappingStyle.Square);
+
+        Body body = doc.getLastSection().getBody();
+        body.getLastParagraph().appendBreak(BreakType.Page_Break);
+        Paragraph paragraph = new Paragraph(doc);
+        paragraph.getChildObjects().insert(0,picture);
+        body.getChildObjects().add(paragraph);
+
+        paragraph = new Paragraph(doc);
+        paragraph.setText("\n\nObservaciones:");
+        ParagraphStyle paragraphStyle = new ParagraphStyle(doc);
+        paragraphStyle.getCharacterFormat().setFontName("Arial");
+        doc.getStyles().add(paragraphStyle);
+        paragraph.applyStyle(paragraphStyle.getName());
+        body.getChildObjects().add(paragraph);
+    }
+
+
+    private void addChartPerspectiveToWord(Document doc){
+        BufferedImage image = new BufferedImage(chartPerspective.getWidth(), chartPerspective.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = image.createGraphics();
+        // Establece el color de fondo a blanco
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, image.getWidth(), image.getHeight()); // Rellena el fondo con color blanco
+        chartPerspective.paint(g2d);
+        g2d.dispose();
+
+        //Se transforma la imagen en bytes
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", baos);
+            baos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        DocPicture picture = new DocPicture(doc);
+        //Se le da formato a la imagen
+        picture.loadImage(baos.toByteArray());
+
+        picture.setWidth(305);
+        picture.setHeight(380);
+
+        picture.setTextWrappingStyle(TextWrappingStyle.Square);
+
+        Body body = doc.getLastSection().getBody();
+        body.getLastParagraph().appendBreak(BreakType.Page_Break);
+        Paragraph paragraph = new Paragraph(doc);
+        paragraph.getChildObjects().insert(0,picture);
+        body.getChildObjects().add(paragraph);
+
+        paragraph = new Paragraph(doc);
+        paragraph.setText("\n\nObservaciones:");
+        ParagraphStyle paragraphStyle = new ParagraphStyle(doc);
+        paragraphStyle.getCharacterFormat().setFontName("Arial");
+        doc.getStyles().add(paragraphStyle);
+        paragraph.applyStyle(paragraphStyle.getName());
+        body.getChildObjects().add(paragraph);
+
+    }
+
+    private void addChartMDGMDAMDPToWord(Document doc){
+        BufferedImage image = new BufferedImage(mdgMdaMdpTable.getWidth(), mdgMdaMdpTable.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = image.createGraphics();
+        // Establece el color de fondo a blanco
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, image.getWidth(), image.getHeight()); // Rellena el fondo con color blanco
+        mdgMdaMdpTable.paint(g2d);
+        g2d.dispose();
+
+        //Se transforma la imagen en bytes
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", baos);
+            baos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        DocPicture picture = new DocPicture(doc);
+        //Se le da formato a la imagen
+        picture.loadImage(baos.toByteArray());
+
+        picture.setWidth(350);
+        picture.setHeight(400);
+
+        picture.setTextWrappingStyle(TextWrappingStyle.Square);
+
+        Body body = doc.getLastSection().getBody();
+        body.getLastParagraph().appendBreak(BreakType.Page_Break);
+        Paragraph paragraph = new Paragraph(doc);
+        paragraph.getChildObjects().insert(0,picture);
+        body.getChildObjects().add(paragraph);
+
+        paragraph = new Paragraph(doc);
+        paragraph.setText("\n\nObservaciones:");
+        ParagraphStyle paragraphStyle = new ParagraphStyle(doc);
+        paragraphStyle.getCharacterFormat().setFontName("Arial");
+        doc.getStyles().add(paragraphStyle);
+        paragraph.applyStyle(paragraphStyle.getName());
+        body.getChildObjects().add(paragraph);
+
+    }
+
+    private void addChartDimensionToWord(Document doc){
+        BufferedImage image = new BufferedImage(chartDimension.getWidth(), chartDimension.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = image.createGraphics();
+        // Establece el color de fondo a blanco
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, image.getWidth(), image.getHeight()); // Rellena el fondo con color blanco
+        chartDimension.paint(g2d);
+        g2d.dispose();
+
+        //Se transforma la imagen en bytes
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", baos);
+            baos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        DocPicture picture = new DocPicture(doc);
+        //Se le da formato a la imagen
+        picture.loadImage(baos.toByteArray());
+
+        picture.setWidth(305);
+        picture.setHeight(500);
+
+        picture.setTextWrappingStyle(TextWrappingStyle.Square);
+
+        Body body = doc.getLastSection().getBody();
+        body.getLastParagraph().appendBreak(BreakType.Page_Break);
+        Paragraph paragraph = new Paragraph(doc);
+        paragraph.getChildObjects().insert(0,picture);
+        body.getChildObjects().add(paragraph);
+
+        paragraph = new Paragraph(doc);
+        paragraph.setText("\n\nObservaciones:");
+        ParagraphStyle paragraphStyle = new ParagraphStyle(doc);
+        paragraphStyle.getCharacterFormat().setFontName("Arial");
+        doc.getStyles().add(paragraphStyle);
+        paragraph.applyStyle(paragraphStyle.getName());
+        body.getChildObjects().add(paragraph);
+
+    }
+
+    private void addMDDResumeTableToWord(Document doc){
+        BufferedImage image = new BufferedImage(mddResumenTable.getWidth(), mddResumenTable.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = image.createGraphics();
+        // Establece el color de fondo a blanco
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, image.getWidth(), image.getHeight()); // Rellena el fondo con color blanco
+        mddResumenTable.paint(g2d);
+        g2d.dispose();
+
+        //Se transforma la imagen en bytes
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", baos);
+            baos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        DocPicture picture = new DocPicture(doc);
+        //Se le da formato a la imagen
+        picture.loadImage(baos.toByteArray());
+
+        picture.setWidth(300);
+        picture.setHeight(1200);
+
+        picture.setTextWrappingStyle(TextWrappingStyle.Square);
+
+        Body body = doc.getLastSection().getBody();
+        body.getLastParagraph().appendBreak(BreakType.Page_Break);
+        Paragraph paragraph = new Paragraph(doc);
+        paragraph.getChildObjects().insert(0,picture);
+        body.getChildObjects().add(paragraph);
+
+        body.getLastParagraph().appendBreak(BreakType.Page_Break);
+        paragraph = new Paragraph(doc);
+        paragraph.setText("\n\nObservaciones:");
+        ParagraphStyle paragraphStyle = new ParagraphStyle(doc);
+        paragraphStyle.getCharacterFormat().setFontName("Arial");
+        doc.getStyles().add(paragraphStyle);
+        paragraph.applyStyle(paragraphStyle.getName());
+        body.getChildObjects().add(paragraph);
 
     }
 
