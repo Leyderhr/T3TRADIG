@@ -401,7 +401,7 @@ public class ReportPanel extends JScrollPane  implements Printable {
         footerParagraph.getChildObjects().insert(0, footerPicture);
 
 
-        //Se añaden todas las graficas al documento y demas
+        //Se añaden todas las graficas al documento
         addChartMDGToWord(doc);
         addChartAmbitsToWord(doc);
         addChartPerspectiveToWord(doc);

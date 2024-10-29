@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="word">
-      <change afterPath="$PROJECT_DIR$/src/util/footerWord.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/header1Word.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/header2Word.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_23_2024_12_23_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_23_2024_12_23_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_24_2024_11_56_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_24_2024_11_56_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_31_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_31_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_34_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_34_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_36_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_36_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" afterDir="false" />
-    </list>
+    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Exportar a Word implementado" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -298,7 +286,23 @@
       <option name="project" value="LOCAL" />
       <updated>1730157645031</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Exportar a Word implementado">
+      <option name="closed" value="true" />
+      <created>1730176015118</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1730176015119</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Exportar a Word implementado">
+      <option name="closed" value="true" />
+      <created>1730176239096</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1730176239096</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -363,7 +367,8 @@
     <MESSAGE value="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pfg" />
     <MESSAGE value="Corregidos errores generales. Fueron creadas la mayoría de las gráficas. Se implementó el método para exportar todo en un archivo .pdf" />
     <MESSAGE value="Corregidos errores generales. Fueron creadas todas las gráficas. Se implementó el método para exportar todo en un archivo .pdf y .word" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corregidos errores generales. Fueron creadas todas las gráficas. Se implementó el método para exportar todo en un archivo .pdf y .word" />
+    <MESSAGE value="Exportar a Word implementado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Exportar a Word implementado" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
