@@ -15,19 +15,21 @@ public class WindPanel extends JPanel {
     private JButton btnMaximize;
     private JButton btnMinimize;
     private JLabel lblLogo;
+    private JLabel lblLogo1;
 
     public WindPanel(Principal1 pincipal1) {
         windPanel = new JPanel();
         pincipal1.getContentPane().add(windPanel);
         windPanel.setLayout(null);
-        windPanel.setBackground(new Color(8,52,128));
+        windPanel.setBackground(new Color(8, 52, 128));
         windPanel.setBounds(0, 0, 1280, 100);
 
         windPanel.add(getBtnClose());
-        windPanel.add(getBtnMaximize(pincipal1));
+        //windPanel.add(getBtnMaximize(pincipal1));
         windPanel.add(getBtnMinimize(pincipal1));
         windPanel.add(new ButtonMenu());
         windPanel.add(getLogo());
+        //windPanel.add(getLogo1());
     }
 
     //Botones de Inicio o Principales
@@ -45,6 +47,7 @@ public class WindPanel extends JPanel {
                 public void mouseClicked(MouseEvent e) {
                     System.exit(0);
                 }
+
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     // Cambia el color de fondo cuando se pasa el cursor por encima
@@ -141,7 +144,8 @@ public class WindPanel extends JPanel {
             btnMinimize.setHorizontalAlignment(SwingConstants.CENTER);
             btnMinimize.setHorizontalTextPosition(SwingConstants.CENTER);
             btnMinimize.setIconTextGap(1);
-            btnMinimize.setBounds(1183, 5, 30, 30);
+            //btnMinimize.setBounds(1183, 5, 30, 30);
+            btnMinimize.setBounds(1214, 5, 30, 30);
         }
         return btnMinimize;
     }
@@ -150,18 +154,34 @@ public class WindPanel extends JPanel {
     private JLabel getLogo() {
 
         if (lblLogo == null) {
-            lblLogo = new JLabel("Empresa de Telecomunicaciones de Cuba S.A");
-            lblLogo.setFont(new Font("Corbel",Font.ITALIC, 13));
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/logoheader.png")));
-            lblLogo.setForeground(new Color(102,102,102));
+            lblLogo = new JLabel();
+            lblLogo.setFont(new Font("Corbel", Font.ITALIC, 13));
+            lblLogo.setForeground(new Color(102, 102, 102));
             lblLogo.setForeground(Color.WHITE);
-            lblLogo.setIcon(icon);
-            lblLogo.setHorizontalAlignment(SwingConstants.LEFT);
-            lblLogo.setVerticalTextPosition(SwingConstants.BOTTOM);
-            lblLogo.setHorizontalTextPosition(SwingConstants.CENTER);
-            lblLogo.setIconTextGap(1);
-            lblLogo.setBounds(3, 15, 280, 80);
+            lblLogo.setBounds(5, 10, 332, 108);
+            ImageIcon iconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/logoheader1.png")));
+            lblLogo.setIcon(iconImage);
         }
         return lblLogo;
     }
+
+
+    private JLabel getLogo1() {
+
+        if (lblLogo1 == null) {
+            lblLogo1 = new JLabel("EMPRESA DE TELECOMUNICACIONES DE CUBA S.A");
+            lblLogo1.setFont(new Font("Corbel", Font.ITALIC, 8));
+            lblLogo1.setForeground(new Color(102, 102, 102));
+            lblLogo1.setForeground(Color.WHITE);
+            lblLogo1.setBounds(20, 80, 170, lblLogo1.getFont().getSize()+1);
+            lblLogo1.setHorizontalAlignment(SwingConstants.LEFT);
+            lblLogo1.setVerticalTextPosition(SwingConstants.BOTTOM);
+            lblLogo1.setHorizontalTextPosition(SwingConstants.CENTER);
+            lblLogo1.setIconTextGap(1);
+        }
+        return lblLogo1;
+    }
+
+
 }
+

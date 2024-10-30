@@ -25,7 +25,7 @@ public class Help extends JDialog {
         contentPanel.setSize(706,600);
         getContentPane().add(contentPanel);
         contentPanel.setLayout(null);
-
+        contentPanel.setBackground(Color.WHITE);
         contentPanel.add(getInfo());
         contentPanel.add(getLblPorcentaje());
         contentPanel.add(getLblLevels());
@@ -41,7 +41,7 @@ public class Help extends JDialog {
             lblPorcent.setHorizontalAlignment(SwingConstants.CENTER);
             lblPorcent.setHorizontalTextPosition(SwingConstants.CENTER);
             lblPorcent.setIconTextGap(1);
-            lblPorcent.setBounds(10, 40, icon.getIconWidth(), icon.getIconHeight());
+            lblPorcent.setBounds(10, 150, icon.getIconWidth(), icon.getIconHeight());
         }
         return lblPorcent;
     }

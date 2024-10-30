@@ -51,6 +51,7 @@ public class QuestionPanel extends JPanel {
     private ButtonMenu btnSavePDF;
     private ButtonMenu btnPreview;
     private JLabel header;
+    private ArrayList<Pregunta> preguntas;
 
     // ========================================================================
 
@@ -97,7 +98,6 @@ public class QuestionPanel extends JPanel {
 
         ArrayList<Perspectiva> perspectivas = Controlador.getPerspectiva(0);
         ArrayList<logic.Entitys.Dimension> dimensiones;
-        ArrayList<Pregunta> preguntas;
         int dimensionesAnteriores = 0;
 
 
@@ -172,10 +172,53 @@ public class QuestionPanel extends JPanel {
             btnSavePDF.setBounds(850, posY, 100, 45);
 
             btnSavePDF.addMouseListener(new MouseAdapter() {
+
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (btnSavePDF.getText().equals("Finalizar") && getPilaPanelesVisibles().size() == 1) {
                         p.getMenuPanel().panelControl(p, ReportPanel.Frame_Value);
+                    }
+
+                    assert pilaPanelesVisibles.peek() != null;
+                    // Obtenemos el panel que se encuentra visible en el momento y cogemos de él el JScrollPane
+                    JScrollPane a = (JScrollPane) pilaPanelesVisibles.peek().getComponent(1);
+                    // Obtenemos la tabla del JScrollPane
+                    JTable table = (JTable) a.getViewport().getView();
+                    boolean isfull = false;
+
+
+                    /* Verificamos si la columna 2 (3) de la tabla tiene un valor diferente a ""
+                    Necesitamos esta comprobación para el caso en que el usuario pase de tabla sin haber rellenado
+                    todas las preguntas no guarde los valors porque va a dar error a la hora de convertir de "" a int*/
+                    int rowCant = table.getRowCount();
+                    int cantFilasVacias = 0;
+                    for(int i = 0; i < rowCant; i++){
+                        if(table.getValueAt(i, 2) != "")
+                            cantFilasVacias++;
+                    }
+
+                    if(cantFilasVacias == rowCant){
+                        isfull = true;
+                    }
+
+                    if (isfull) {
+                        int idPregunta;
+                        int ptos;
+
+                        // Obtenemos el id de la dimension a la que pertenecen las preguntas
+                        // Dependiendo de si hay algun panel no visible, significa que tu eres la posicion = size
+                        // de la pila de paneles no visibles + 1 xq los id comienzan en 1
+                        preguntas = Controlador.getPregunta(pilaPanelesNoVisibles.size()+1);
+
+                        // Recorremos toda la tabla guardando los valores de los puntos de las preguntas
+                        for (int i = 0; i < table.getRowCount(); i++) {
+                            idPregunta = (int) table.getValueAt(i, 0);
+                            ptos = (int) table.getValueAt(i, 2);
+                            preguntas.get(i).setId_pregunta(idPregunta);
+                            preguntas.get(i).setPtos(ptos);
+                        }
+                        // Aqui se deberia llamar al metodo para actualizar los valores de la pregunta.
+
                     }
                     setVisibilityDimensionsPanels(1, p);
                 }
@@ -406,11 +449,15 @@ public class QuestionPanel extends JPanel {
         pointsComboBox.setBackground(Color.WHITE);
         questionsTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(pointsComboBox));
 
+        for (int i = 0; i < questionsTable.getRowCount(); i++)
+            questionsTable.setValueAt("", i, 2);
+
         questionsTable.getColumnModel().getColumn(2).setMaxWidth(50);
         questionsTable.getColumnModel().getColumn(0).setMaxWidth(50);
 
         questionsTable.getColumnModel().getColumn(0).setCellRenderer(new MyTableCellRendererCeldas());
         questionsTable.getColumnModel().getColumn(1).setCellRenderer(new MyTableCellRendererCeldas());
         questionsTable.getColumnModel().getColumn(2).setCellRenderer(new MyTableCellRendererCeldas());
+
     }
 }

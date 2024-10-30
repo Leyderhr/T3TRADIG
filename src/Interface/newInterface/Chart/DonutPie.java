@@ -325,7 +325,9 @@ public class DonutPie extends JPanel implements Printable {
             try {
                 ImageIO.write(image, "png", selectedFile);
                 JOptionPane.showMessageDialog(null, "Imagen guardada en: " + selectedFile.getAbsolutePath(), "Error", JOptionPane.INFORMATION_MESSAGE);
+                Toolkit.getDefaultToolkit().beep();
             } catch (IOException ex) {
+                Toolkit.getDefaultToolkit().beep();
                 JOptionPane.showMessageDialog(null, "Error al guardar la imagen: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }

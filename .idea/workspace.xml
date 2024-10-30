@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Exportar a Word implementado" />
+    <list default="true" id="0c51127f-4dde-4999-8521-4c484000c7bb" name="Changes" comment="Exportar a Word implementado">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_23_2024_12_23_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_23_2024_12_23_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_24_2024_11_56_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_24_2024_11_56_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_30_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_31_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_31_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_34_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_34_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_36_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_25_2024_1_36_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_10_2024_11_23_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_10_2024_11_23__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/DonutPie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/DonutPie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Chart/ReportPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Help.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/Information.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/Information.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/QuestionPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/newInterface/WindPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/newInterface/WindPanel.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,37 +86,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.BugTestApp.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Example01.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ExampleGood.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Interface.Export.main.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SwingDemo.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SwtDemo.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SwtTest.executor&quot;: &quot;Run&quot;,
-    &quot;Python.PythonCharts.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Escuela de Leyder/Trabajo Leyder/T4TRADIG/T4TRADIG/src/logic/Entitys&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.40229884&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BugTestApp.executor": "Run",
+    "Application.Example01.executor": "Run",
+    "Application.ExampleGood.executor": "Run",
+    "Application.Interface.Export.main.Main.executor": "Run",
+    "Application.Launcher.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.SwingDemo.executor": "Run",
+    "Application.SwtDemo.executor": "Run",
+    "Application.SwtTest.executor": "Run",
+    "Python.PythonCharts.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/Escuela de Leyder/Trabajo Leyder/T4TRADIG/T4TRADIG/src/Interface/newInterface",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.40229884",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\Interface\newInterface" />
+      <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\util" />
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\logic\Entitys" />
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\logic\useful" />
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src" />
-      <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\logic" />
-      <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\src\util\DB" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Escuela de Leyder\Trabajo Leyder\T4TRADIG\T4TRADIG\lib" />

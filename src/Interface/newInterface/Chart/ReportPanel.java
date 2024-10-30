@@ -250,7 +250,7 @@ public class ReportPanel extends JScrollPane  implements Printable {
 
         if (btnSavePDF == null) {
             btnSavePDF = new ButtonMenu();
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/archive-down.png")));
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/pdf-2-26.png")));
             btnSavePDF.setIcon(icon);
             btnSavePDF.setBackground(null);
             btnSavePDF.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -299,13 +299,12 @@ public class ReportPanel extends JScrollPane  implements Printable {
 
         if (btnSaveWORD == null) {
             btnSaveWORD = new ButtonMenu();
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/archive-down.png")));
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/doc-26.png")));
             btnSaveWORD.setIcon(icon);
             btnSaveWORD.setBackground(null);
             btnSaveWORD.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             btnSaveWORD.setHorizontalAlignment(SwingConstants.CENTER);
-            btnSaveWORD.setHorizontalTextPosition(SwingConstants.CENTER);
-            btnSaveWORD.setIconTextGap(1);
+
             btnSaveWORD.setBounds(900, panelShadow.getHeight() + 1, 60, 60);
             btnSaveWORD.setBorder(new EmptyBorder(0, 0, 0, 0));
             btnSaveWORD.setToolTipText("Guardar en un word");
@@ -314,6 +313,12 @@ public class ReportPanel extends JScrollPane  implements Printable {
                 @Override
                 public void mouseClicked(MouseEvent e) {
 
+                    try {
+                        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException |
+                             IllegalAccessException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     JFileChooser fileChooser = new JFileChooser();
                     fileChooser.setDialogTitle("Guardar Imagen");
                     fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -331,8 +336,12 @@ public class ReportPanel extends JScrollPane  implements Printable {
                         String filename = fileChooser.getSelectedFile().getPath();
                         if (!filename.endsWith(".docx")) {
                             filename = filename + ".docx";
+
+                            Cursor cursorEspera = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
+                            ReportPanel.this.setCursor(cursorEspera);
                         }
                         saveWord(filename);
+                        ReportPanel.this.setCursor(Cursor.getDefaultCursor());
                     }
                 }
 
@@ -412,6 +421,8 @@ public class ReportPanel extends JScrollPane  implements Printable {
         doc.saveToFile(path, FileFormat.Docx_2013);
 
         doc.close();
+        JOptionPane.showMessageDialog(null, "Documento guardado exitosamente", "Exportar documento word", JOptionPane.INFORMATION_MESSAGE);
+        Toolkit.getDefaultToolkit().beep();
 
     }
 
