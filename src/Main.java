@@ -1,5 +1,6 @@
 import Interface.newInterface.Principal1;
 
+import javax.swing.*;
 import java.awt.*;
 
 
@@ -11,7 +12,8 @@ public class Main {
 
                 new Principal1().setVisible(true);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                //JOptionPane.showMessageDialog(null,e.getMessage());
+                throw new IllegalArgumentException(e.getMessage());
             }
         });
 

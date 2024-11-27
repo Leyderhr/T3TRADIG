@@ -1,6 +1,7 @@
 package Interface.newInterface.Chart;
 
 import Interface.newInterface.python.PythonExecutor;
+import logic.Entitys.Ambito;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,11 +48,11 @@ public class ChartMDG extends JPanel {
         this.valorY = valorY;
     }
 
-    public ChartMDG(float valorX, float valorY) {
+    public ChartMDG(Ambito valueX, Ambito valueY) {
         setLayout(null);
-        setValorX(valorX);
-        setValorY(valorY);
-        this.generalIndex = ((this.valorX + this.valorY) / 2);
+        setValorX(valueX.calculate_MDr_IMD()[1]);
+        setValorY(valueY.calculate_MDr_IMD()[1]);
+        this.generalIndex = ((((float)valueX.getCant_ptos() + (float) valueY.getCant_ptos()) / ((float) valueX.getCant_preguntas() + (float) valueY.getCant_preguntas())) / 4) * 100;
 
         add(getHeader());
 

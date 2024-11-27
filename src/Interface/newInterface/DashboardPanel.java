@@ -26,13 +26,12 @@ public class DashboardPanel extends JPanel {
 
         if (lblTetradig == null) {
             lblTetradig = new JLabel("");
-            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/consultoría.jpg")));
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/MODELO TETR4DIG (con logo) - Gris y Púrpura (C2) con logo sin autores.png")));
             lblTetradig.setIcon(icon);
             lblTetradig.setHorizontalAlignment(SwingConstants.CENTER);
             lblTetradig.setHorizontalTextPosition(SwingConstants.CENTER);
             lblTetradig.setIconTextGap(1);
             lblTetradig.setBounds(0, 0, dashboardPanel.getWidth(), dashboardPanel.getHeight());
-            //lblTetradig.setBounds(260, 240, 424, 145);
         }
         return lblTetradig;
     }

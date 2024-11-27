@@ -61,7 +61,6 @@ public class HorizontalBarChart extends JPanel {
         switch (classType) {
             case 1:
                 for (Ambito a : ambitos) {
-                    a.setCant_ptos(50);
                     String texto = dividirTexto(a.getNombre_ambito(), 27);
                     ds.addValue(a.calculate_MDr_IMD()[1], texto, "");
                     jf = ChartFactory.createBarChart("Índice de Madurez Digital por ámbitos \n(IMDA)%",
@@ -79,7 +78,6 @@ public class HorizontalBarChart extends JPanel {
                 break;
             case 2:
                 for (Perspectiva p : perspectivas) {
-                    p.setCant_ptos(50);
                     String texto = dividirTexto(p.getNombre_perspectiva(), 25);
 
                     ds.addValue(p.calculate_MDr_IMD()[1], texto, "");
@@ -98,7 +96,6 @@ public class HorizontalBarChart extends JPanel {
                 break;
             case 3:
                 for (logic.Entitys.Dimension d : dimensions) {
-                    d.setCant_puntos(50);
                     String texto = dividirTexto(d.getNombre_dimension(), 100);
 
                     ds.addValue(d.calculate_MDr_IMD()[1], texto, "");

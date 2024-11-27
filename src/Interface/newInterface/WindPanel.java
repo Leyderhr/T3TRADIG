@@ -29,7 +29,7 @@ public class WindPanel extends JPanel {
         windPanel.add(getBtnMinimize(pincipal1));
         windPanel.add(new ButtonMenu());
         windPanel.add(getLogo());
-        //windPanel.add(getLogo1());
+        windPanel.add(getLogo1());
     }
 
     //Botones de Inicio o Principales
@@ -169,13 +169,13 @@ public class WindPanel extends JPanel {
     private JLabel getLogo1() {
 
         if (lblLogo1 == null) {
-            lblLogo1 = new JLabel("EMPRESA DE TELECOMUNICACIONES DE CUBA S.A");
-            lblLogo1.setFont(new Font("Corbel", Font.ITALIC, 8));
-            lblLogo1.setForeground(new Color(102, 102, 102));
+            lblLogo1 = new JLabel("CONSULTORÍA EN GESTIÓN PARA LA TRANSFORMACIÓN DIGITAL");
+            lblLogo1.setFont(new Font("Corbel", Font.BOLD, 33));
             lblLogo1.setForeground(Color.WHITE);
-            lblLogo1.setBounds(20, 80, 170, lblLogo1.getFont().getSize()+1);
+            lblLogo1.setOpaque(false);
+            lblLogo1.setBounds(267, 55, 1000, 50);
             lblLogo1.setHorizontalAlignment(SwingConstants.LEFT);
-            lblLogo1.setVerticalTextPosition(SwingConstants.BOTTOM);
+            lblLogo1.setVerticalTextPosition(SwingConstants.CENTER);
             lblLogo1.setHorizontalTextPosition(SwingConstants.CENTER);
             lblLogo1.setIconTextGap(1);
         }

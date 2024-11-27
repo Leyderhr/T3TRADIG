@@ -65,28 +65,17 @@ public class Help extends JDialog {
         if(lblInfo == null){
             lblInfo = new JLabel();
             lblInfo.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 14));
-            lblInfo.setText("Si necesitas ayuda escanea el siguiente código QR o presiona aquí para ir a nuestra pag web.");
-            lblInfo.setBounds(0, 0, 500, 50);
-
-
-            /* Con este evento de MouseListener el JLabel al ser presionado abre en el navegador el enlace
-             *  que le ponemos dentro del evento*/
-            lblInfo.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent me) {
-                    try{
-                        if(Desktop.isDesktopSupported()){
-                            Desktop desktop = Desktop.getDesktop();
-                            if(desktop.isSupported(Desktop.Action.BROWSE)){
-                                desktop.browse(new URI("https://www.etecsa.cu/"));
-                            }
-                        }
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            });
+            lblInfo.setText("<html><p align: left>  Esta herramienta permite conocer el estado actual del cliente (autoevaluación) con " +
+                    "respecto a la transformación digital, en términos preliminares de resultados del proceso y de " +
+                    "las capacidades estratégicas y de creación de valor sustentable; así como a nivel de " +
+                    "perspectivas y dimensiones organizacionales; y le facilita trazar líneas de trabajo o una hoja" +
+                    "de ruta de mejora. Se entrega un informe con los resultados de madurez digital, que incluye " +
+                    "datos y gráficos sobre índices de <br>Madurez Digital Global (IMDG), por Ámbitos (IMDA), " +
+                    "Perspectivas (IMDP) y Dimensiones. (IMDD)</p></html>");
+            lblInfo.setLocation(5, 0);
+            lblInfo.setSize(695, 150);
+            lblInfo.setHorizontalAlignment(SwingConstants.RIGHT);
+            lblInfo.setVerticalTextPosition(SwingConstants.TOP);
         }
         return lblInfo;
     }

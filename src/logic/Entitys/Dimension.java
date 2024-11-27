@@ -63,7 +63,7 @@ public class Dimension {
     public float[] calculate_MDr_IMD(){
         float[] md = new float[2];
 
-        md[0] = cant_puntos / cant_preguntas;
+        md[0] = (float) cant_puntos / (float)cant_preguntas;
         md[1] = (md[0] / 4) * 100;
 
         return md;

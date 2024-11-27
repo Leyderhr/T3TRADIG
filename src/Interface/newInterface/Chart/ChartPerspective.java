@@ -176,7 +176,7 @@ public class ChartPerspective extends JPanel{
             for(int j = 0; j < 2; j++){
                 index += j;
                 nombrePersp = perspectivas.get(index).getNombre_perspectiva();
-                pnts = perspectivas.get(i).calculate_MDr_IMD()[1] * 100;
+                pnts = perspectivas.get(index).calculate_MDr_IMD()[1];
 
                 DonutPie dp = new DonutPie("IMDP: "+nombrePersp, pnts, 50, 100, 100, 100);
 

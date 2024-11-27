@@ -8,6 +8,7 @@ import Interface.newInterface.python.PythonExecutor;
 import com.spire.doc.*;
 import com.spire.doc.documents.*;
 import com.spire.doc.fields.DocPicture;
+import logic.useful.Controlador;
 
 import javax.imageio.ImageIO;
 import javax.print.attribute.HashPrintRequestAttributeSet;
@@ -159,7 +160,7 @@ public class ReportPanel extends JScrollPane  implements Printable {
 
     private ChartMDG getChartMDG(){
         if (chartMDG == null){
-            chartMDG = new ChartMDG(14.58f, 31.25f);
+            chartMDG = new ChartMDG(Controlador.getAmbitos().get(0), Controlador.getAmbitos().get(1));
             chartMDG.setLocation(10,10);
             chartMDG.setBackground(Color.WHITE);
 
@@ -383,8 +384,9 @@ public class ReportPanel extends JScrollPane  implements Printable {
 
 
         //Se le da formato a la imagen del header
-        headerPicture.loadImage("src/util/header1Word.png");
-        header2Picture.loadImage("src/util/header2Word.png");
+        String a = System.getProperty("user.dir");
+        headerPicture.loadImage(a+"/src/util/header1Word.png");
+        header2Picture.loadImage(a+"/src/util/header2Word.png");
 
         header2Picture.setWidth(75);
         header2Picture.setHeight(40);
@@ -403,7 +405,7 @@ public class ReportPanel extends JScrollPane  implements Printable {
         Paragraph footerParagraph = footer.addParagraph();
 
         DocPicture footerPicture = new DocPicture(doc);
-        footerPicture.loadImage("src/util/footerWord.png");
+        footerPicture.loadImage(a+"/src/util/footerWord.png");
         footerPicture.setWidth(250);
         footerPicture.setHeight(100);
         footerPicture.setTextWrappingStyle(TextWrappingStyle.Inline);

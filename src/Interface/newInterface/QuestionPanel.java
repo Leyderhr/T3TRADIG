@@ -172,12 +172,8 @@ public class QuestionPanel extends JPanel {
             btnSavePDF.setBounds(850, posY, 100, 45);
 
             btnSavePDF.addMouseListener(new MouseAdapter() {
-
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if (btnSavePDF.getText().equals("Finalizar") && getPilaPanelesVisibles().size() == 1) {
-                        p.getMenuPanel().panelControl(p, ReportPanel.Frame_Value);
-                    }
 
                     assert pilaPanelesVisibles.peek() != null;
                     // Obtenemos el panel que se encuentra visible en el momento y cogemos de él el JScrollPane
@@ -186,43 +182,60 @@ public class QuestionPanel extends JPanel {
                     JTable table = (JTable) a.getViewport().getView();
                     boolean isfull = false;
 
-
                     /* Verificamos si la columna 2 (3) de la tabla tiene un valor diferente a ""
                     Necesitamos esta comprobación para el caso en que el usuario pase de tabla sin haber rellenado
                     todas las preguntas no guarde los valors porque va a dar error a la hora de convertir de "" a int*/
                     int rowCant = table.getRowCount();
                     int cantFilasVacias = 0;
                     for(int i = 0; i < rowCant; i++){
-                        if(table.getValueAt(i, 2) != "")
+                        if(table.getValueAt(i, 2) != "") {
                             cantFilasVacias++;
+                        }
                     }
 
                     if(cantFilasVacias == rowCant){
                         isfull = true;
                     }
 
+
                     if (isfull) {
                         int idPregunta;
                         int ptos;
-
-                        // Obtenemos el id de la dimension a la que pertenecen las preguntas
-                        // Dependiendo de si hay algun panel no visible, significa que tu eres la posicion = size
-                        // de la pila de paneles no visibles + 1 xq los id comienzan en 1
                         preguntas = Controlador.getPregunta(pilaPanelesNoVisibles.size()+1);
 
                         // Recorremos toda la tabla guardando los valores de los puntos de las preguntas
                         for (int i = 0; i < table.getRowCount(); i++) {
+                            // Obtenemos el id de la dimension a la que pertenecen las preguntas
+                            // Dependiendo de si hay algun panel no visible, significa que tu eres la posicion = size
+                            // de la pila de paneles no visibles + 1 xq los id comienzan en 1
                             idPregunta = (int) table.getValueAt(i, 0);
                             ptos = (int) table.getValueAt(i, 2);
-                            preguntas.get(i).setId_pregunta(idPregunta);
-                            preguntas.get(i).setPtos(ptos);
+
+                            System.out.println(idPregunta);
+
+                            if(idPregunta == preguntas.get(i).getId_pregunta()) {
+                                preguntas.get(i).setPtos(ptos);
+                            }
                         }
                         // Aqui se deberia llamar al metodo para actualizar los valores de la pregunta.
+                        Controlador.savePreguntas(preguntas);
 
+                    }
+                    if (btnSavePDF.getText().equals("Finalizar") && getPilaPanelesVisibles().size() == 1 && isfull) {
+
+                        Controlador.calculatePoints();
+                        try {
+                            p.addReportPanel();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        p.getMenuPanel().panelControl(p, ReportPanel.Frame_Value);
+                        p.getMenuPanel().getBtnReports().setEnabled(true);
                     }
                     setVisibilityDimensionsPanels(1, p);
                 }
             });
+
         }
         return btnSavePDF;
     }
@@ -372,9 +385,9 @@ public class QuestionPanel extends JPanel {
 
         for (int i = 0; i < lista.size(); i++) {
             Object[] ob = new Object[3];
-            ob[0] = i + 1;
+            ob[0] = lista.get(i).getId_pregunta();
             ob[1] = "<html> <p style=\"text-align: left; vertical-align: top;\">" + lista.get(i).getPregunta() + "</p></html>";
-            ob[2] = lista.get(i).getPtos();
+            ob[2] = 0;
 
             model.addRow(ob);
         }

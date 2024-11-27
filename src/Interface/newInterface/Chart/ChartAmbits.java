@@ -100,7 +100,7 @@ public class ChartAmbits extends JPanel {
 
         for (Ambito ambito : ambitos) {
             nombreAmb = ambito.getNombre_ambito();
-            pnts = ambito.calculate_MDr_IMD()[1] * 100;
+            pnts = ambito.calculate_MDr_IMD()[1];
 
             DonutPie dp = new DonutPie("IMDA: "+nombreAmb, pnts, 50, 100, 200, 150);
             dp.setLocation(20, y);

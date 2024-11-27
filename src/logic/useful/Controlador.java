@@ -116,13 +116,13 @@ public class Controlador {
         }
     }
 
-    public static void calculatePoints(ArrayList<Dimension> dimensions, ArrayList<Pregunta> questions){
+    public static void calculatePoints(){
         DAOPregunta daoPregunta = new DAOPregunta();
         DAODimension daoDimension = new DAODimension();
         DAOPerspectiva daoPerspectiva = new DAOPerspectiva();
         DAOAmbito daoAmbito = new DAOAmbito();
 
-        daoPregunta.updatePregunta(questions);
+        ArrayList<Dimension> dimensions = daoDimension.consultDimensiones();
         daoPregunta.calculatePoints(dimensions);
 
         daoDimension.updateDimension(dimensions);
@@ -132,6 +132,13 @@ public class Controlador {
         daoPerspectiva.updatePerspectiva(perspectivas);
         ArrayList<Ambito> ambitos = daoAmbito.consultAmbitos();
         daoPerspectiva.calculatePoints(ambitos);
+
+        daoAmbito.updateAmbito(ambitos);
+    }
+
+    public static void savePreguntas(ArrayList<Pregunta> questions){
+        DAOPregunta daoPregunta = new DAOPregunta();
+        daoPregunta.updatePregunta(questions);
     }
 
     private static void addRecicleBin(){

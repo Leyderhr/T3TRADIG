@@ -8,10 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
 
 public class MenuPanel extends JPanel {
     //Declaración de variables
 
+    private JLabel lblConsulting;
     private JPanel menuPanel;
     private ButtonMenu btnSettings;
     private ButtonMenu btnReports;
@@ -30,6 +32,7 @@ public class MenuPanel extends JPanel {
         menuPanel.add(getBtnReports(p));
         menuPanel.add(getBtnMainPanel(p));
         menuPanel.add(getBtnQuestionsPanel(p));
+        menuPanel.add(getLblConsulting());
 
 
 
@@ -46,7 +49,7 @@ public class MenuPanel extends JPanel {
             btnSettings.setIcon(new ImageIcon(getClass().getResource("/util/settings-svgrepo-com(1).png")));
             btnSettings.setBounds(20, 20, 100, 100);
             btnSettings.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            btnSettings.setHorizontalAlignment(SwingConstants.LEFT);
+            btnSettings.setHorizontalAlignment(SwingConstants.CENTER);
             btnSettings.setVerticalTextPosition(SwingConstants.BOTTOM);
             btnSettings.setHorizontalTextPosition(SwingConstants.CENTER);
 
@@ -76,6 +79,9 @@ public class MenuPanel extends JPanel {
     }
     //========================================================================
 
+    public ButtonMenu getBtnReports(){
+        return btnReports;
+    }
 
     /*Configuración del botón de Reportes*/
     //========================================================================
@@ -91,11 +97,14 @@ public class MenuPanel extends JPanel {
             btnReports.setVerticalTextPosition(SwingConstants.BOTTOM);
             btnReports.setHorizontalTextPosition(SwingConstants.CENTER);
 
+            btnReports.setEnabled(false);
+
 
             btnReports.addMouseListener(new MouseAdapter()  {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    panelControl(p, ReportPanel.Frame_Value);
+                    if(btnReports.isEnabled())
+                        panelControl(p, ReportPanel.Frame_Value);
                 }
 
                 @Override
@@ -110,6 +119,7 @@ public class MenuPanel extends JPanel {
                     btnReports.setBackground(null);
                 }
             });
+
         }
         return btnReports;
     }
@@ -205,7 +215,8 @@ public class MenuPanel extends JPanel {
             //===============================================
             case 0:
                 p.getDashboardPanel().setVisible(true);
-                p.getReportPanel().setVisible(false);
+                if(p.getReportPanel()!= null)
+                    p.getReportPanel().setVisible(false);
                 p.getQuestionsPanel().setVisible(false);
                 p.getSettingPanel().setVisible(false);
                 break;
@@ -213,7 +224,8 @@ public class MenuPanel extends JPanel {
             /*1 -> Para poner visible la pantalla de Reportes*/
             //===============================================
             case 1:
-                p.getReportPanel().setVisible(true);
+                if(p.getReportPanel()!= null)
+                    p.getReportPanel().setVisible(true);
                 p.getDashboardPanel().setVisible(false);
                 p.getQuestionsPanel().setVisible(false);
                 p.getSettingPanel().setVisible(false);
@@ -224,7 +236,8 @@ public class MenuPanel extends JPanel {
             case 2:
                 p.getQuestionsPanel().setVisible(true);
                 p.getDashboardPanel().setVisible(false);
-                p.getReportPanel().setVisible(false);
+                if(p.getReportPanel()!= null)
+                    p.getReportPanel().setVisible(false);
                 p.getSettingPanel().setVisible(false);
                 break;
 
@@ -233,7 +246,8 @@ public class MenuPanel extends JPanel {
                 p.getSettingPanel().setVisible(true);
                 p.getQuestionsPanel().setVisible(false);
                 p.getDashboardPanel().setVisible(false);
-                p.getReportPanel().setVisible(false);
+                if(p.getReportPanel()!= null)
+                    p.getReportPanel().setVisible(false);
                 break;
             default:
                 break;
@@ -241,6 +255,29 @@ public class MenuPanel extends JPanel {
     }
 
 
+    private JLabel getLblConsulting() {
+
+        if (lblConsulting == null) {
+            lblConsulting = new JLabel("");
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/util/Consultoría_logo.png")));
+            lblConsulting.setIcon(icon);
+//            lblConsulting.setHorizontalAlignment(SwingConstants.CENTER);
+//            lblConsulting.setHorizontalTextPosition(SwingConstants.CENTER);
+//            lblConsulting.setIconTextGap(1);
+            lblConsulting.setBounds(0, 548, icon.getIconWidth(), icon.getIconHeight());
+            lblConsulting.setOpaque(false);
+            lblConsulting.setVisible(true);
+
+
+            lblConsulting.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.out.println("hola mibida");
+                }
+            });
+        }
+        return lblConsulting;
+    }
 
 
 }

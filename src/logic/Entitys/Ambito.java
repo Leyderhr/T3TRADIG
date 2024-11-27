@@ -55,7 +55,7 @@ public class Ambito {
 
         nombre_ambito.translateEscapes();
 
-        md[0] = cant_ptos / cant_preguntas;
+        md[0] = (float) cant_ptos / (float) cant_preguntas;
         md[1] = (md[0] / 4) * 100;
 
         return md;

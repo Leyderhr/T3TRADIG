@@ -87,11 +87,11 @@ public class ButtonMenu extends JButton {
         double y = shadowSize.top;
 
         //  Create Shadow Image
-        g2.drawImage(imageShadow, 8, 0, null);
+        g2.drawImage(imageShadow, 0, 0, null);
 
         //  Create Background Color
         g2.setColor(getBackground());
-        Area area = new Area(new RoundRectangle2D.Double(x-5, y, width, height-5, round, round));
+        Area area = new Area(new RoundRectangle2D.Double(x-5, y, width+10, height-5, round, round));
         g2.fill(area);
         rippleEffect.reder(grphcs, area);
         g2.dispose();

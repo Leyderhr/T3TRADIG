@@ -31,7 +31,7 @@ class DonutChartPanel extends JPanel {
         int blue = 0, green = 0, yellow = 0, red = 0;
 
         for (Dimension dimension : dimensions) {
-            if (dimension.calculate_MDr_IMD()[1] > 0 && dimension.calculate_MDr_IMD()[1] <= 25)
+            if (dimension.calculate_MDr_IMD()[1] >= 0 && dimension.calculate_MDr_IMD()[1] <= 25)
                 blue++;
             if (dimension.calculate_MDr_IMD()[1] > 25 && dimension.calculate_MDr_IMD()[1] <= 50)
                 green++;
@@ -42,10 +42,10 @@ class DonutChartPanel extends JPanel {
         }
 
         data = new float[4];
-        data[0] = (18/*blue*/ * 100f) / dimensions.size();
-        data[1] = (2/*green*/ * 100f) / dimensions.size();
-        data[2] = (2/*yellow*/ * 100f) / dimensions.size();
-        data[3] = (0/*red*/ * 100f) / dimensions.size();
+        data[0] = ((float) blue * 100f) / (float)dimensions.size();
+        data[1] = ((float) green * 100f) / (float)dimensions.size();
+        data[2] = ((float) yellow * 100f) / (float)dimensions.size();
+        data[3] = ((float) red * 100f) / (float)dimensions.size();
 
         cant = new int[4];
         cant[0] = blue;

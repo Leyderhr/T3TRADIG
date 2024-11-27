@@ -1,5 +1,6 @@
 package logic.Connection;
 
+import java.io.File;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -7,7 +8,9 @@ public class Connection {
 
     java.sql.Connection connection = null;
     String bd = "DB.db";
-    String cadena = "jdbc:sqlite:src/Util/DB/" + bd;
+    String a = System.getProperty("user.dir");
+    String cadena = "jdbc:sqlite:"+ a +"/DB.db";
+    String dbPath = "jdbc:sqlite:" + new File("DB.db").getAbsolutePath();
 
 
     public java.sql.Connection connect() {

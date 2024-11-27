@@ -16,6 +16,9 @@ public class Principal1 extends JFrame {
 
     private Point point;
 
+
+
+
     public Principal1() throws Exception{
         setBounds(0, 0, 1280, 720);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -23,9 +26,11 @@ public class Principal1 extends JFrame {
         setLocationRelativeTo(null);
         setContentPane(new JPanel());
         setBackground(Color.BLACK);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(Principal1.class.getResource("/util/Imagen1-removebg-preview.png")));
+
         add(windPanel = new WindPanel(Principal1.this));
         add(dashboardPanel = new DashboardPanel(Principal1.this));
-        add(reportPanel = new ReportPanel(Principal1.this));
+        //add(reportPanel = new ReportPanel(Principal1.this));
         add(menuPanel = new MenuPanel(Principal1.this));
         add(questionsPanel = new QuestionPanel(Principal1.this));
         add(settingPanel = new SettingPanel(Principal1.this));
@@ -78,7 +83,12 @@ public class Principal1 extends JFrame {
         return menuPanel;
     }
 
-    public SettingPanel getSettingPanel() {
+    public SettingPanel getSettingPanel(){
         return settingPanel;
+    }
+
+
+    public void addReportPanel() throws Exception {
+        Principal1.this.add(reportPanel = new ReportPanel(Principal1.this));
     }
 }
